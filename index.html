@@ -349,6 +349,26 @@
   .avpick{display:flex;gap:8px;flex-wrap:wrap;padding:2px 0}
   .avpick .avbit{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.15);cursor:pointer}
   .avpick .avbit.valgt{border-color:#e2b13c;box-shadow:0 0 12px rgba(226,177,60,0.55)}
+  .skalasp{font-family:Georgia,serif;font-weight:700;font-size:15px;width:30px;height:30px;border-radius:50%;
+    border:1.5px solid #8e8468;background:#241f12;color:#e2b13c;cursor:pointer;flex:none;
+    box-shadow:0 0 10px rgba(226,177,60,0.3);animation:hintpulse 2.2s ease infinite}
+  .stokk{position:relative;margin:8px 0 6px}
+  .stokkbar{position:absolute;left:66px;width:22px;border-radius:12px;
+    box-shadow:0 0 18px rgba(226,177,60,0.25), inset 0 0 6px rgba(0,0,0,0.4)}
+  .stokkglo{position:absolute;left:58px;width:38px;border-radius:20px;pointer-events:none;
+    background:radial-gradient(ellipse at center top, rgba(255,215,120,0.28), transparent 70%);
+    filter:blur(8px)}
+  .stokktick{position:absolute;left:8px;width:52px;text-align:right;font-size:10.5px;color:#77756a;
+    font-variant-numeric:tabular-nums;padding-right:8px}
+  .stokkband{position:absolute;left:102px;right:2px}
+  .stokkband b{font-family:Georgia,serif;font-size:12.5px;letter-spacing:1.4px;display:block}
+  .stokkband span{font-size:10.5px;color:#9a9887;line-height:1.4;display:block;margin-top:1px}
+  .stokksegl{position:absolute;width:17px;height:17px;border-radius:50%;background:#8c2f2a;
+    border:1px solid #5e1e1b;color:#e8d9c4;font-family:Georgia,serif;font-size:10px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;z-index:3}
+  .stokkdu{position:absolute;left:0;width:60px;text-align:right;font-size:10.5px;font-weight:800;
+    color:#141414;background:linear-gradient(140deg,#e2b13c,#ffd97a);border-radius:8px;padding:4px 5px;
+    z-index:4;animation:hotpulse 1.2s ease infinite}
   .ksmodal .in,.ksmodal select.in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14);width:100%}
   .ksmodal label{color:#9a9887}
   .ksmodal .sect{color:#c9c4b0}
@@ -483,7 +503,7 @@
 
   <!-- PROFIL · RINGEN BRENNER -->
   <section class="page" id="pg-profil">
-    <div class="appbar"><h1>Ringen brenner</h1><span class="day" data-day></span></div>
+    <div class="appbar"><button class="skalasp" id="skalaBtn" title="Hva er KS-skalaen?">?</button><h1>Ringen brenner</h1><span class="day" data-day></span></div>
     <div class="brennwrap"><div class="brennring" id="ringBrenner"></div></div>
     <div class="profmeta"><div id="profilSnitt"></div><div id="profilMS"></div>
       <div class="profhint">Trykk på kortet for Blodpakten · trykk på et felt for dommen</div></div>
@@ -572,6 +592,11 @@
 <div class="ksbg" id="diffBg"><div class="ksmodal" id="diffModal">
   <div class="ksmtag" style="color:#e2b13c">📅 FORRIGE UKE</div>
   <div id="diffBody"></div>
+  <button class="kslukk" style="margin-top:10px">Lukk</button>
+</div></div>
+<div class="ksbg" id="skalaBg"><div class="ksmodal" id="skalaModal">
+  <div class="ksmtag" style="color:#e2b13c">MÅLESTOKKEN — KS-SKALAEN</div>
+  <div id="skalaBody"></div>
   <button class="kslukk" style="margin-top:10px">Lukk</button>
 </div></div>
 
@@ -2412,6 +2437,101 @@ $('#ukeDiffBtn') && $('#ukeDiffBtn').addEventListener('click', openUkeDiff);
 $('#diffBg') && $('#diffBg').addEventListener('click', ev => {
   if (ev.target.id === 'diffBg' || ev.target.classList.contains('kslukk')) $('#diffBg').classList.remove('on');
 });
+
+/* ---------- MÅLESTOKKEN: visuell forklaring av KS-skalaen ---------- */
+const SKALA_BAND = [
+  [20,  'HISTORISK UNIK',  'Napoleon-klassen — utenfor fordelingen. Kun Arkivet bor her.'],
+  [19,  'VERDENSKLASSE',   'Én av 100 000. Historiens toppidrettsutøvere og genier.'],
+  [18,  'NASJONAL ELITE',  'Én av 1 000 — og motorens datadrevne tak. Alt over må fortjenes i Arkivet.'],
+  [17,  'TOPP 1 %',        'Elitebåndet begynner. Nesten ingen du møter opererer her.'],
+  [15,  'TOPP 3 %',        'Ros-sonen: dette er et VÅPEN. Forsvar ritualene som bygget det.'],
+  [13,  'TOPP 8 %',        'Du slår ni av ti voksne. Her begynner gullet å gløde.'],
+  [10,  'GODT OVER MIDTEN','Topp ~20 %. Solid — men ikke et våpen ennå.'],
+  [7.5, 'RUNDT MIDTEN',    'Der de fleste voksne bor. Trygt, grått og lett å bli værende.'],
+  [4.5, 'UNDER MIDTEN',    'Kjeft-sonen — men også stedet med høyest avkastning per innsats.'],
+  [1.5, 'BUNNEN',          'Blant de 10 % svakeste. Herfra er hvert eneste steg synlig fremgang.'],
+];
+function openSkala(){
+  const body = $('#skalaBody'); body.replaceChildren();
+  const intro = document.createElement('div'); intro.className = 'ksmband';
+  intro.textContent = 'KS er posisjonen din blant ALLE voksne 20+ — og skalaen er brutal i toppen: hvert steg over 13 er eksponentielt sjeldnere. Bla oppover mot gløden.';
+  body.appendChild(intro);
+  const H = 1500;
+  const stokk = document.createElement('div'); stokk.className = 'stokk'; stokk.style.height = H + 'px';
+  const yAv = v => H - 30 - (v - 1)/19 * (H - 84);
+  /* selve stokken med KS-fargerampen */
+  const bar = document.createElement('div'); bar.className = 'stokkbar'; bar.id = 'skalaBar';
+  bar.style.top = yAv(20) + 'px';
+  bar.style.height = (yAv(1) - yAv(20) + 22) + 'px';
+  const stops = [1,3,5,7,9,11,13,15,17,19,20].map(v => `${ksCol(v)} ${(100*(1-(v-1)/19)).toFixed(1)}%`).reverse();
+  bar.style.background = `linear-gradient(to top, ${[1,5,9,13,17,20].map(v => `${ksCol(v)} ${((v-1)/19*100).toFixed(0)}%`).join(', ')})`;
+  stokk.appendChild(bar);
+  /* glød-lag øverst som flakker */
+  const glo = document.createElement('div'); glo.className = 'stokkglo rflick';
+  glo.style.top = yAv(20) + 'px'; glo.style.height = (yAv(13) - yAv(20)) + 'px';
+  stokk.appendChild(glo);
+  /* merker for hvert hele KS-tall */
+  for (let v = 1; v <= 20; v++){
+    const t = document.createElement('div'); t.className = 'stokktick';
+    t.style.top = (yAv(v) + 4) + 'px'; t.textContent = v;
+    if (v >= 17){ t.style.color = '#ffd97a'; t.style.textShadow = '0 0 8px rgba(226,177,60,0.8)'; }
+    else if (v >= 13) t.style.color = '#e2b13c';
+    stokk.appendChild(t);
+  }
+  /* sonene */
+  SKALA_BAND.forEach(([v, tittel, tekst]) => {
+    const b = document.createElement('div'); b.className = 'stokkband';
+    b.style.top = (yAv(v) - 4) + 'px';
+    const bt = document.createElement('b'); bt.textContent = tittel; bt.style.color = ksCol(Math.max(3, v));
+    if (v >= 17){ bt.style.textShadow = '0 0 12px rgba(255,215,120,0.9)'; bt.classList.add('rflick'); }
+    else if (v >= 13) bt.style.textShadow = '0 0 8px rgba(226,177,60,0.5)';
+    const bs = document.createElement('span'); bs.textContent = tekst;
+    b.append(bt, bs); stokk.appendChild(b);
+  });
+  /* arkivfigurene på stokken */
+  FIG_ORDER.forEach((id, i) => {
+    const f = FIGURES[id];
+    const snitt = mean(Object.values(f.v));
+    const d = document.createElement('div'); d.className = 'stokksegl';
+    d.style.top = (yAv(snitt) - 8) + 'px';
+    d.style.left = (44 - (i % 2) * 18) + 'px';
+    d.textContent = f.segl;
+    d.title = `${f.navn} · snitt ${snitt.toFixed(1).replace('.',',')}`;
+    stokk.appendChild(d);
+  });
+  /* DU-markøren */
+  const o = KS_CACHE || computeKS();
+  const vals = KS_ORDER.map(n => o[n].ks).filter(v => v != null);
+  if (vals.length){
+    const avg = mean(vals);
+    const du = document.createElement('div'); du.className = 'stokkdu';
+    du.style.top = (yAv(avg) - 12) + 'px';
+    du.textContent = `DU · ${avg.toFixed(1).replace('.',',')} ▶`;
+    stokk.appendChild(du);
+  }
+  body.appendChild(stokk);
+  const fot = document.createElement('div'); fot.className = 'ksmnext';
+  fot.textContent = 'Persentilene: 6 = midten · 10 = topp 20 % · 13 = topp 8 % · 15 = topp 3 % · 17 = topp 1 % · 18 = én av tusen. Alt er ferskvare — du klatrer, og du faller.';
+  body.appendChild(fot);
+  $('#skalaBg').classList.add('on');
+  const modal = $('#skalaModal');
+  requestAnimationFrame(() => { modal.scrollTop = modal.scrollHeight; });   /* start nederst — bla deg opp mot gløden */
+}
+$('#skalaBtn') && $('#skalaBtn').addEventListener('click', openSkala);
+$('#skalaBg') && $('#skalaBg').addEventListener('click', ev => {
+  if (ev.target.id === 'skalaBg' || ev.target.classList.contains('kslukk')) $('#skalaBg').classList.remove('on');
+});
+/* glør fra toppen av stokken når den er synlig */
+setInterval(() => {
+  if (RM) return;
+  const bg = $('#skalaBg'); if (!bg || !bg.classList.contains('on')) return;
+  const bar = $('#skalaBar'); if (!bar) return;
+  const r = bar.getBoundingClientRect();
+  if (r.top > innerHeight || r.top < -300) return;
+  for (let i = 0; i < 2; i++)
+    part(r.left + r.width/2 + (Math.random()-0.5)*30, Math.max(60, r.top) + Math.random()*120,
+      {c: GULL, glow: 1, dx: (Math.random()-0.5)*26, dy: -48, d: 1000});
+}, 300);
 
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
