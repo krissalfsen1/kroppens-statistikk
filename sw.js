@@ -1,5 +1,5 @@
 // Kroppens Statistikk SW — network-first for index (oppdateringer kommer automatisk), cache-fallback offline
-const CACHE = 'kstat-v1';
+const CACHE = 'kstat-v2';
 const ASSETS = ['.', 'index.html', 'manifest.json', 'ikon-180.png', 'ikon-192.png', 'ikon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
