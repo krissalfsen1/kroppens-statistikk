@@ -432,6 +432,55 @@
   #pg-hjem .in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14)}
   #pg-hjem .empty{color:#77756a;border-color:rgba(255,255,255,0.1)}
   #pg-hjem .addrow button{border-color:#e2b13c;color:#e2b13c;background:none}
+
+  /* ===== KABINETTET + mørkt Datarom ===== */
+  #pg-framgang{color:#eceada}
+  #pg-framgang .appbar h1{font-family:Georgia,serif;letter-spacing:2px;color:#eceada}
+  #pg-framgang .appbar .day{color:#9a9887}
+  #pg-framgang .sect{color:#8e8468;font-family:Georgia,serif;letter-spacing:2px}
+  #pg-framgang .sect .plain{color:#5c5a50}
+  #pg-framgang .stat{background:#16181f;border-color:rgba(255,255,255,0.08)}
+  #pg-framgang .stat .l{color:#8e8468}
+  #pg-framgang .stat .v{color:#eceada}
+  #pg-framgang .tcard{background:#16181f;border-color:rgba(255,255,255,0.08)}
+  #pg-framgang .tmeta{color:#77756a}
+  #pg-framgang .corrline .cn{color:#c9c4b0}
+  #pg-framgang .cbar{background:#0e1015}
+  #pg-framgang .goalrow{background:#16181f;border-color:rgba(255,255,255,0.07);color:#eceada}
+  #pg-framgang .goalrow .gtxt{color:#eceada}
+  #pg-framgang .gpts{color:#8e8468}
+  #pg-framgang .badge{background:#14161d;border-color:rgba(255,255,255,0.1);color:#9a9887}
+  #pg-framgang .edit summary{color:#9a9887}
+  #pg-framgang .edit{border-color:rgba(255,255,255,0.1)}
+  #pg-framgang .in,#pg-framgang select.in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14)}
+  #pg-framgang .empty{color:#77756a;border-color:rgba(255,255,255,0.1)}
+  #pg-framgang .addrow button{border-color:#e2b13c;color:#e2b13c;background:none}
+  #pg-framgang .cta{background:#241f12;border:1px solid #e2b13c;color:#ffd97a}
+  #pg-framgang .appfoot{color:#5c5a50}
+  #pg-framgang .kslukk{border-color:#e2b13c;color:#ffd97a;background:#241f12;font-family:Georgia,serif;letter-spacing:1.5px;font-size:12px;box-shadow:0 0 14px rgba(226,177,60,0.2)}
+  .hylle{background:linear-gradient(180deg,#181a22 0%,#101116 100%);border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;padding:16px 10px 8px;margin-bottom:9px;position:relative}
+  .hylle::before{content:'';position:absolute;top:0;left:10%;right:10%;height:14px;
+    background:radial-gradient(ellipse at top,rgba(255,235,180,0.22),transparent 70%)}
+  .thyl{display:flex;justify-content:space-around;align-items:flex-end}
+  .tro{text-align:center;width:100px;position:relative}
+  .tro .fig{font-size:27px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 10px rgba(226,177,60,0.5));animation:trosvev 3.2s ease infinite}
+  @keyframes trosvev{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .tro.laast .fig{filter:grayscale(1) brightness(0.35);animation:none}
+  .tro .tn{font-size:7.5px;letter-spacing:0.4px;color:#9a9887;margin-top:4px;line-height:1.35;min-height:24px}
+  .tro.laast .tn{color:#4a4c55}
+  .tro .sokkel{height:7px;background:linear-gradient(90deg,#2c2417,#4a3a12,#2c2417);border-radius:2px;margin-top:5px}
+  .tronY{position:absolute;top:-6px;right:6px;background:#8c2f2a;color:#e8d9c4;font-size:7.5px;border-radius:6px;padding:1px 5px;font-weight:800;animation:hintpulse 1.2s ease infinite;z-index:2}
+  .kabrad{display:flex;gap:8px;align-items:baseline;padding:5px 2px;border-bottom:1px dotted rgba(255,255,255,0.06);font-size:12px;opacity:0.5}
+  .kabrad.har{opacity:1}
+  .kabrad .ki{width:20px;flex:none}
+  .kabrad .kt{flex:1}
+  .kabrad b{color:#e8dfc0;font-weight:650}
+  .kabrad.har b{color:#ffd97a}
+  .kabrad .kk{color:#77756a;font-size:10.5px}
+  .kabrad .ktier{font-size:9px;letter-spacing:0.6px;flex:none;white-space:nowrap}
+  .t-b{color:#d9a066}.t-s{color:#c8d4e2}.t-g{color:#ffd97a}.t-p{color:#e87ba4}
+  @media (prefers-reduced-motion:reduce){.tro .fig{animation:none}}
   .ksmodal .in,.ksmodal select.in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14);width:100%}
   .ksmodal label{color:#9a9887}
   .ksmodal .sect{color:#c9c4b0}
@@ -558,8 +607,9 @@
   <section class="page" id="pg-framgang">
     <div class="appbar"><h1>Framgang</h1><span class="day" data-day></span></div>
     <div class="statrow" id="fgStats"></div>
-    <p class="sect">Milepæler</p>
-    <div class="badges" id="mileList"></div>
+    <p class="sect">Kabinettet <span class="plain" id="kabTeller"></span></p>
+    <div id="kabinett"></div>
+    <button class="kslukk" id="kabBtn" style="margin:2px 0 6px">🏛 VIS HELE SAMLINGEN — 100 TROFEER</button>
     <p class="sect">Logg prestasjon</p>
     <div class="addrow">
       <select class="in" id="pType" style="flex:none;width:110px"><option value="bok">📚 Bok</option><option value="kurs">🎓 Kurs</option><option value="milepæl">🏔 Milepæl</option></select>
@@ -673,6 +723,11 @@
 <div class="ksbg" id="skalaBg"><div class="ksmodal" id="skalaModal">
   <div class="ksmtag" style="color:#e2b13c">MÅLESTOKKEN — KS-SKALAEN</div>
   <div id="skalaBody"></div>
+  <button class="kslukk" style="margin-top:10px">Lukk</button>
+</div></div>
+<div class="ksbg" id="kabBg"><div class="ksmodal" id="kabModal">
+  <div class="ksmtag" style="color:#e2b13c">🏛 KABINETTET — HELE SAMLINGEN</div>
+  <div id="kabBody"></div>
   <button class="kslukk" style="margin-top:10px">Lukk</button>
 </div></div>
 
@@ -1147,6 +1202,8 @@ $('#saveK').addEventListener('click', () => {
   }
   if (e.k.modus === 'normal'){
     extra = ksMovers(ksFoer, computeKS()) || 'KS-estimatene er oppdatert';
+    const grad = typeof dagsdom === 'function' ? dagsdom(today()) : null;
+    if (grad) extra = `⚖ Dagsdom: ${grad} — ${GRAD_NAVN[grad]} · ` + extra;
   } else extra = `${e.k.modus}dag — KS-estimatene er fryst i dag 💙`;
   const aff = AFFIRM_K[Math.floor(Math.random() * AFFIRM_K.length)];
   suckAndShow('#kForm', '#kDone', box => doneView(box, chk, aff, null, extra));
@@ -1173,24 +1230,17 @@ function renderFramgang(){
     if (sub){ const s = document.createElement('div'); s.className='sub'; s.textContent = sub; s.style.color = subCol || 'var(--muted)'; d.appendChild(s); }
     return d;
   };
-  st.appendChild(mkStat('Siste dagsscore', last ? fmt(idx(last).D) : '–', '',
-    rel === null ? 'trenger flere dager' : `${rel>=0?'▲':'▼'} ${fmt(Math.abs(rel))} % vs din normal`,
-    rel === null ? undefined : rel >= 0 ? 'var(--good)' : 'var(--bad)'));
+  const gradI = last ? dagsdom(last.dato) : null;
+  st.appendChild(mkStat('Siste dagsdom', gradI || '–', '',
+    rel === null ? 'S/A/B/C/D — dømt mot din egen 28-dagersnormal' : `${rel>=0?'▲':'▼'} ${fmt(Math.abs(rel))} % vs din normal`,
+    gradI === 'S' || gradI === 'A' ? 'var(--good)' : gradI === 'D' ? 'var(--bad)' : undefined));
   const w = rows.map(r=>r.vekt).filter(Boolean);
   st.appendChild(mkStat('Vekt-trend', w.length ? fmt(mean(w.slice(-7)),1) : '–', 'kg', w.length ? `${w.length} målinger` : 'ingen data'));
   const sv = rows.map(r=>r.sovnT).filter(v=>v!==null);
   st.appendChild(mkStat('Søvn 7d', sv.length ? fmt(mean(sv.slice(-7)),1) : '–', 't', ''));
-  // milepæler
-  const days = completeDays().length, boker = S.prest.filter(p=>p.type==='bok').length,
-        kurs = S.prest.filter(p=>p.type==='kurs').length;
-  const ml = $('#mileList'); ml.replaceChildren();
-  [[days>=1,`📓 Første dag logget`],[days>=7,`🗓 7 dager logget${days<7?` · ${7-days} igjen`:''}`],
-   [days>=30,`🗓 30 dager${days<30?` · ${30-days} igjen`:''}`],[days>=90,`🏛 90 dager${days<90?` · ${90-days} igjen`:''}`],
-   [boker>=5,`📚 5 bøker${boker<5?` · ${5-boker} igjen`:''}`],[boker>=10,`📚 10 bøker${boker<10&&boker>=5?` · ${10-boker} igjen`:''}`],
-   [kurs>=1,`🎓 Første kurs`]].forEach(([earned, txt]) => {
-    const b = document.createElement('span'); b.className = 'badge' + (earned ? '' : ' locked');
-    b.textContent = (earned ? '' : '🔒 ') + txt; ml.appendChild(b);
-  });
+  // kabinettet
+  const days = completeDays().length;
+  if (typeof renderKabinett === 'function') renderKabinett();
   // prestasjoner
   const pl = $('#prestList'); pl.replaceChildren();
   [...S.prest].reverse().slice(0, 5).forEach(p => {
@@ -1271,14 +1321,13 @@ function renderTrend(){
     `Snitt ${fmt(mean(D))} · siste ${fmt(D.at(-1))}`);
   // kalender siste 28
   const cal = rows.slice(-28);
-  const lo = Math.min(...cal.map(r=>idx(r).D)), hi = Math.max(...cal.map(r=>idx(r).D)), span = (hi-lo)||1;
-  const RAMPC = ['#cde2fb','#9ec5f4','#6da7ec','#3987e5','#2a78d6','#1c5cab'];
   const cells = cal.map(r => {
-    const t = (idx(r).D - lo) / span;
+    const g = dagsdom(r.dato);
+    const col = g === 'S' ? '#ffd97a' : g === 'A' ? '#e2b13c' : g === 'B' ? '#8a7a4a' : g === 'C' ? '#5c6c80' : g === 'D' ? '#8c2f2a' : '#3a3c46';
     const frozen = r.modus !== 'normal';
-    return `<span style="background:${RAMPC[Math.round(t*(RAMPC.length-1))]};${frozen?'opacity:0.35;':''}" title="${r.dato}"></span>`;
+    return `<span style="background:${col};${frozen?'opacity:0.35;':''}${g==='S'?'box-shadow:0 0 6px rgba(255,215,120,0.9);':''}" title="${r.dato}${g?' · '+g:''}"></span>`;
   }).join('');
-  mk('Kalender · siste 28 dager', `<div class="minical">${cells}</div>`, 'Mørkere er bedre · dempet = syke-/reisedag');
+  mk('Dagsdommer · siste 28 dager', `<div class="minical">${cells}</div>`, 'S glør gull · A gull · B slitt · C grå · D blod — dømt mot din egen normal');
   // korrelasjoner
   const norm = rows.filter(r => r.modus === 'normal');
   if (norm.length >= 14){
@@ -2816,11 +2865,11 @@ function evaluerOppdrag(q, horisont){
   const have = tellPeriode(q.m, q.a, q.start, q.slutt);
   if (have >= q.mål){
     S.oppdrag.poeng += OPPDRAG_POENG[horisont];
-    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'fullført', p: OPPDRAG_POENG[horisont], dato: today()});
+    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'fullført', p: OPPDRAG_POENG[horisont], dato: today(), h: horisont, ok: q.omkast});
     toast(`⚔ OPPDRAG FULLFØRT: ${q.t} — +${OPPDRAG_POENG[horisont]} målpoeng!`, 4200);
   } else {
     S.oppdrag.straff.push({fra: today(), til: addDays(today(), 14), q: q.t});
-    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'feilet', dato: today()});
+    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'feilet', dato: today(), h: horisont});
     toast(`🩸 OPPDRAG TAPT: ${q.t} — straffen bokføres i 14 dager`, 4200);
   }
   if (S.oppdrag.logg.length > 60) S.oppdrag.logg = S.oppdrag.logg.slice(-60);
@@ -2956,6 +3005,365 @@ $('#oppModus') && $('#oppModus').addEventListener('click', ev => {
   renderKrig();
 });
 
+/* ================================================================
+   KABINETTET v5 · TROFÉMOTOREN + DAGSDOMMEN
+   100 milepæler målt automatisk · glassmontre i Datarommet
+   · dagsgrad S/A/B/C/D mot egen 28-dagers baseline
+   ================================================================ */
+
+/* ---------- migrering ---------- */
+if (!S.trofeer) S.trofeer = {};
+if (!S.trofeerNye) S.trofeerNye = [];
+if (!S.dommer) S.dommer = {};
+
+/* ---------- DAGSDOMMEN ---------- */
+function dagsdom(key){
+  if (S.dommer[key] && key < today()) return S.dommer[key];
+  const r = flat(key); if (!r || r.modus !== 'normal') return null;
+  const D = idx(r).D;
+  /* baseline: opptil 28 normale komplette dager før denne */
+  const base = [];
+  let d = addDays(key, -1), telt = 0;
+  while (telt < 45 && base.length < 28){
+    const rb = flat(d);
+    if (rb && rb.modus === 'normal') base.push(idx(rb).D);
+    d = addDays(d, -1); telt++;
+  }
+  let grad;
+  if (base.length >= 5){
+    const rel = D - mean(base);
+    grad = rel >= 18 ? 'S' : rel >= 8 ? 'A' : rel >= -4 ? 'B' : rel >= -15 ? 'C' : 'D';
+  } else {
+    grad = D >= 85 ? 'S' : D >= 70 ? 'A' : D >= 55 ? 'B' : D >= 40 ? 'C' : 'D';
+  }
+  if (key < today()){ S.dommer[key] = grad; }
+  return grad;
+}
+const GRAD_FARGE = {S:'#ffd97a', A:'#e2b13c', B:'#8a7a4a', C:'#5c6c80', D:'#8c2f2a'};
+const GRAD_NAVN = {S:'LEGENDARISK', A:'STERK DAG', B:'SOLID', C:'UNDER NORMALEN', D:'TAPT DAG'};
+
+/* ---------- statistikk-kontekst for trofeene ---------- */
+function troStats(){
+  const o = KS_CACHE || computeKS();
+  const c = {kompl:0, harM:false, harK:false, harMq:false, okter:0, styrk:0, kond:0, energi8:0,
+    dyptSum:0, dypt3:0, dypt5:0, bok:0, kurs:0, laer5:0, alkRen:0, alkRenRun:0, skjerm120:0, skjerm150:0,
+    ryt:0, sovn7:0, kval8:0, str: streakState().n, strengRun:0, ukessjekk: Object.keys(S.uke || {}).length,
+    intervju: !!S.intervju, maalTot:0, sQ:{}, o};
+  const keys = Object.keys(S.logg).sort();
+  /* global rytme-median */
+  const leggAlle = [];
+  keys.forEach(k => { const e = S.logg[k]; if (e && e.m && e.m.legg){ const [h,mm] = e.m.legg.split(':').map(Number);
+    let v = h*60+mm; if (v < 720) v += 1440; leggAlle.push(v); } });
+  const md = leggAlle.length ? [...leggAlle].sort((a,b)=>a-b)[Math.floor(leggAlle.length/2)] : null;
+  let renRun = 0, streng = 0;
+  keys.forEach(k => {
+    const e = S.logg[k], m = e.m, kv = e.k;
+    if (m){ c.harM = true; if (m.energi >= 8) c.energi8++;
+      if (m.sovnK >= 8) c.kval8++;
+      const t = sovnTimer(m.legg, m.vaakn); if (t != null && t >= 7) c.sovn7++;
+      if (m.legg && md != null){ const [h,mm] = m.legg.split(':').map(Number); let v = h*60+mm; if (v < 720) v += 1440;
+        if (Math.abs(v - md) <= 35) c.ryt++; }
+      if (m.mq) c.harMq = true; }
+    if (kv){ c.harK = true;
+      if (kv.trentype && kv.trentype !== 'ingen') c.okter++;
+      if (kv.trentype === 'styrke' || kv.trentype === 'begge') c.styrk++;
+      if (kv.trentype === 'kondis' || kv.trentype === 'begge') c.kond++;
+      c.dyptSum += (kv.dypt || 0);
+      if ((kv.dypt || 0) >= 3) c.dypt3++;
+      if ((kv.dypt || 0) >= 5) c.dypt5++;
+      if (kv.laer >= 5) c.laer5++;
+      if (kv.alk === 0){ c.alkRen++; renRun++; } else renRun = 0;
+      c.alkRenRun = Math.max(c.alkRenRun, renRun);
+      if (kv.skjerm > 0 && kv.skjerm <= 120) c.skjerm120++;
+      if (kv.skjerm > 0 && kv.skjerm <= 150) c.skjerm150++;
+      if (kv.mq) c.harMq = true; }
+    if (m && kv){ c.kompl++; streng++; } else streng = 0;
+    c.strengRun = Math.max(c.strengRun, streng);
+  });
+  c.bok = S.prest.filter(p => p.type === 'bok').length;
+  c.kurs = S.prest.filter(p => p.type === 'kurs').length;
+  ['uke','mnd','aar'].forEach(l => c.maalTot += S.maal[l].filter(g => g.done).length);
+  /* siste 7 kalenderdager: rytme + timer */
+  c.uke7ryt = 0; c.uke7tim = 0; c.laerRun7 = 0;
+  let lr = 0;
+  for (let d = 6; d >= 0; d--){
+    const k = addDays(today(), -d), e = S.logg[k];
+    if (e && e.m){ const t = sovnTimer(e.m.legg, e.m.vaakn);
+      if (t != null && t >= 7) c.uke7tim++;
+      if (e.m.legg && md != null){ const [h,mm] = e.m.legg.split(':').map(Number); let v = h*60+mm; if (v < 720) v += 1440;
+        if (Math.abs(v - md) <= 35) c.uke7ryt++; } }
+    if (e && e.k && e.k.laer >= 5) lr++; else lr = 0;
+    c.laerRun7 = Math.max(c.laerRun7, lr);
+  }
+  /* oppdragsstatistikk */
+  const OL = (S.oppdrag && S.oppdrag.logg) || [];
+  c.vU = OL.filter(x => x.res === 'fullført' && (x.h === 'U' || x.p === 15)).length;
+  c.vM = OL.filter(x => x.res === 'fullført' && (x.h === 'M' || x.p === 75)).length;
+  c.vA = OL.filter(x => x.res === 'fullført' && (x.h === 'A' || x.p === 400)).length;
+  c.vTot = c.vU + c.vM + c.vA;
+  c.utenOmkast = OL.some(x => x.res === 'fullført' && (x.h === 'U' || x.p === 15) && x.ok === 1);
+  const forrigeMnd = addDays(mndStartKey(), -1).slice(0,7);
+  const fmL = OL.filter(x => x.dato && x.dato.slice(0,7) === forrigeMnd);
+  c.feilfriMnd = fmL.length > 0 && !fmL.some(x => x.res === 'feilet');
+  /* KS-statistikk */
+  const vals = KS_ORDER.map(n => o[n].ks).filter(v => v != null);
+  c.ksMax = vals.length ? Math.max(...vals) : 0;
+  c.ksMin = vals.length ? Math.min(...vals) : 0;
+  c.ksAktive = vals.length;
+  c.ks10 = vals.filter(v => v >= 10).length;
+  c.ksSnitt = vals.length ? mean(vals) : 0;
+  c.ms = mentalStyrkeAv(o) || 0;
+  /* dueller */
+  c.duell = {}; c.msVinn = false;
+  FIG_ORDER.forEach(id => {
+    const f = FIGURES[id]; let vinn = 0;
+    KS_ORDER.forEach(n => { const u = o[n].ks; if (u != null && !f.ikke.includes(n) && u > f.v[n]) vinn++; });
+    c.duell[id] = vinn;
+    const fMs = (f.v['Stressregulering'] + f.v['Disiplin'] + f.v['Humørstabilitet'])/3;
+    if (c.ms > fMs) c.msVinn = true;
+  });
+  /* nivå + dagsdommer */
+  const ps = poengState(); c.nivaa = ps.L; c.poeng = ps.p;
+  c.gA = 0; c.gS = 0; c.gB = 0; c.mFlyt = false; c.utenD = false; c.sUke = false;
+  const mndDypt = {};
+  let grader7 = [];
+  for (let d = 0; d < 120; d++){
+    const k = addDays(today(), -d);
+    const g = dagsdom(k);
+    if (g){ if (g === 'S') c.gS++; if (g === 'S' || g === 'A') c.gA++; if (g !== 'C' && g !== 'D') c.gB++; }
+    if (d < 7) grader7.push(g);
+    const e = S.logg[k];
+    if (e && e.k && (e.k.dypt || 0) >= 2){ const mk = k.slice(0,7); mndDypt[mk] = (mndDypt[mk] || 0) + 1; }
+  }
+  c.mFlyt = Object.values(mndDypt).some(v => v >= 20);
+  const g7 = grader7.filter(Boolean);
+  c.sUke = g7.length === 7 && g7.every(g => g === 'S' || g === 'A');
+  const fmnd = forrigeMnd;
+  let harD = false, harDag = false;
+  Object.keys(S.dommer).forEach(k => { if (k.slice(0,7) === fmnd){ harDag = true; if (S.dommer[k] === 'D') harD = true; } });
+  c.utenD = harDag && !harD;
+  save();   /* dommer-cache */
+  return c;
+}
+
+/* ---------- 100 MILEPÆLER ---------- */
+const TROFEER = [
+/* LOGGEN */
+['loggen','LOGGEN', [
+ ['l1','📓','Første blekk','logg din første komplette dag','b', c => c.kompl >= 1],
+ ['l2','📓','Syv segl','7 dager logget','b', c => c.kompl >= 7],
+ ['l3','📓','Fjorten netter','14 dager logget','b', c => c.kompl >= 14],
+ ['l4','📓','Månedens krønike','30 dager logget','s', c => c.kompl >= 30],
+ ['l5','📓','Seksti sider','60 dager logget','s', c => c.kompl >= 60],
+ ['l6','📓','Hundrevakten','100 dager logget','g', c => c.kompl >= 100],
+ ['l7','📓','To hundre','200 dager logget','g', c => c.kompl >= 200],
+ ['l8','📓','Årboken','365 dager logget','p', c => c.kompl >= 365],
+ ['l9','☀️','Morgenmannen','første morgensjekk','b', c => c.harM],
+ ['l10','🌙','Nattevakten','første kveldssjekk','b', c => c.harK],
+ ['l11','🧭','Kalibrert','førstedagsintervjuet fullført','b', c => c.intervju],
+ ['l12','🗓','Søndagsdommeren','første ukessjekk','b', c => c.ukessjekk >= 1]]],
+/* ILDEN */
+['ilden','ILDEN', [
+ ['i1','🔥','Gnisten','7 dagers streak','b', c => c.str >= 7],
+ ['i2','🔥','Bålet','14 dagers streak','s', c => c.str >= 14],
+ ['i3','🔥','Tre ukers ild','21 dagers streak','s', c => c.str >= 21],
+ ['i4','🔥','Månedsflammen','30 dagers streak','g', c => c.str >= 30],
+ ['i5','🔥','Seksti i fyr','60 dagers streak','g', c => c.str >= 60],
+ ['i6','🔥','Hundedagene','100 dagers streak','p', c => c.str >= 100],
+ ['i7','🔥','Halvårsbrannen','180 dagers streak','p', c => c.str >= 180],
+ ['i8','❄️','Uten sikkerhetsnett','30 strake dager uten frysdag','g', c => c.strengRun >= 30]]],
+/* KRIGEN */
+['krigen','KRIGEN', [
+ ['k1','⚔','Første blod','vinn ditt første ukesoppdrag','b', c => c.vU >= 1],
+ ['k2','⚔','Femkriger','vinn 5 ukesoppdrag','s', c => c.vU >= 5],
+ ['k3','⚔','Femtenkriger','vinn 15 ukesoppdrag','g', c => c.vU >= 15],
+ ['k4','🛡','Månedens seier','vinn et månedsoppdrag','s', c => c.vM >= 1],
+ ['k5','🛡','Fem måneder','vinn 5 månedsoppdrag','g', c => c.vM >= 5],
+ ['k6','👑','Årets løfte','fullfør et årsoppdrag','p', c => c.vA >= 1],
+ ['k7','⚔','Ti trofeer','10 oppdrag vunnet','s', c => c.vTot >= 10],
+ ['k8','⚔','Kvartmesteren','25 oppdrag vunnet','g', c => c.vTot >= 25],
+ ['k9','🩸','Feilfri måned','en hel måned uten tapte oppdrag','g', c => c.feilfriMnd],
+ ['k10','🎲','Uten omkast','vinn et ukesoppdrag med omkastet i behold','b', c => c.utenOmkast]]],
+/* KROPPEN */
+['kroppen','KROPPEN', [
+ ['b1','💪','Første jern','10 treningsøkter','b', c => c.okter >= 10],
+ ['b2','💪','Jernvanen','25 økter','b', c => c.okter >= 25],
+ ['b3','💪','Femti løft','50 økter','s', c => c.okter >= 50],
+ ['b4','💪','Hundremannen','100 økter','g', c => c.okter >= 100],
+ ['b5','💪','Kvart tusen','250 økter','p', c => c.okter >= 250],
+ ['b6','🏋','Smedens merke','25 styrkeøkter','s', c => c.styrk >= 25],
+ ['b7','🏋','Stålsamleren','75 styrkeøkter','g', c => c.styrk >= 75],
+ ['b8','🏃','Lungene','25 kondisjonsøkter','s', c => c.kond >= 25],
+ ['b9','🏃','Motoren','75 kondisjonsøkter','g', c => c.kond >= 75],
+ ['b10','⚡','Energitoppen','10 morgener med energi ≥ 8','s', c => c.energi8 >= 10]]],
+/* VERKET */
+['verket','VERKET', [
+ ['v1','🗡','Første dykk','10 timer dypt arbeid','b', c => c.dyptSum >= 10],
+ ['v2','🗡','Femti favner','50 timer','s', c => c.dyptSum >= 50],
+ ['v3','🗡','Hundre timer','100 timer','s', c => c.dyptSum >= 100],
+ ['v4','🗡','Kvartverket','250 timer','g', c => c.dyptSum >= 250],
+ ['v5','🗡','Halvtusen','500 timer','p', c => c.dyptSum >= 500],
+ ['v6','🗡','Femtimersdagen','én dag med 5+ timer dypt','b', c => c.dypt5 >= 1],
+ ['v7','🗡','Ti dype','10 dager med 3+ timer','s', c => c.dypt3 >= 10],
+ ['v8','🎯','Måneden i flyt','20 dager med 2+ timer i én måned','g', c => c.mFlyt]]],
+/* SINNET */
+['sinnet','SINNET', [
+ ['s1','📚','Første bok','logg din første fullførte bok','b', c => c.bok >= 1],
+ ['s2','📚','Fem på hylla','5 bøker','b', c => c.bok >= 5],
+ ['s3','📚','Bokslukeren','10 bøker','s', c => c.bok >= 10],
+ ['s4','📚','Kvartbiblioteket','25 bøker','g', c => c.bok >= 25],
+ ['s5','📚','Femti bind','50 bøker','p', c => c.bok >= 50],
+ ['s6','🎓','Studenten','første kurs logget','b', c => c.kurs >= 1],
+ ['s7','🧠','Lærlingeuken','7 dager på rad med læring ≥ 5','s', c => c.laerRun7 >= 7],
+ ['s8','🧠','Kunnskapsmåneden','30 dager med læring ≥ 5','g', c => c.laer5 >= 30]]],
+/* MODERASJONEN */
+['moderasjonen','MODERASJONEN', [
+ ['a1','🚱','Ren uke','7 alkoholfrie dager på rad','b', c => c.alkRenRun >= 7],
+ ['a2','🚱','Ren måned','30 alkoholfrie på rad','g', c => c.alkRenRun >= 30],
+ ['a3','🚱','Hundre rene','100 alkoholfrie totalt','s', c => c.alkRen >= 100],
+ ['a4','🚱','Tre hundre rene','300 alkoholfrie totalt','g', c => c.alkRen >= 300],
+ ['a5','📵','Skjermfasten','7 dager under 2 t skjerm','s', c => c.skjerm120 >= 7],
+ ['a6','📵','Digital munk','30 dager under 2,5 t','g', c => c.skjerm150 >= 30]]],
+/* NATTEN */
+['natten','NATTEN', [
+ ['n1','🌙','Rytmeuken','7 netter i rytmen (±35 min)','b', c => c.uke7ryt >= 7],
+ ['n2','🌙','Rytmevokteren','30 netter i rytmen totalt','s', c => c.ryt >= 30],
+ ['n3','🌙','Søvnbanken','7 netter med 7+ timer på én uke','b', c => c.uke7tim >= 7],
+ ['n4','🌙','Dyp måned','30 netter med 7+ timer totalt','g', c => c.sovn7 >= 30],
+ ['n5','🌙','Kvalitetsvakten','10 netter med kvalitet ≥ 8','s', c => c.kval8 >= 10],
+ ['n6','🌙','Perfekt uke','7/7 netter i rytme OG 7+ timer','g', c => c.uke7ryt >= 7 && c.uke7tim >= 7]]],
+/* MÅLESTOKKEN */
+['malestokken','MÅLESTOKKEN', [
+ ['m1','📐','Over midten','første felt når KS 10','b', c => c.ksMax >= 10],
+ ['m2','⚔','Første våpen','første felt når KS 13','s', c => c.ksMax >= 13],
+ ['m3','⚔','Ros-sonen','første felt når KS 15','g', c => c.ksMax >= 15],
+ ['m4','⚔','Topp 1 %','første felt når KS 17','p', c => c.ksMax >= 17],
+ ['m5','📐','Fem over ti','5 felter ≥ 10 samtidig','s', c => c.ks10 >= 5],
+ ['m6','📐','Ti over ti','10 felter ≥ 10 samtidig','g', c => c.ks10 >= 10],
+ ['m7','📐','Full ring','alle 17 felter aktive','s', c => c.ksAktive >= 17],
+ ['m8','📐','Snittet over 8','KS-snitt ≥ 8','b', c => c.ksAktive >= 10 && c.ksSnitt >= 8],
+ ['m9','📐','Snittet over 10','KS-snitt ≥ 10','s', c => c.ksAktive >= 10 && c.ksSnitt >= 10],
+ ['m10','📐','Snittet over 12','KS-snitt ≥ 12','g', c => c.ksAktive >= 10 && c.ksSnitt >= 12],
+ ['m11','🛡','Mental mur','Mental styrke ≥ 12','g', c => c.ms >= 12],
+ ['m12','🩹','Ingen åpne sår','ingen felter under KS 6','g', c => c.ksAktive >= 12 && c.ksMin >= 6]]],
+/* ARKIVET */
+['arkivet','ARKIVET', [
+ ['d1','👑','Keiserens like','slå Napoleon på 4 felter','b', c => c.duell.napoleon >= 4],
+ ['d2','👑','Keiserjegeren','slå Napoleon på 6 felter','g', c => c.duell.napoleon >= 6],
+ ['d3','🥊','Top G-temmeren','slå Tate på 6 felter','s', c => c.duell.tate >= 6],
+ ['d4','🚀','Titanfelleren','slå Musk på 9 felter','s', c => c.duell.musk >= 9],
+ ['d5','🪖','Den hardestes respekt','slå Goggins på 3 felter','g', c => c.duell.goggins >= 3],
+ ['d6','🛡','Sinnets seier','slå en arkivfigur på Mental styrke','g', c => c.msVinn]]],
+/* TRONEN */
+['tronen','TRONEN', [
+ ['t1','🏛','Nivå II','nå nivå 2','b', c => c.nivaa >= 2],
+ ['t2','🏛','Nivå III','nå nivå 3','s', c => c.nivaa >= 3],
+ ['t3','🏛','Nivå V','nå nivå 5','g', c => c.nivaa >= 5],
+ ['t4','🏛','Nivå VIII','nå nivå 8','p', c => c.nivaa >= 8],
+ ['t5','🎯','Ti mål','fullfør 10 mål','s', c => c.maalTot >= 10],
+ ['t6','🎯','Kvartmål','fullfør 25 mål','g', c => c.maalTot >= 25],
+ ['t7','💰','Femhundre','500 målpoeng','s', c => c.poeng >= 500],
+ ['t8','💰','Tusenpoengeren','1000 målpoeng','g', c => c.poeng >= 1000]]],
+/* DAGSDOMMEN */
+['dagsdommen','DAGSDOMMEN', [
+ ['g1','⭐','Første A','din første A-dag','b', c => c.gA >= 1],
+ ['g2','🌟','Legendarisk','din første S-dag','s', c => c.gS >= 1],
+ ['g3','🌟','Fem stjerner','5 S-dager','g', c => c.gS >= 5],
+ ['g4','🌟','S-uken','en hel uke med bare A og S','p', c => c.sUke],
+ ['g5','⭐','Tretti gode','30 dager med B eller bedre','s', c => c.gB >= 30],
+ ['g6','⭐','Aldri under C','en hel måned uten D-dager','g', c => c.utenD]]],
+];
+const TRO_ALLE = [];
+TROFEER.forEach(([kid, kat, rader]) => rader.forEach(r => TRO_ALLE.push({kat, id: r[0], ik: r[1], navn: r[2], krav: r[3], tier: r[4], test: r[5]})));
+const TIER_IK = {b:'🥉', s:'🥈', g:'🥇', p:'💎'};
+const TIER_NAVN = {b:'BRONSE', s:'SØLV', g:'GULL', p:'PLATINA'};
+
+/* ---------- sjekk + fanfare ---------- */
+function sjekkTrofeer(){
+  let c = null;
+  const nye = [];
+  TRO_ALLE.forEach(t => {
+    if (S.trofeer[t.id]) return;
+    if (!c) c = troStats();
+    let ok = false;
+    try { ok = t.test(c); } catch(e){}
+    if (ok){ S.trofeer[t.id] = today(); S.trofeerNye.push(t.id); nye.push(t); }
+  });
+  if (nye.length){
+    save();
+    const t = nye[0];
+    toast(`🏛 NYTT TROFÉ: ${t.ik} ${t.navn.toUpperCase()}${nye.length > 1 ? ` (+${nye.length-1} til!)` : ''} — se Kabinettet`, 4600);
+    const kab = $('#kabinett'); if (kab && $('#pg-framgang').classList.contains('active')) renderKabinett();
+  }
+}
+
+/* ---------- Kabinettet (Datarommet) ---------- */
+function renderKabinett(){
+  const boks = $('#kabinett'); if (!boks) return;
+  const ant = Object.keys(S.trofeer).length;
+  const gull = TRO_ALLE.filter(t => S.trofeer[t.id] && (t.tier === 'g' || t.tier === 'p')).length;
+  $('#kabTeller').textContent = `· ${ant} av ${TRO_ALLE.length} utstilt${gull ? ` · ${gull} gull+` : ''}`;
+  boks.replaceChildren();
+  /* siste vunnede + nærmeste låste — to hyller à 3 */
+  const vunnet = TRO_ALLE.filter(t => S.trofeer[t.id])
+    .sort((a,b) => (S.trofeer[b.id] || '').localeCompare(S.trofeer[a.id] || '')).slice(0, 4);
+  const laaste = TRO_ALLE.filter(t => !S.trofeer[t.id]).slice(0, 6 - Math.min(4, vunnet.length + (vunnet.length ? 0 : 2)));
+  const alle6 = [...vunnet, ...laaste].slice(0, 6);
+  for (let h = 0; h < 2; h++){
+    const hylle = document.createElement('div'); hylle.className = 'hylle';
+    const thyl = document.createElement('div'); thyl.className = 'thyl';
+    alle6.slice(h*3, h*3+3).forEach(t => {
+      const har = !!S.trofeer[t.id];
+      const tro = document.createElement('div'); tro.className = 'tro' + (har ? '' : ' laast');
+      const fig = document.createElement('div'); fig.className = 'fig'; fig.textContent = t.ik;
+      const tn = document.createElement('div'); tn.className = 'tn';
+      tn.innerHTML = har ? `${t.navn.toUpperCase()}<br>${TIER_IK[t.tier]} ${dNO(S.trofeer[t.id])}` : `${t.navn.toUpperCase()}<br>${t.krav}`;
+      if (har && S.trofeerNye.includes(t.id)){ const ny = document.createElement('div'); ny.className = 'tronY'; ny.textContent = 'NY!'; tro.appendChild(ny); }
+      const sokkel = document.createElement('div'); sokkel.className = 'sokkel';
+      tro.append(fig, tn, sokkel);
+      thyl.appendChild(tro);
+    });
+    hylle.appendChild(thyl); boks.appendChild(hylle);
+  }
+}
+function openKabinett(){
+  const body = $('#kabBody'); body.replaceChildren();
+  S.trofeerNye = []; save();
+  const ant = Object.keys(S.trofeer).length;
+  const info = document.createElement('div'); info.className = 'ksmband';
+  info.textContent = `${ant} av ${TRO_ALLE.length} trofeer i samlingen — 🥉 bronse · 🥈 sølv · 🥇 gull · 💎 platina`;
+  body.appendChild(info);
+  TROFEER.forEach(([kid, kat, rader]) => {
+    const vunnet = rader.filter(r => S.trofeer[r[0]]).length;
+    const h = document.createElement('div'); h.className = 'blodh'; h.textContent = `${kat} · ${vunnet}/${rader.length}`;
+    body.appendChild(h);
+    rader.forEach(([id, ik, navn, krav, tier]) => {
+      const har = !!S.trofeer[id];
+      const row = document.createElement('div'); row.className = 'kabrad' + (har ? ' har' : '');
+      const i = document.createElement('span'); i.className = 'ki'; i.textContent = ik;
+      const t = document.createElement('span'); t.className = 'kt';
+      const b = document.createElement('b'); b.textContent = navn;
+      const s = document.createElement('span'); s.className = 'kk'; s.textContent = ' — ' + krav;
+      t.append(b, s);
+      const tr = document.createElement('span'); tr.className = 'ktier t-' + tier;
+      tr.textContent = har ? `${TIER_IK[tier]} ${dNO(S.trofeer[id])}` : `${TIER_IK[tier]} ${TIER_NAVN[tier]}`;
+      row.append(i, t, tr);
+      body.appendChild(row);
+    });
+  });
+  $('#kabBg').classList.add('on');
+}
+$('#kabBtn') && $('#kabBtn').addEventListener('click', openKabinett);
+$('#kabBg') && $('#kabBg').addEventListener('click', ev => {
+  if (ev.target.id === 'kabBg' || ev.target.classList.contains('kslukk')) $('#kabBg').classList.remove('on');
+});
+
+/* trofésjekk etter hver Krigsrommet-render (dekker alle lagringsflyter) */
+if (typeof renderKrig === 'function'){
+  const _renderKrigOrig = renderKrig;
+  renderKrig = function(){ _renderKrigOrig(); try { sjekkTrofeer(); } catch(e){} };
+}
+
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
   if (ev.target.id === 'ksModalBg' || ev.target.classList.contains('kslukk')) $('#ksModalBg').classList.remove('on');
@@ -2979,7 +3387,7 @@ $('#tabs').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b) return;
   $$('#tabs button').forEach(x => x.classList.toggle('on', x === b));
   $$('.page').forEach(p => p.classList.toggle('active', p.id === 'pg-' + b.dataset.pg));
-  document.body.classList.toggle('moerk', b.dataset.pg === 'profil' || b.dataset.pg === 'arkiv' || b.dataset.pg === 'hjem');
+  document.body.classList.toggle('moerk', b.dataset.pg !== 'morgen' && b.dataset.pg !== 'kveld');
   if (b.dataset.pg === 'framgang'){ renderFramgang(); renderTrend(); }
   if (b.dataset.pg === 'profil') renderProfil();
   if (b.dataset.pg === 'arkiv') renderArkiv();
