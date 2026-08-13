@@ -487,6 +487,7 @@
     <div class="brennwrap"><div class="brennring" id="ringBrenner"></div></div>
     <div class="profmeta"><div id="profilSnitt"></div><div id="profilMS"></div>
       <div class="profhint">Trykk på kortet for Blodpakten · trykk på et felt for dommen</div></div>
+    <button class="kslukk" id="ukeDiffBtn" style="margin:0 0 12px">📅 Forrige uke — hva flyttet seg?</button>
     <div id="ksList"></div>
     <details class="edit" id="kalib"><summary>⚙ Kalibrer profilen — mater KS-motoren</summary>
       <p class="sect">Identitet</p>
@@ -567,6 +568,11 @@
 <div class="ksbg" id="ukeBg"><div class="ksmodal" id="ukeModal">
   <div class="ksmtag" style="color:#e2b13c">🗓 UKESSJEKKEN</div>
   <div id="ukeBody"></div>
+</div></div>
+<div class="ksbg" id="diffBg"><div class="ksmodal" id="diffModal">
+  <div class="ksmtag" style="color:#e2b13c">📅 FORRIGE UKE</div>
+  <div id="diffBody"></div>
+  <button class="kslukk" style="margin-top:10px">Lukk</button>
 </div></div>
 
 <nav class="tabs" id="tabs">
@@ -2351,6 +2357,61 @@ $('#intBg').addEventListener('click', ev => { if (ev.target.id === 'intBg') {} }
 $('#ukeBg').addEventListener('click', ev => { if (ev.target.id === 'ukeBg') $('#ukeBg').classList.remove('on'); });
 visUkeKort();
 if (!S.intervju && !S.intervjuUtsatt) setTimeout(openIntervju, 700);
+
+/* ---------- FORRIGE UKE: KS-bevegelse uke mot uke ---------- */
+function openUkeDiff(){
+  const o = KS_CACHE || computeKS();
+  const body = $('#diffBody'); body.replaceChildren();
+  const keys = Object.keys(S.ksHist).sort().filter(k => k < today());
+  const target = addDays(today(), -7);
+  let ref = null;
+  for (const k of keys){ if (k <= target) ref = k; }
+  if (!ref && keys.length) ref = keys[0];
+  if (!ref){
+    const info = document.createElement('div'); info.className = 'ksmband';
+    info.textContent = 'Ingen historikk ennå — motoren lagrer et stillbilde hver dag du åpner Profil. Kom tilbake om noen dager.';
+    body.appendChild(info);
+  } else {
+    const dager = Math.round((new Date(today()+'T12:00:00') - new Date(ref+'T12:00:00'))/864e5);
+    const info = document.createElement('div'); info.className = 'ksmband';
+    info.textContent = `Mot ${dNO(ref)} · ${dager} ${dager === 1 ? 'dag' : 'dager'} siden — trykk på et felt for dommen`;
+    body.appendChild(info);
+    const h = S.ksHist[ref] || {};
+    const rader = [];
+    KS_ORDER.forEach(n => {
+      const ny = o[n] && o[n].ks;
+      if (ny == null) return;
+      const gml = h[n];
+      rader.push({n, ny, gml: gml == null ? null : gml, d: gml == null ? null : ny - gml});
+    });
+    const med = rader.filter(r => r.d != null).sort((a,b) => Math.abs(b.d) - Math.abs(a.d));
+    const nye = rader.filter(r => r.d == null);
+    const opp = med.filter(r => r.d >= 0.1).length, ned = med.filter(r => r.d <= -0.1).length;
+    const sum = document.createElement('div'); sum.className = 'blodms';
+    sum.textContent = `▲ ${opp} opp · ▼ ${ned} ned · ${med.length - opp - ned} stabile${nye.length ? ` · ✨ ${nye.length} nye` : ''}`;
+    body.appendChild(sum);
+    med.concat(nye).forEach(r => {
+      const row = document.createElement('div'); row.className = 'blodrow';
+      const nm = document.createElement('span'); nm.textContent = r.n;
+      const v = document.createElement('b');
+      if (r.d == null){
+        v.textContent = `✨ ny · ${r.ny.toFixed(1).replace('.',',')}`; v.style.color = '#e2b13c';
+      } else {
+        const pil = r.d >= 0.1 ? '▲' : r.d <= -0.1 ? '▼' : '·';
+        v.textContent = `${r.gml.toFixed(1).replace('.',',')} → ${r.ny.toFixed(1).replace('.',',')} ${pil}${Math.abs(r.d) >= 0.05 ? ' ' + Math.abs(r.d).toFixed(1).replace('.',',') : ''}`;
+        v.style.color = r.d >= 0.1 ? '#7fc98a' : r.d <= -0.1 ? '#d9908a' : '#9a9887';
+      }
+      row.append(nm, v);
+      row.addEventListener('click', () => { $('#diffBg').classList.remove('on'); openDom(r.n, o[r.n]); });
+      body.appendChild(row);
+    });
+  }
+  $('#diffBg').classList.add('on');
+}
+$('#ukeDiffBtn') && $('#ukeDiffBtn').addEventListener('click', openUkeDiff);
+$('#diffBg') && $('#diffBg').addEventListener('click', ev => {
+  if (ev.target.id === 'diffBg' || ev.target.classList.contains('kslukk')) $('#diffBg').classList.remove('on');
+});
 
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
