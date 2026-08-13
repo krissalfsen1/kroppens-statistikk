@@ -349,6 +349,11 @@
   .avpick{display:flex;gap:8px;flex-wrap:wrap;padding:2px 0}
   .avpick .avbit{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.15);cursor:pointer}
   .avpick .avbit.valgt{border-color:#e2b13c;box-shadow:0 0 12px rgba(226,177,60,0.55)}
+  .ksmodal .in,.ksmodal select.in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14);width:100%}
+  .ksmodal label{color:#9a9887}
+  .ksmodal .sect{color:#c9c4b0}
+  .ksmodal .fld{margin-bottom:10px}
+  .ksmodal .cta{margin-top:6px}
 </style>
 </head>
 <body>
@@ -376,6 +381,7 @@
         <span class="streakchip" id="streakChip"></span>
       </div>
     </div>
+    <div class="goalrow open" id="ukeKort" style="display:none"><span class="gcheck">🗓</span><span class="gtxt">Ukessjekken er klar — plassér uka mot ankrene</span><span class="gpts">2 min</span></div>
     <p class="sect" id="ukeHead">Ukens mål</p>
     <div id="ukeList"></div>
     <div class="badges" id="goalMeta"></div>
@@ -406,6 +412,7 @@
         <div class="slider" data-cat="sovn"><span class="aura"></span><input type="range" min="1" max="10" value="6" id="m-sovnK"><span class="val">6</span></div></div>
       <div class="fld"><label>Energi</label>
         <div class="slider" data-cat="energi"><span class="aura"></span><input type="range" min="1" max="10" value="6" id="m-energi"><span class="val">6</span></div></div>
+      <div class="fld" id="m-mqwrap" style="display:none"><label id="m-mqlab"></label><div class="seg" id="m-mq"></div></div>
       <button class="cta" id="saveM">Lagre morgensjekk</button>
       <div class="mini">Lagres på telefonen · eksporteres til Claude fra Framgang-siden</div>
     </div>
@@ -427,6 +434,7 @@
       <div class="fld"><label>Stress</label><div class="slider" data-cat="stress"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-stress"><span class="val">5</span></div></div>
       <div class="fld"><label>Motivasjon</label><div class="slider" data-cat="motivasjon"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-motiv"><span class="val">5</span></div></div>
       <div class="fld"><label>Humør</label><div class="slider" data-cat="humor"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-humor"><span class="val">5</span></div></div>
+      <div class="fld"><label>Kommunikasjon <span class="auto">· hvor godt nådde du fram i dag?</span></label><div class="slider" data-cat="komm"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-komm"><span class="val">5</span></div></div>
       <div class="fld"><label>Mat <span class="auto">· 1 junk → 10 optimalt</span></label><div class="slider" data-cat="mat"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-mat"><span class="val">5</span></div></div>
       <div class="fld"><label>Trening <span class="auto">· 1 ingen → 10 eksepsjonell</span></label><div class="slider" data-cat="trening"><span class="aura"></span><input type="range" min="1" max="10" value="1" id="k-trening"><span class="val">1</span></div></div>
       <div class="row2">
@@ -444,6 +452,7 @@
         <div class="fld"><label>Tags <span class="auto">· valgfritt</span></label><input class="in" id="k-tags" placeholder="jobbpress; besøk"></div>
       </div>
       <div class="fld"><label>Dagens seier 🏆</label><input class="in" id="k-seier" placeholder="Hva fikk du til i dag?"></div>
+      <div class="fld" id="k-mqwrap" style="display:none"><label id="k-mqlab"></label><div class="seg" id="k-mq"></div></div>
       <button class="cta" id="saveK">Lagre kveldssjekk</button>
     </div>
     <div id="kDone"></div>
@@ -505,6 +514,7 @@
       </div>
       <div class="fld"><label>Kommunikasjon — hvilket BARS-anker ligner mest?</label><select class="in" id="kal-komm"></select></div>
       <button class="cta" id="kalSave">Lagre kalibrering</button>
+      <button class="kslukk" id="intervjuBtn" style="margin-top:8px">🧭 Ta kalibreringsintervjuet (på nytt)</button>
       <div class="mini">🌍 = ekte norm (HUNT · SSB · FHI) · 📐 = forankret atferdsskala (BARS) · alt er ferskvare, begge veier</div>
     </details>
     <details class="edit" id="motorInfo"><summary>📖 Slik virker KS-motoren — ingenting er tilfeldig</summary>
@@ -549,6 +559,15 @@
   <div id="blodBody"></div>
   <button class="kslukk">Lukk</button>
 </div></div>
+<div class="ksbg" id="intBg"><div class="ksmodal" id="intModal">
+  <div class="ksmtag" style="color:#e2b13c">🧭 KALIBRERINGSINTERVJUET</div>
+  <div class="ksmband">Ærlige svar gir motoren et startpunkt — loggen din sliper det skarpt etterpå. Alt kan endres senere.</div>
+  <div id="intBody"></div>
+</div></div>
+<div class="ksbg" id="ukeBg"><div class="ksmodal" id="ukeModal">
+  <div class="ksmtag" style="color:#e2b13c">🗓 UKESSJEKKEN</div>
+  <div id="ukeBody"></div>
+</div></div>
 
 <nav class="tabs" id="tabs">
   <button data-pg="hjem" class="on"><span class="ic">🏠</span>Hjem</button>
@@ -561,7 +580,7 @@
 <div class="toast" id="toast"></div>
 <script>
 /* ============ Kroppens Statistikk · funksjonell PWA v1 ============ */
-const APP_VER = '2.0.0';
+const APP_VER = '2.4.0';
 const QUOTES = [{"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "At dawn, when you have trouble getting out of bed, tell yourself: I am rising to do the work of a human being."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Waste no more time arguing about what a good man should be. Be one."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "The impediment to action advances action. What stands in the way becomes the way."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Confine yourself to the present."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Very little is needed to make a happy life; it is all within yourself, in your way of thinking."}, {"a": "Seneca", "y": "ca. 49", "k": "generell", "q": "It is not that we have a short time to live, but that we waste a lot of it."}, {"a": "Seneca", "y": "ca. 62", "k": "generell", "q": "If a man knows not to which port he sails, no wind is favorable."}, {"a": "Seneca", "y": "ca. 60", "k": "generell", "q": "Fire tests gold, adversity tests the brave."}, {"a": "Seneca", "y": "ca. 60", "k": "generell", "q": "Every new beginning comes from some other beginning's end."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "It's not what happens to you, but how you react to it that matters."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "No great thing is created suddenly."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "First say to yourself what you would be; and then do what you have to do."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "Wealth consists not in having great possessions, but in having few wants."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "If you want to improve, be content to be thought foolish and stupid."}, {"a": "Konfutse", "y": "ca. -500", "k": "generell", "q": "It does not matter how slowly you go as long as you do not stop."}, {"a": "Konfutse", "y": "ca. -500", "k": "generell", "q": "The man who moves a mountain begins by carrying away small stones."}, {"a": "Laozi", "y": "ca. -500", "k": "generell", "q": "A journey of a thousand miles begins with a single step."}, {"a": "Laozi", "y": "ca. -500", "k": "generell", "q": "Knowing others is intelligence; knowing yourself is true wisdom."}, {"a": "Sun Tzu", "y": "ca. -500", "k": "generell", "q": "In the midst of chaos, there is also opportunity."}, {"a": "Heraklit", "y": "ca. -500", "k": "generell", "q": "No man ever steps in the same river twice."}, {"a": "Publilius Syrus", "y": "ca. -50", "k": "generell", "q": "Practice is the best of all instructors."}, {"a": "Ovid", "y": "ca. 8", "k": "generell", "q": "Dripping water hollows out stone, not through force but through persistence."}, {"a": "Cicero", "y": "ca. -50", "k": "generell", "q": "While there's life, there's hope."}, {"a": "Vergil", "y": "ca. -20", "k": "generell", "q": "Fortune favors the bold."}, {"a": "Sokrates", "y": "ca. -400", "k": "generell", "q": "The unexamined life is not worth living."}, {"a": "Sallust", "y": "ca. -40", "k": "generell", "q": "Every man is the architect of his own fortune."}, {"a": "Hannibal", "y": "ca. -218", "k": "generell", "q": "I will either find a way or make one."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "generell", "q": "Obstacles cannot crush me; every obstacle yields to stern resolve."}, {"a": "Goethe", "y": "ca. 1800", "k": "generell", "q": "Knowing is not enough; we must apply. Willing is not enough; we must do."}, {"a": "Benjamin Franklin", "y": "1748", "k": "generell", "q": "Lost time is never found again."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "generell", "q": "Well done is better than well said."}, {"a": "Theodore Roosevelt", "y": "1913", "k": "generell", "q": "Do what you can, with what you have, where you are."}, {"a": "Theodore Roosevelt", "y": "1910", "k": "generell", "q": "The credit belongs to the man who is actually in the arena."}, {"a": "Winston Churchill", "y": "1941", "k": "generell", "q": "Never give in — never, never, never."}, {"a": "Winston Churchill", "y": "1925", "k": "generell", "q": "To improve is to change; to be perfect is to change often."}, {"a": "Thomas Edison", "y": "ca. 1903", "k": "generell", "q": "Genius is one percent inspiration and ninety-nine percent perspiration."}, {"a": "Thomas Edison", "y": "ca. 1910", "k": "generell", "q": "Many of life's failures are people who did not realize how close they were to success when they gave up."}, {"a": "Thomas Edison", "y": "ca. 1910", "k": "generell", "q": "I have not failed. I've just found ten thousand ways that won't work."}, {"a": "Henry Ford", "y": "ca. 1920", "k": "generell", "q": "Whether you think you can, or you think you can't — you're right."}, {"a": "John D. Rockefeller", "y": "ca. 1900", "k": "generell", "q": "Don't be afraid to give up the good to go for the great."}, {"a": "Marie Curie", "y": "ca. 1920", "k": "generell", "q": "Nothing in life is to be feared, it is only to be understood."}, {"a": "Albert Einstein", "y": "1930", "k": "generell", "q": "Life is like riding a bicycle. To keep your balance you must keep moving."}, {"a": "Albert Einstein", "y": "ca. 1930", "k": "generell", "q": "A person who never made a mistake never tried anything new."}, {"a": "Ralph Waldo Emerson", "y": "1841", "k": "generell", "q": "Do the thing and you shall have the power."}, {"a": "Henry David Thoreau", "y": "1854", "k": "generell", "q": "In the long run, men hit only what they aim at."}, {"a": "Mark Twain", "y": "1894", "k": "generell", "q": "Courage is resistance to fear, mastery of fear — not absence of fear."}, {"a": "Mark Twain", "y": "1894", "k": "generell", "q": "Put all your eggs in one basket, and then watch that basket."}, {"a": "Eleanor Roosevelt", "y": "ca. 1940", "k": "generell", "q": "No one can make you feel inferior without your consent."}, {"a": "Helen Keller", "y": "1957", "k": "generell", "q": "Life is either a daring adventure or nothing at all."}, {"a": "Frederick Douglass", "y": "1857", "k": "generell", "q": "If there is no struggle, there is no progress."}, {"a": "Booker T. Washington", "y": "1901", "k": "generell", "q": "Success is to be measured not so much by the position that one has reached in life as by the obstacles which he has overcome."}, {"a": "Roald Amundsen", "y": "1912", "k": "generell", "q": "Victory awaits him who has everything in order — luck, people call it."}, {"a": "Fridtjof Nansen", "y": "ca. 1920", "k": "generell", "q": "The difficult is what takes a little time; the impossible is what takes a little longer."}, {"a": "Napoleon Hill", "y": "1937", "k": "generell", "q": "The starting point of all achievement is desire."}, {"a": "Søren Kierkegaard", "y": "1843", "k": "generell", "q": "Life can only be understood backwards; but it must be lived forwards."}, {"a": "Louis Pasteur", "y": "1854", "k": "generell", "q": "Chance favours the prepared mind."}, {"a": "George Bernard Shaw", "y": "ca. 1900", "k": "generell", "q": "Progress is impossible without change, and those who cannot change their minds cannot change anything."}, {"a": "William James", "y": "ca. 1900", "k": "generell", "q": "Act as if what you do makes a difference. It does."}, {"a": "Musashi", "y": "1645", "k": "generell", "q": "Today is victory over yourself of yesterday; tomorrow is your victory over lesser men."}, {"a": "Bruce Lee", "y": "ca. 1970", "k": "generell", "q": "I fear not the man who has practiced ten thousand kicks once, but I fear the man who has practiced one kick ten thousand times."}, {"a": "Thomas Jefferson", "y": "ca. 1810", "k": "produktivitet", "q": "Never put off till tomorrow what you can do today."}, {"a": "Lord Chesterfield", "y": "1747", "k": "produktivitet", "q": "Take care of the minutes and the hours will take care of themselves."}, {"a": "Horats", "y": "ca. -23", "k": "produktivitet", "q": "Seize the day, put very little trust in tomorrow."}, {"a": "Edward Young", "y": "1742", "k": "produktivitet", "q": "Procrastination is the thief of time."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "produktivitet", "q": "You may delay, but time will not."}, {"a": "Seneca", "y": "ca. 49", "k": "produktivitet", "q": "While we are postponing, life speeds by."}, {"a": "Pablo Picasso", "y": "ca. 1950", "k": "produktivitet", "q": "Inspiration exists, but it has to find you working."}, {"a": "Amelia Earhart", "y": "ca. 1935", "k": "produktivitet", "q": "The most effective way to do it, is to do it."}, {"a": "Alexander Graham Bell", "y": "ca. 1900", "k": "produktivitet", "q": "Before anything else, preparation is the key to success."}, {"a": "Goethe", "y": "ca. 1800", "k": "produktivitet", "q": "What is not started today is never finished tomorrow."}, {"a": "Hesiod", "y": "ca. -700", "k": "produktivitet", "q": "If you add a little to a little, and then do it again, soon that little shall be much."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "produktivitet", "q": "Time stays long enough for anyone who will use it."}, {"a": "Samuel Johnson", "y": "ca. 1770", "k": "produktivitet", "q": "Great works are performed not by strength but by perseverance."}, {"a": "Vince Lombardi", "y": "ca. 1965", "k": "produktivitet", "q": "Perfection is not attainable, but if we chase perfection we can catch excellence."}, {"a": "Sokrates (etter Xenofon)", "y": "ca. -400", "k": "kropp", "q": "No man has the right to be an amateur in the matter of physical training. It is a shame for a man to grow old without seeing the beauty and strength of which his body is capable."}, {"a": "Juvenal", "y": "ca. 100", "k": "kropp", "q": "You should pray for a sound mind in a sound body."}, {"a": "Edward Stanley", "y": "1873", "k": "kropp", "q": "Those who think they have not time for bodily exercise will sooner or later have to find time for illness."}, {"a": "Platon", "y": "ca. -380", "k": "kropp", "q": "Lack of activity destroys the good condition of every human being, while movement and methodical physical exercise save it and preserve it."}, {"a": "Cicero", "y": "ca. -50", "k": "kropp", "q": "It is exercise alone that supports the spirits, and keeps the mind in vigor."}, {"a": "Thomas Jefferson", "y": "1786", "k": "kropp", "q": "Leave all the afternoon for exercise and recreation, which are as necessary as reading."}, {"a": "Seneca", "y": "ca. 60", "k": "kropp", "q": "The body should be treated rigorously, that it may not be disobedient to the mind."}, {"a": "Gandhi", "y": "ca. 1940", "k": "kropp", "q": "It is health that is real wealth and not pieces of gold and silver."}, {"a": "Ralph Waldo Emerson", "y": "ca. 1860", "k": "kropp", "q": "The first wealth is health."}, {"a": "Benjamin Franklin", "y": "1735", "k": "kropp", "q": "Early to bed and early to rise makes a man healthy, wealthy and wise."}, {"a": "Seneca", "y": "ca. 60", "k": "kropp", "q": "Difficulties strengthen the mind, as labor does the body."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "You have power over your mind — not outside events. Realize this, and you will find strength."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "The happiness of your life depends upon the quality of your thoughts."}, {"a": "Epictetus", "y": "ca. 108", "k": "sinn", "q": "Man is disturbed not by things, but by the views he takes of them."}, {"a": "Seneca", "y": "ca. 64", "k": "sinn", "q": "We suffer more often in imagination than in reality."}, {"a": "Viktor Frankl", "y": "1946", "k": "sinn", "q": "When we are no longer able to change a situation, we are challenged to change ourselves."}, {"a": "Friedrich Nietzsche", "y": "1889", "k": "sinn", "q": "He who has a why to live for can bear almost any how."}, {"a": "Buddha (Dhammapada)", "y": "ca. -400", "k": "sinn", "q": "All that we are is the result of what we have thought."}, {"a": "Konfutse", "y": "ca. -500", "k": "sinn", "q": "By three methods we may learn wisdom: first, by reflection, which is noblest; second, by imitation, which is easiest; and third by experience, which is the bitterest."}, {"a": "Epictetus", "y": "ca. 108", "k": "sinn", "q": "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "When you arise in the morning, think of what a precious privilege it is to be alive — to breathe, to think, to enjoy, to love."}, {"a": "Isaac Newton", "y": "1675", "k": "laering", "q": "If I have seen further it is by standing on the shoulders of giants."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "laering", "q": "An investment in knowledge pays the best interest."}, {"a": "Erasmus", "y": "ca. 1500", "k": "laering", "q": "When I get a little money I buy books; and if any is left, I buy food and clothes."}, {"a": "Cicero", "y": "ca. -50", "k": "laering", "q": "A room without books is like a body without a soul."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "laering", "q": "Learning never exhausts the mind."}, {"a": "Henry Ford", "y": "ca. 1930", "k": "laering", "q": "Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young."}, {"a": "Sokrates", "y": "ca. -400", "k": "laering", "q": "I know that I know nothing."}, {"a": "Plutark", "y": "ca. 100", "k": "laering", "q": "The mind is not a vessel to be filled but a fire to be kindled."}, {"a": "Seneca", "y": "ca. 62", "k": "laering", "q": "As long as you live, keep learning how to live."}, {"a": "Oscar Wilde", "y": "1891", "k": "laering", "q": "Experience is simply the name we give our mistakes."}, {"a": "Aisopos", "y": "ca. -560", "k": "disiplin", "q": "Slow and steady wins the race."}, {"a": "Calvin Coolidge", "y": "ca. 1930", "k": "disiplin", "q": "Nothing in this world can take the place of persistence."}, {"a": "Will Durant (om Aristoteles)", "y": "1926", "k": "disiplin", "q": "We are what we repeatedly do. Excellence, then, is not an act, but a habit."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "disiplin", "q": "One can have no smaller or greater mastery than mastery of oneself."}, {"a": "Seneca", "y": "ca. 60", "k": "disiplin", "q": "Most powerful is he who has himself in his own power."}, {"a": "Platon", "y": "ca. -380", "k": "disiplin", "q": "The first and greatest victory is to conquer yourself."}, {"a": "Laozi", "y": "ca. -500", "k": "disiplin", "q": "Mastering others is strength. Mastering yourself is true power."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "disiplin", "q": "If it is not right, do not do it; if it is not true, do not say it."}, {"a": "Epictetus", "y": "ca. 108", "k": "disiplin", "q": "No man is free who is not master of himself."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "disiplin", "q": "It is easier to resist at the beginning than at the end."}, {"a": "Florence Nightingale", "y": "ca. 1880", "k": "disiplin", "q": "I attribute my success to this — I never gave or took any excuse."}, {"a": "Ralph Waldo Emerson", "y": "ca. 1860", "k": "disiplin", "q": "That which we persist in doing becomes easier for us to do."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "disiplin", "q": "Energy and persistence conquer all things."}, {"a": "Thomas Dekker", "y": "ca. 1600", "k": "restitusjon", "q": "Sleep is that golden chain that ties health and our bodies together."}, {"a": "Ovid", "y": "ca. 8", "k": "restitusjon", "q": "Take rest; a field that has rested gives a bountiful crop."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "restitusjon", "q": "Every now and then go away, have a little relaxation, for when you come back to your work your judgment will be surer."}, {"a": "John Lubbock", "y": "1894", "k": "restitusjon", "q": "Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day is by no means a waste of time."}, {"a": "Seneca", "y": "ca. 49", "k": "restitusjon", "q": "The mind must be given relaxation — it will rise improved and sharper after a good break."}, {"a": "Cervantes", "y": "1605", "k": "restitusjon", "q": "Sleep is the best cure for waking troubles."}, {"a": "Homer", "y": "ca. -700", "k": "restitusjon", "q": "There is a time for many words, and there is also a time for sleep."}];
 
 /* ---------- state ---------- */
@@ -995,7 +1014,7 @@ $('#saveM').addEventListener('click', () => {
   e.m = { vekt: parseFloat(String($('#m-vekt').value).replace(',', '.')) || null,
     puls: parseInt($('#m-puls').value) || null,
     legg: $('#m-legg').value, vaakn: $('#m-vaakn').value,
-    sovnK: +$('#m-sovnK').value, energi: +$('#m-energi').value };
+    sovnK: +$('#m-sovnK').value, energi: +$('#m-energi').value, mq: lesMq('#m-mqwrap') };
   save();
   const q = motivQuote();
   suckAndShow('#mForm', '#mDone', box => doneView(box, '✓ Morgensjekk lagret', `«${q.q}»`, q.a));
@@ -1009,6 +1028,7 @@ $('#saveK').addEventListener('click', () => {
     humor: +$('#k-humor').value, mat: +$('#k-mat').value, trening: +$('#k-trening').value,
     kaffe: +$('#k-kaffe').value, alk: +$('#k-alk').value, laer: +$('#k-laer').value,
     trentype: $('#k-trentype .on').dataset.v, samtale: $('#k-samtale .on').dataset.v === 'ja',
+    komm: +$('#k-komm').value, mq: lesMq('#k-mqwrap'),
     modus: $('#k-modus .on').dataset.v, tags: $('#k-tags').value.trim(), seier: $('#k-seier').value.trim() };
   save();
   const r = flat(today());
@@ -1230,8 +1250,10 @@ function ksEwma(get, hl, days = 60){
 }
 const ksStd = vals => vals.length < 3 ? null : Math.sqrt(mean(vals.map(v => (v-mean(vals))**2)));
 function uncOf(neff, base, gap){
-  let u = Math.min(2.5, Math.max(0.3, base/Math.sqrt(Math.max(0.5, neff))));
-  if (gap != null && gap > 10) u = Math.min(3, u + 0.04*(gap-10));
+  /* få dager = stor usikkerhet: 1 dag ≈ 2×base, 4 dager ≈ base, 16+ ≈ base/2.
+     Slik kan ikke én enkelt sjekk overkjøre intervju-prioren. */
+  let u = Math.min(2.8, Math.max(0.3, base * Math.sqrt(4/Math.max(0.5, neff))));
+  if (gap != null && gap > 10) u = Math.min(3.2, u + 0.04*(gap-10));
   return u;
 }
 /* ferskvare: uten bevis driver estimatet sakte mot midten */
@@ -1345,7 +1367,9 @@ function computeKS(){
   /* 8 · DISIPLIN 📐 — konsistens + gjennomføring + alignment + streak */
   {
     let logget=0, mulige=0;
+    const forsteLogg = Object.keys(S.logg).sort()[0] || today();
     for (let d=1; d<=28; d++){ const key=addDays(today(),-d), e=S.logg[key];
+      if (key < forsteLogg) continue;              /* dager før første logg teller ikke mot deg */
       const frozen = e && e.k && e.k.modus && e.k.modus !== 'normal';
       if (frozen) continue; mulige++; if (e && e.m && e.k) logget++; }
     const kons = mulige ? logget/mulige : null;
@@ -1353,7 +1377,7 @@ function computeKS(){
     const gRate = gTot ? (S.maal.uke.filter(g=>g.done).length + S.maal.mnd.filter(g=>g.done).length)/gTot : null;
     const stN = Math.min(1, streakState().n/28);
     const parts = [[kons,0.35],[alignE.v!=null?alignE.v/10:null,0.25],[gRate,0.2],[stN,0.2]].filter(p=>p[0]!=null);
-    if (parts.length >= 2 && (logget > 0 || alignE.v != null)){
+    if (parts.length >= 2 && (logget > 0 || alignE.v != null) && (mulige >= 4 || logget >= 3)){
       const comp = 100*parts.reduce((a,p)=>a+p[0]*p[1],0)/parts.reduce((a,p)=>a+p[1],0);
       const pct = anchor(comp, [[30,25],[45,45],[58,62],[70,78],[80,89],[88,95],[94,98]]);
       res('Disiplin', pctKS(pct), uncOf(Math.max(2,alignE.neff), 1.7, alignE.gap), '📐',
@@ -1424,14 +1448,21 @@ function computeKS(){
     } else res('Læring', null, null, '🌍', 'Logg bøker under Data, eller sett bøker/år i kalibreringen');
   }
 
-  /* 15 · KOMMUNIKASJON 📐 — BARS-selvplassering + vanskelige samtaler */
-  if (P.barsKomm != null){
+  /* 15 · KOMMUNIKASJON 📐 — daglig skyver + vanskelige samtaler (intervju/ukessjekk blandes inn) */
+  {
+    const kommE = ksEwma(e => e.k ? e.k.komm : null, 21);
     let samt = 0;
     for (let d=0; d<28; d++){ const e = S.logg[addDays(today(),-d)]; if (e && e.k && e.k.samtale) samt++; }
-    const ks = Math.min(19, P.barsKomm + Math.min(1.5, samt*0.12));
-    res('Kommunikasjon', ks, 1.6, '📐',
-      `BARS-plassering + ${samt} vanskelige samtaler siste 28 d (+${Math.min(1.5,samt*0.12).toFixed(1)}) — utfordres i søndagsgjennomgangen`);
-  } else res('Kommunikasjon', null, null, '📐', 'Plassér deg på BARS-ankrene i kalibreringen');
+    const bonus = Math.min(1.2, samt*0.12);
+    if (kommE.v != null){
+      const pct = anchor(kommE.v, [[3,20],[4,32],[5,45],[6,58],[7,72],[8,85],[9,93],[10,96]]);
+      res('Kommunikasjon', ksDrift(pctKS(pct), kommE.gap) + bonus, uncOf(kommE.neff, 1.8, kommE.gap), '📐',
+        `Kommunikasjons-snitt ${kommE.v.toFixed(1)} (vektet 21 d) + ${samt} vanskelige samtaler (+${bonus.toFixed(1)})`, kommE.gap);
+    } else if (P.barsKomm != null){
+      res('Kommunikasjon', Math.min(19, P.barsKomm + bonus), 1.9, '📐',
+        `BARS-plassering + ${samt} vanskelige samtaler (+${bonus.toFixed(1)}) — den nye skyveren i kveldssjekken gjør dette levende`);
+    } else res('Kommunikasjon', null, null, '📐', 'Den nye skyveren i kveldssjekken + intervjuet gir dette liv');
+  }
 
   /* 16 · MÅNEDSLØNN 🌍 — SSB tabell 12521 (2024-nivå) */
   if (P.lonn){
@@ -1445,6 +1476,23 @@ function computeKS(){
     const pct = anchor(P.infl, [[0,22],[100,45],[500,62],[2000,75],[10000,86],[50000,93],[200000,97],[1000000,99],[10000000,99.9]]);
     res('Influence', pctKS(pct), 1.0, '🌍', `${fmt(P.infl)} i total rekkevidde på tvers av plattformer — oppdateres månedlig`);
   } else res('Influence', null, null, '🌍', 'Legg inn total rekkevidde (følgere/lesere) i kalibreringen');
+
+  /* v3 · presisjonsvektet blanding: logg + intervju-prior + ukessjekk + mikrospørsmål */
+  KS_ORDER.forEach(n => {
+    const d = out[n];
+    const deler = [];
+    if (d.ks != null){
+      const just = mikroJust(n);
+      deler.push({ks: Math.max(1, Math.min(19, d.ks + just)), unc: d.unc || 1.5, tag: 'logg'});
+      if (Math.abs(just) >= 0.05) d.note = (d.note || '') + ` · mikrosvar justerer ${just > 0 ? '+' : ''}${just.toFixed(1)}`;
+    }
+    const pr = priorEst(n); if (pr) deler.push({ks: pr.ks, unc: pr.unc, tag: 'intervju'});
+    const uk = ukeEst(n); if (uk) deler.push({ks: uk.ks, unc: uk.unc, tag: 'ukessjekk'});
+    if (!deler.length) return;
+    const b = blandKilder(deler);
+    out[n] = {ks: Math.max(1, Math.min(19, b.ks)), unc: b.unc, src: d.src, gap: d.gap,
+      note: (d.note || '') + ' · Kilder: ' + deler.map(x => x.tag).join(' + ')};
+  });
 
   return out;
 }
@@ -2060,6 +2108,249 @@ function ksMovers(before, after){
   return ut.slice(0,3).map(([n,d]) => d == null ? `${n} våknet ✨` :
     `${n} ${d>0?'▲':'▼'} ${Math.abs(d).toFixed(2).replace('.',',')}`).join(' · ');
 }
+
+/* ================================================================
+   KS-MOTOR v3 · PRESISJONSPAKKEN
+   Førstedagsintervju (prior) · søndagssjekk (BARS-kryssjekk)
+   · mikrospørsmål · Kommunikasjon-skyver · presisjonsvektet blanding
+   ================================================================ */
+
+/* ---------- migrering ---------- */
+if (!S.prior) S.prior = null;          /* {attr:{ks,unc}, dato} fra intervjuet */
+if (!S.uke) S.uke = {};                /* {søndagsdato:{attr:ks}} fra ukessjekk */
+
+/* ---------- BARS-stiger (intervju + søndagssjekk) ---------- */
+const KS_LADDER = {
+  'Disiplin': [[3,'Rutiner ryker oftere enn de holder'],[6,'Gjennomfører omtrent halvparten'],[9,'De fleste ukesmål; rutiner ~70 % av dagene'],[12,'90 %+ gjennomføring, måned etter måned'],[15,'År med daglig gjennomføring'],[17,'Aldri avvik — uansett dagsform']],
+  'Produktivitet': [[3,'Dagene forsvinner; lite blir ferdig'],[6,'Får unna det som haster'],[9,'Jevn produksjon, litt dypt arbeid daglig'],[12,'3+ timer dypt arbeid de fleste dager'],[15,'Output folk rundt deg ikke forstår'],[17,'Blant de mest produktive i landet']],
+  'Fokus': [[3,'Avbrytes hvert femte minutt'],[6,'Klarer 20–30 min i strekk'],[9,'45–60-minuttersblokker går fint'],[12,'90+ min dyp konsentrasjon daglig'],[15,'Timer i strekk, på kommando'],[17,'Absolutt kontroll over oppmerksomheten']],
+  'Stressregulering': [[3,'Små ting velter meg'],[6,'Takler hverdagen, men kjenner det'],[9,'Rolig i de fleste situasjoner'],[12,'Rolig også under reelt press'],[15,'Roligere jo verre det blir'],[17,'Is i magen i kriser — folk lener seg på meg']],
+  'Humørstabilitet': [[3,'Store svingninger, flere ganger daglig'],[6,'Merkbare svingninger gjennom uka'],[9,'Stort sett jevn, med unntak'],[12,'Jevn uke etter uke'],[15,'Nesten uforstyrrelig'],[17,'Stabil gjennom kriser og triumfer']],
+  'Kosthold': [[3,'Mest impulsmat'],[6,'Blandet — godt og dårlig om hverandre'],[9,'Mest ordentlig mat, noen glipper'],[12,'Planlagt og jevnt, 80/20'],[15,'Presist, år etter år'],[17,'Utøvernivå, hver eneste dag']],
+  'Kommunikasjon': BARS_KOMM,
+};
+
+/* ---------- mikrospørsmål-bank (roterer daglig, ett per sjekk) ---------- */
+const MQ_MORGEN = [
+  {id:'m1', attr:'Søvn', sp:'Våknet du av deg selv, uten alarm?', alt:[['Ja',85],['Nesten',60],['Nei',40]]},
+  {id:'m2', attr:'Søvn', sp:'Hvor mange ganger våknet du i natt?', alt:[['0',90],['1',70],['2',45],['3+',25]]},
+  {id:'m3', attr:'Restitusjon', sp:'Føles kroppen uthvilt i dag?', alt:[['Ja',85],['Delvis',55],['Nei',25]]},
+  {id:'m4', attr:'Kosthold', sp:'Spiste du noe etter kl. 21 i går?', alt:[['Nei',80],['Litt',50],['Mye',22]]},
+];
+const MQ_KVELD = [
+  {id:'k1', attr:'Fokus', sp:'Lengste uavbrutte arbeidsblokk i dag?', alt:[['<20 m',25],['20–45',50],['45–90',75],['90+',92]]},
+  {id:'k2', attr:'Digital selvkontroll', sp:'Ganger du tok telefonen uten grunn?', alt:[['0–3',90],['4–10',65],['11–25',40],['25+',15]]},
+  {id:'k3', attr:'Kosthold', sp:'Måltider med grønnsaker i dag?', alt:[['0',20],['1',50],['2',75],['3+',90]]},
+  {id:'k4', attr:'Disiplin', sp:'Gjorde du dagens viktigste oppgave FØR noe hyggelig?', alt:[['Ja',88],['Delvis',55],['Nei',25]]},
+  {id:'k5', attr:'Stressregulering', sp:'Tok du bevisste pauser med ro i dag?', alt:[['Flere',85],['Én',60],['Ingen',35]]},
+  {id:'k6', attr:'Humørstabilitet', sp:'Smilte eller lo du ordentlig i dag?', alt:[['Mange ganger',85],['Noen',60],['Knapt',30]]},
+  {id:'k7', attr:'Produktivitet', sp:'Ble dagens plan faktisk fulgt?', alt:[['Ja',85],['Delvis',55],['Nei',25]]},
+  {id:'k8', attr:'Kommunikasjon', sp:'Sa du tydelig ifra om noe viktig i dag?', alt:[['Ja',85],['Delvis',55],['Nei',30]]},
+];
+const MQ_BY_ID = {};
+MQ_MORGEN.concat(MQ_KVELD).forEach(q => MQ_BY_ID[q.id] = q);
+
+function dagIndeks(){ return Math.floor(new Date(today() + 'T12:00:00').getTime() / 864e5); }
+function fyllMq(){
+  [['#m-mqwrap','#m-mqlab','#m-mq', MQ_MORGEN],['#k-mqwrap','#k-mqlab','#k-mq', MQ_KVELD]].forEach(([w, lab, seg, pool]) => {
+    const wrap = $(w); if (!wrap) return;
+    const q = pool[dagIndeks() % pool.length];
+    wrap.style.display = '';
+    wrap.dataset.mqid = q.id;
+    $(lab).innerHTML = q.sp + ' <span class="auto">· dagens mikrospørsmål</span>';
+    const s = $(seg); s.replaceChildren();
+    q.alt.forEach(([txt, val]) => {
+      const b = document.createElement('button'); b.textContent = txt; b.dataset.v = val;
+      b.addEventListener('click', () => { s.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on'); });
+      s.appendChild(b);
+    });
+  });
+}
+function lesMq(wrapSel){
+  const wrap = $(wrapSel); if (!wrap) return null;
+  const on = wrap.querySelector('.seg .on'); if (!on) return null;
+  return {id: wrap.dataset.mqid, v: +on.dataset.v};
+}
+
+/* ---------- kildeblanding (presisjonsvektet) ---------- */
+function blandKilder(deler){
+  const s = deler.filter(x => x && x.ks != null && x.unc);
+  if (!s.length) return null;
+  let num = 0, den = 0;
+  s.forEach(x => { const w = 1/(x.unc*x.unc); num += x.ks*w; den += w; });
+  return {ks: num/den, unc: Math.sqrt(1/den)};
+}
+function priorEst(n){
+  if (!S.prior || !S.prior.v || S.prior.v[n] == null) return null;
+  const dager = Math.max(0, Math.round((new Date(today()+'T12:00:00') - new Date(S.prior.dato+'T12:00:00'))/864e5));
+  return {ks: S.prior.v[n].ks, unc: Math.min(3.2, S.prior.v[n].unc + 0.012*dager)};
+}
+function ukeEst(n){
+  const keys = Object.keys(S.uke).sort();
+  if (!keys.length) return null;
+  let sw = 0, sv = 0, sisteUker = null;
+  keys.forEach(k => {
+    const v = S.uke[k] && S.uke[k][n]; if (v == null) return;
+    const uker = Math.max(0, Math.round((new Date(today()+'T12:00:00') - new Date(k+'T12:00:00'))/(864e5*7)));
+    const w = Math.pow(0.5, uker/3);
+    sw += v*w; sv += w;
+    if (sisteUker === null || uker < sisteUker) sisteUker = uker;
+  });
+  if (!sv) return null;
+  return {ks: sw/sv, unc: Math.min(2.6, 1.3 + 0.12*(sisteUker || 0))};
+}
+function mikroJust(n){
+  const mE = ksEwma(e => {
+    let sum = 0, ant = 0;
+    if (e.m && e.m.mq && MQ_BY_ID[e.m.mq.id] && MQ_BY_ID[e.m.mq.id].attr === n){ sum += e.m.mq.v; ant++; }
+    if (e.k && e.k.mq && MQ_BY_ID[e.k.mq.id] && MQ_BY_ID[e.k.mq.id].attr === n){ sum += e.k.mq.v; ant++; }
+    return ant ? sum/ant : null;
+  }, 21);
+  if (mE.v == null || mE.neff < 1) return 0;
+  return (mE.v - 50)/50 * 0.8;   /* objektive mikrosvar justerer ±0,8 KS */
+}
+
+/* ---------- FØRSTEDAGSINTERVJUET ---------- */
+function openIntervju(){
+  const bg = $('#intBg'), body = $('#intBody');
+  body.replaceChildren();
+  const P = S.profil;
+  const sel = (id, lab, opts, valgt) => {
+    const f = document.createElement('div'); f.className = 'fld';
+    const l = document.createElement('label'); l.textContent = lab; f.appendChild(l);
+    const s = document.createElement('select'); s.className = 'in'; s.id = id;
+    const o0 = document.createElement('option'); o0.value = ''; o0.textContent = '— velg —'; s.appendChild(o0);
+    opts.forEach(([v, t]) => { const o = document.createElement('option'); o.value = v; o.textContent = t; s.appendChild(o); });
+    if (valgt != null) s.value = valgt;
+    f.appendChild(s); body.appendChild(f);
+  };
+  const num = (id, lab, ph, val) => {
+    const f = document.createElement('div'); f.className = 'fld';
+    const l = document.createElement('label'); l.textContent = lab; f.appendChild(l);
+    const i = document.createElement('input'); i.className = 'in'; i.id = id; i.type = 'number'; i.placeholder = ph;
+    if (val != null) i.value = val;
+    f.appendChild(i); body.appendChild(f);
+  };
+  const sect = t => { const p = document.createElement('p'); p.className = 'sect'; p.textContent = t; body.appendChild(p); };
+
+  sect('Del 1 · Plassér deg ærlig — velg beskrivelsen som ligner mest');
+  Object.keys(KS_LADDER).forEach(attr => {
+    sel('int-' + attr, attr, KS_LADDER[attr].map(([ks, t]) => [ks, `«${t}»`]),
+      attr === 'Kommunikasjon' && P.barsKomm != null ? P.barsKomm : null);
+  });
+  sect('Del 2 · Vanene dine, et vanlig år');
+  sel('int-kondis', 'Kondisjonsøkter per uke', [[0,'0'],[1,'1'],[2,'2'],[3,'3'],[4,'4+']], null);
+  sel('int-styrke', 'Styrkeøkter per uke', [[0,'0'],[1,'1'],[2,'2'],[3,'3+']], null);
+  sel('int-sovn', 'Vanlig nattesøvn', [[5,'Under 6 t'],[6.5,'6–7 t'],[7.5,'7–8 t'],[8.5,'8–9 t'],[9.5,'Over 9 t']], null);
+  sel('int-rytme', 'Leggetiden din', [[1,'Fast, ±30 min'],[0,'Varierer en del'],[-1,'Helt uforutsigbar / skift']], null);
+  sel('int-alk', 'Alkoholenheter i en vanlig uke', [[0,'0'],[2,'1–3'],[5,'4–7'],[11,'8–14'],[18,'15+']], null);
+  sel('int-skjerm', 'Skjermtid på telefonen per dag', [[75,'Under 1,5 t'],[135,'1,5–3 t'],[210,'3–4 t'],[300,'4–6 t'],[420,'Over 6 t']], null);
+  sel('int-uthvilt', 'Våkner du vanligvis uthvilt?', [[8.5,'Som regel'],[6,'Av og til'],[4,'Sjelden']], null);
+  num('int-boker', 'Bøker du leser i året', '12', P.boker);
+  num('int-puls', 'Hvilepuls om du vet den (ellers blank)', '55', null);
+  sect('Del 3 · Rammene (til formlene)');
+  num('int-alder', 'Alder', '30', P.alder);
+  num('int-hoyde', 'Høyde (cm)', '182', P.hoyde);
+  num('int-lonn', 'Månedslønn brutto (kr)', '52000', P.lonn);
+  num('int-infl', 'Total rekkevidde (følgere/lesere)', '850', P.infl);
+
+  const btn = document.createElement('button'); btn.className = 'cta'; btn.textContent = 'Fullfør kalibreringen — tenn ringen';
+  btn.addEventListener('click', fullforIntervju);
+  body.appendChild(btn);
+  const senere = document.createElement('button'); senere.className = 'kslukk'; senere.style.marginTop = '8px'; senere.textContent = 'Senere';
+  senere.addEventListener('click', () => { S.intervjuUtsatt = 1; save(); bg.classList.remove('on'); });
+  body.appendChild(senere);
+  bg.classList.add('on');
+}
+function fullforIntervju(){
+  const P = S.profil;
+  const g = id => { const el = $('#int-' + id); return el && el.value !== '' ? parseFloat(el.value) : null; };
+  const pv = {};
+  Object.keys(KS_LADDER).forEach(attr => { const v = g(attr); if (v != null) pv[attr] = {ks: v, unc: 2.2}; });
+  if (pv['Kommunikasjon']) P.barsKomm = pv['Kommunikasjon'].ks;
+  const kondis = g('kondis'), styrke = g('styrke'), sovn = g('sovn'), rytme = g('rytme'),
+        alk = g('alk'), skjerm = g('skjerm'), uthvilt = g('uthvilt');
+  if (kondis != null) pv['Kondisjon'] = {ks: [4.5,6,7.5,9,11][kondis], unc: 2.6};
+  if (styrke != null) pv['Styrke'] = {ks: [4.5,6.5,8,9.5][styrke], unc: 2.8};
+  if (sovn != null){ let ks = anchor(sovn, [[5,3.5],[6.5,6],[7.5,9.5],[8.5,10.5],[9.5,7]]);
+    if (rytme != null) ks += rytme; pv['Søvn'] = {ks: Math.max(1, ks), unc: 2.2}; }
+  if (alk != null) pv['Alkohol-moderasjon'] = {ks: anchor(alk, [[0,12.5],[2,10.5],[5,8.5],[11,6],[18,3.5]]), unc: 2.0};
+  if (skjerm != null) pv['Digital selvkontroll'] = {ks: anchor(skjerm, [[75,12],[135,9.5],[210,7],[300,4.5],[420,2.5]]), unc: 2.2};
+  if (uthvilt != null) pv['Restitusjon'] = {ks: uthvilt, unc: 2.6};
+  const boker = g('boker'); if (boker != null) P.boker = boker;
+  const puls = g('puls');
+  if (puls){ const e = S.logg[today()] = S.logg[today()] || {}; if (!e.m) e.m = {puls: puls, legg:'', vaakn:'', sovnK: null, energi: null}; else if (!e.m.puls) e.m.puls = puls; }
+  ['alder','hoyde','lonn','infl'].forEach(k => { const v = g(k); if (v != null) P[k] = v; });
+  S.prior = {v: pv, dato: today()};
+  S.intervju = {dato: today()};
+  save();
+  $('#intBg').classList.remove('on');
+  toast('🧭 Kalibrert! Ringen tenner — og hver sjekk gjør den ærligere');
+  renderProfil(); renderArkiv();
+}
+
+/* ---------- SØNDAGSSJEKKEN ---------- */
+function ukeNokkel(){
+  const d = new Date(today() + 'T12:00:00');
+  const dag = d.getDay();                       /* 0 = søndag */
+  d.setDate(d.getDate() - (dag === 0 ? 0 : dag));  /* forrige søndag */
+  return dateKey(d);
+}
+function ukesjekkTilgjengelig(){
+  const dag = new Date(today() + 'T12:00:00').getDay();
+  return (dag === 0 || dag === 1) && !S.uke[ukeNokkel()] && completeDays().length >= 3;
+}
+function visUkeKort(){
+  const kort = $('#ukeKort'); if (!kort) return;
+  kort.style.display = ukesjekkTilgjengelig() ? '' : 'none';
+}
+function openUkesjekk(){
+  const bg = $('#ukeBg'), body = $('#ukeBody');
+  body.replaceChildren();
+  const intro = document.createElement('p'); intro.className = 'sect';
+  intro.textContent = 'Plassér UKA di — dette kryssjekker de daglige skyverne';
+  body.appendChild(intro);
+  Object.keys(KS_LADDER).filter(a => a !== 'Produktivitet').forEach(attr => {
+    const f = document.createElement('div'); f.className = 'fld';
+    const l = document.createElement('label'); l.textContent = attr; f.appendChild(l);
+    const s = document.createElement('select'); s.className = 'in'; s.id = 'uke-' + attr;
+    const o0 = document.createElement('option'); o0.value = ''; o0.textContent = '— velg ankeret som ligner mest —'; s.appendChild(o0);
+    KS_LADDER[attr].forEach(([ks, t]) => { const o = document.createElement('option'); o.value = ks; o.textContent = `«${t}»`; s.appendChild(o); });
+    f.appendChild(s); body.appendChild(f);
+  });
+  const btn = document.createElement('button'); btn.className = 'cta'; btn.textContent = 'Lagre ukessjekken';
+  btn.addEventListener('click', () => {
+    const u = {};
+    Object.keys(KS_LADDER).filter(a => a !== 'Produktivitet').forEach(attr => {
+      const el = $('#uke-' + attr); if (el && el.value !== '') u[attr] = parseFloat(el.value);
+    });
+    if (!Object.keys(u).length){ toast('Velg minst ett anker'); return; }
+    S.uke[ukeNokkel()] = u; save();
+    bg.classList.remove('on');
+    toast('🗓 Ukessjekk lagret — estimatene er kryssjekket');
+    visUkeKort(); renderProfil(); renderArkiv();
+  });
+  body.appendChild(btn);
+  const lukk = document.createElement('button'); lukk.className = 'kslukk'; lukk.style.marginTop = '8px'; lukk.textContent = 'Lukk';
+  lukk.addEventListener('click', () => bg.classList.remove('on'));
+  body.appendChild(lukk);
+  bg.classList.add('on');
+}
+
+/* ---------- Kommunikasjon-skyver: kategori i slider-systemet ---------- */
+CATS.komm = {col: ramp(['#c9c6c9','#9fb3c8','#7a9fd4','#4a90d9','#e2b13c']),
+  icon: v => ['🤐','😶','💭','🗨️','💬','🗣️','📣','🎙️','🎤','🏛️'][v-1],
+  anim: (el, v) => { el.style.animation = v >= 8 ? 'floaty 1.8s ease infinite' : 'none';
+    el.style.filter = v >= 7 ? `drop-shadow(0 0 ${v-5}px rgba(226,177,60,0.55))` : ''; el.style.transform = ''; }};
+
+/* ---------- init v3 ---------- */
+fyllMq();
+$('#ukeKort') && $('#ukeKort').addEventListener('click', openUkesjekk);
+$('#intervjuBtn') && $('#intervjuBtn').addEventListener('click', openIntervju);
+$('#intBg').addEventListener('click', ev => { if (ev.target.id === 'intBg') {} });   /* intervjuet lukkes kun via knappene */
+$('#ukeBg').addEventListener('click', ev => { if (ev.target.id === 'ukeBg') $('#ukeBg').classList.remove('on'); });
+visUkeKort();
+if (!S.intervju && !S.intervjuUtsatt) setTimeout(openIntervju, 700);
 
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
