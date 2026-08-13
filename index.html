@@ -708,7 +708,7 @@
 </div></div>
 <div class="ksbg" id="intBg"><div class="ksmodal" id="intModal">
   <div class="ksmtag" style="color:#e2b13c">🧭 KALIBRERINGSINTERVJUET</div>
-  <div class="ksmband">Ærlige svar gir motoren et startpunkt — loggen din sliper det skarpt etterpå. Alt kan endres senere.</div>
+  <div class="ksmband">Ærlige svar gir motoren et startpunkt — loggen sliper det skarpt etterpå. Overdriver du, blir fallet synlig i ringen: høye påstander får ekstra skepsis og må bevises med data. Velg det som er sant I DAG, ikke det du sikter mot.</div>
   <div id="intBody"></div>
 </div></div>
 <div class="ksbg" id="ukeBg"><div class="ksmodal" id="ukeModal">
@@ -1722,12 +1722,18 @@ const KS_METODE = {
 
 /* ---------- BARS-ankere for Kommunikasjon (kalibrering) ---------- */
 const BARS_KOMM = [
-  [3,  'Unngår vanskelige samtaler; blir ofte misforstått'],
-  [6,  'Fungerer greit én-til-én, men sliter i grupper og skriftlig'],
-  [9,  'Klar én-til-én og i kjent gruppe; enkel presentasjon går fint'],
-  [12, 'Overbeviser i møter, skriver klart, håndterer konflikt rolig'],
-  [15, 'Holder foredrag uten manus; vinner rommet regelmessig'],
-  [17, 'Retorisk elite — bygger følgerskap gjennom ord alene'],
+  [2,   'Unngår vanskelige samtaler helt'],
+  [3.5, 'Misforstås ofte; utsetter konfrontasjoner i ukevis'],
+  [5,   'Fungerer én-til-én med folk jeg kjenner godt'],
+  [6.5, 'Grei én-til-én; grupper og skriftlig er verre'],
+  [8,   'Klar i kjent lag; en enkel presentasjon går'],
+  [9.5, 'Tar vanskelige samtaler når jeg må — innen et par dager'],
+  [11,  'Overbeviser i møter; skriver klart og kort'],
+  [12.5,'Håndterer konflikt rolig og tydelig, også med sjefer'],
+  [14,  'Holder foredrag uten manus'],
+  [15,  'Vinner rommet regelmessig — folk siterer meg etterpå'],
+  [16,  'Folk endrer faktisk mening når jeg snakker'],
+  [17,  'Retorisk elite — bygger følgerskap gjennom ord alene'],
 ];
 
 /* ---------- ARKIVET: figurdata (📜 fra dossierene) ---------- */
@@ -2278,12 +2284,12 @@ if (!S.uke) S.uke = {};                /* {søndagsdato:{attr:ks}} fra ukessjekk
 
 /* ---------- BARS-stiger (intervju + søndagssjekk) ---------- */
 const KS_LADDER = {
-  'Disiplin': [[3,'Rutiner ryker oftere enn de holder'],[6,'Gjennomfører omtrent halvparten'],[9,'De fleste ukesmål; rutiner ~70 % av dagene'],[12,'90 %+ gjennomføring, måned etter måned'],[15,'År med daglig gjennomføring'],[17,'Aldri avvik — uansett dagsform']],
-  'Produktivitet': [[3,'Dagene forsvinner; lite blir ferdig'],[6,'Får unna det som haster'],[9,'Jevn produksjon, litt dypt arbeid daglig'],[12,'3+ timer dypt arbeid de fleste dager'],[15,'Output folk rundt deg ikke forstår'],[17,'Blant de mest produktive i landet']],
-  'Fokus': [[3,'Avbrytes hvert femte minutt'],[6,'Klarer 20–30 min i strekk'],[9,'45–60-minuttersblokker går fint'],[12,'90+ min dyp konsentrasjon daglig'],[15,'Timer i strekk, på kommando'],[17,'Absolutt kontroll over oppmerksomheten']],
-  'Stressregulering': [[3,'Små ting velter meg'],[6,'Takler hverdagen, men kjenner det'],[9,'Rolig i de fleste situasjoner'],[12,'Rolig også under reelt press'],[15,'Roligere jo verre det blir'],[17,'Is i magen i kriser — folk lener seg på meg']],
-  'Humørstabilitet': [[3,'Store svingninger, flere ganger daglig'],[6,'Merkbare svingninger gjennom uka'],[9,'Stort sett jevn, med unntak'],[12,'Jevn uke etter uke'],[15,'Nesten uforstyrrelig'],[17,'Stabil gjennom kriser og triumfer']],
-  'Kosthold': [[3,'Mest impulsmat'],[6,'Blandet — godt og dårlig om hverandre'],[9,'Mest ordentlig mat, noen glipper'],[12,'Planlagt og jevnt, 80/20'],[15,'Presist, år etter år'],[17,'Utøvernivå, hver eneste dag']],
+  'Disiplin': [[2,'Rutiner finnes ikke — dagene skjer med meg'],[3.5,'Starter ofte, fullfører sjelden'],[5,'Fullfører når det passer — under halvparten'],[6.5,'Omtrent halvparten blir gjennomført'],[8,'Litt over halvparten — gode uker og dårlige'],[9.5,'De fleste ukesmål; rutiner ~70 % av dagene'],[11,'Rutinene står — glipper noen dager i måneden'],[12.5,'90 %+ gjennomføring, måned etter måned'],[14,'Nesten aldri avvik — også når livet støyer'],[15,'År med daglig gjennomføring bak meg'],[16,'Ingen unnskyldning aksepteres — dokumentert over år'],[17,'Aldri avvik uansett dagsform — folk bruker meg som eksempel']],
+  'Produktivitet': [[2,'Dagene forsvinner — jeg vet ikke hvor'],[3.5,'Mye travelhet, lite ferdig'],[5,'Får unna det som haster, sjelden mer'],[6.5,'Jevn drift, men lite dypt arbeid'],[8,'Noe dypt arbeid de fleste uker'],[9.5,'Litt dypt arbeid daglig; ting blir faktisk ferdig'],[11,'1–2 timer dypt daglig, jevn leveranse'],[12.5,'3+ timer dypt de fleste dager'],[14,'Tempo folk rundt meg ikke forstår'],[15,'Systematisk høy produksjon over år'],[16,'Blant de mest produktive folk kjenner'],[17,'Output på et nivå folk skriver om']],
+  'Fokus': [[2,'Avbrytes hvert femte minutt — også av meg selv'],[3.5,'Sjekker telefonen midt i alt'],[5,'Klarer 15–20 min i strekk'],[6.5,'20–30 min før jeg glipper'],[8,'30–45-minuttersblokker går greit'],[9.5,'45–60-minuttersblokker går fint'],[11,'60–90 min dyp konsentrasjon daglig'],[12.5,'90+ min daglig, på kommando'],[14,'To-tre timers økter uten å miste grepet'],[15,'Timer i strekk, dag etter dag'],[16,'Dyp konsentrasjon er standardtilstanden min'],[17,'Distraksjon er et valg jeg ikke tar']],
+  'Stressregulering': [[2,'Små ting velter meg helt'],[3.5,'Stresset styrer mange av dagene'],[5,'Merker stress i kroppen ukentlig'],[6.5,'Takler hverdagen, men kjenner det godt'],[8,'Vanlige uker er greie; toppene tar meg'],[9.5,'Rolig i de fleste situasjoner'],[11,'Rolig også når det faktisk gjelder'],[12.5,'Rolig under reelt press; henter meg fort'],[14,'Press skjerper meg oftere enn det sliter'],[15,'Roligere jo verre det blir'],[16,'Kriser gjør meg metodisk'],[17,'Is i magen alltid — folk lener seg på meg i kaos']],
+  'Humørstabilitet': [[2,'Store svingninger flere ganger daglig'],[3.5,'Dagene farges helt av humøret'],[5,'Merkbare svingninger gjennom uka'],[6.5,'Litt berg-og-dalbane, men fungerer'],[8,'Stort sett jevn, med tydelige unntak'],[9.5,'Jevn de fleste uker'],[11,'Jevn uke etter uke; dupp varer kort'],[12.5,'Stabil selv i tunge perioder'],[14,'Nesten uforstyrrelig'],[15,'Stabil gjennom kriser og triumfer'],[16,'Andre bruker roen min som anker'],[17,'Urokkelig — år uten reelle kollapser']],
+  'Kosthold': [[2,'Impulsmat styrer — planlegging finnes ikke'],[3.5,'Mest kjapt og lettvint'],[5,'Blandet — godt og dårlig om hverandre'],[6.5,'Prøver, men helgene raserer'],[8,'Mest ordentlig mat, jevnlige glipper'],[9.5,'Ordentlig mat de fleste dager'],[11,'Planlagt og jevnt — 80/20 står'],[12.5,'Presist gjennom måneder'],[14,'Presist år etter år'],[15,'Kostholdet er et system, ikke en kamp'],[16,'Utøvernivå de fleste dager'],[17,'Utøvernivå hver dag, år etter år']],
   'Kommunikasjon': BARS_KOMM,
 };
 
@@ -2395,14 +2401,14 @@ function openIntervju(){
     sel('int-' + attr, attr, KS_LADDER[attr].map(([ks, t]) => [ks, `«${t}»`]),
       attr === 'Kommunikasjon' && P.barsKomm != null ? P.barsKomm : null);
   });
-  sect('Del 2 · Vanene dine, et vanlig år');
-  sel('int-kondis', 'Kondisjonsøkter per uke', [[0,'0'],[1,'1'],[2,'2'],[3,'3'],[4,'4+']], null);
-  sel('int-styrke', 'Styrkeøkter per uke', [[0,'0'],[1,'1'],[2,'2'],[3,'3+']], null);
-  sel('int-sovn', 'Vanlig nattesøvn', [[5,'Under 6 t'],[6.5,'6–7 t'],[7.5,'7–8 t'],[8.5,'8–9 t'],[9.5,'Over 9 t']], null);
-  sel('int-rytme', 'Leggetiden din', [[1,'Fast, ±30 min'],[0,'Varierer en del'],[-1,'Helt uforutsigbar / skift']], null);
-  sel('int-alk', 'Alkoholenheter i en vanlig uke', [[0,'0'],[2,'1–3'],[5,'4–7'],[11,'8–14'],[18,'15+']], null);
-  sel('int-skjerm', 'Skjermtid på telefonen per dag', [[75,'Under 1,5 t'],[135,'1,5–3 t'],[210,'3–4 t'],[300,'4–6 t'],[420,'Over 6 t']], null);
-  sel('int-uthvilt', 'Våkner du vanligvis uthvilt?', [[8.5,'Som regel'],[6,'Av og til'],[4,'Sjelden']], null);
+  sect('Del 2 · Vanene dine — et ærlig gjennomsnitt av de siste 3 månedene');
+  sel('int-kondis', 'Kondisjonsøkter per uke (faktisk gjennomført)', [[0,'0'],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']], null);
+  sel('int-styrke', 'Styrkeøkter per uke (faktisk gjennomført)', [[0,'0'],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6+']], null);
+  sel('int-sovn', 'Faktisk nattesøvn en vanlig natt', [[4.5,'Under 5 t'],[5.5,'5–6 t'],[6.25,'6–6,5 t'],[6.75,'6,5–7 t'],[7.25,'7–7,5 t'],[7.75,'7,5–8 t'],[8.25,'8–8,5 t'],[8.75,'8,5–9 t'],[9.5,'Over 9 t']], null);
+  sel('int-rytme', 'Leggetiden din', [[1.5,'Fast, ±15 min'],[0.8,'Ganske fast, ±30–45 min'],[0,'Varierer med over en time'],[-1.5,'Helt uforutsigbar / skiftarbeid']], null);
+  sel('int-alk', 'Alkoholenheter i en vanlig uke (tell forrige uke)', [[0,'0'],[0.5,'Under 1'],[2,'1–3'],[5,'4–7'],[9,'8–10'],[12.5,'11–14'],[17.5,'15–20'],[24,'21+']], null);
+  sel('int-skjerm', 'Skjermtid per dag (sjekk telefonens egen statistikk nå)', [[45,'Under 1 t'],[75,'1–1,5 t'],[105,'1,5–2 t'],[150,'2–3 t'],[210,'3–4 t'],[270,'4–5 t'],[330,'5–6 t'],[420,'Over 6 t']], null);
+  sel('int-uthvilt', 'Hvor ofte våkner du faktisk uthvilt?', [[9.5,'Nesten alltid'],[8.5,'Som regel'],[7.5,'Oftere enn ikke'],[6,'Omtrent halvparten'],[4.5,'Sjelden'],[3,'Nesten aldri']], null);
   num('int-boker', 'Bøker du leser i året', '12', P.boker);
   num('int-puls', 'Hvilepuls om du vet den (ellers blank)', '55', null);
   sect('Del 3 · Rammene (til formlene)');
@@ -2423,16 +2429,21 @@ function fullforIntervju(){
   const P = S.profil;
   const g = id => { const el = $('#int-' + id); return el && el.value !== '' ? parseFloat(el.value) : null; };
   const pv = {};
-  Object.keys(KS_LADDER).forEach(attr => { const v = g(attr); if (v != null) pv[attr] = {ks: v, unc: 2.2}; });
+  /* skeptiker-prior: høye selvpåstander krympes og får større usikkerhet — de må BEVISES i loggen */
+  Object.keys(KS_LADDER).forEach(attr => { const v = g(attr); if (v != null){
+    const ks = v >= 14 ? 14 + (v - 14) * 0.7 : v;
+    const unc = v >= 14 ? 2.8 : v >= 11 ? 2.4 : 2.2;
+    pv[attr] = {ks, unc};
+  }});
   if (pv['Kommunikasjon']) P.barsKomm = pv['Kommunikasjon'].ks;
   const kondis = g('kondis'), styrke = g('styrke'), sovn = g('sovn'), rytme = g('rytme'),
         alk = g('alk'), skjerm = g('skjerm'), uthvilt = g('uthvilt');
-  if (kondis != null) pv['Kondisjon'] = {ks: [4.5,6,7.5,9,11][kondis], unc: 2.6};
-  if (styrke != null) pv['Styrke'] = {ks: [4.5,6.5,8,9.5][styrke], unc: 2.8};
-  if (sovn != null){ let ks = anchor(sovn, [[5,3.5],[6.5,6],[7.5,9.5],[8.5,10.5],[9.5,7]]);
+  if (kondis != null) pv['Kondisjon'] = {ks: [4.5,6,7.5,9,10.5,11.5,12.5,13.5][kondis], unc: kondis >= 5 ? 2.9 : 2.6};
+  if (styrke != null) pv['Styrke'] = {ks: [4.5,6.5,8,9.5,10.5,11.5,12.5][styrke], unc: styrke >= 4 ? 3.0 : 2.8};
+  if (sovn != null){ let ks = anchor(sovn, [[4.5,3],[5.5,4.5],[6.25,5.5],[6.75,6.5],[7.25,8.5],[7.75,9.8],[8.25,10.5],[8.75,10],[9.5,7.5]]);
     if (rytme != null) ks += rytme; pv['Søvn'] = {ks: Math.max(1, ks), unc: 2.2}; }
-  if (alk != null) pv['Alkohol-moderasjon'] = {ks: anchor(alk, [[0,12.5],[2,10.5],[5,8.5],[11,6],[18,3.5]]), unc: 2.0};
-  if (skjerm != null) pv['Digital selvkontroll'] = {ks: anchor(skjerm, [[75,12],[135,9.5],[210,7],[300,4.5],[420,2.5]]), unc: 2.2};
+  if (alk != null) pv['Alkohol-moderasjon'] = {ks: anchor(alk, [[0,12.5],[0.5,11.5],[2,10.5],[5,8.5],[9,6.5],[12.5,5],[17.5,3.5],[24,2.5]]), unc: 2.0};
+  if (skjerm != null) pv['Digital selvkontroll'] = {ks: anchor(skjerm, [[45,13],[75,12],[105,10.5],[150,9],[210,7],[270,5.5],[330,4],[420,2.5]]), unc: skjerm <= 75 ? 2.6 : 2.2};
   if (uthvilt != null) pv['Restitusjon'] = {ks: uthvilt, unc: 2.6};
   const boker = g('boker'); if (boker != null) P.boker = boker;
   const puls = g('puls');
