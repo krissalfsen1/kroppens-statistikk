@@ -369,6 +369,69 @@
   .stokkdu{position:absolute;left:0;width:60px;text-align:right;font-size:10.5px;font-weight:800;
     color:#141414;background:linear-gradient(140deg,#e2b13c,#ffd97a);border-radius:8px;padding:4px 5px;
     z-index:4;animation:hotpulse 1.2s ease infinite}
+
+  /* ===== KRIGSROMMET (mørk Hjem) ===== */
+  #pg-hjem{color:#eceada}
+  #pg-hjem .appbar h1{font-family:Georgia,serif;letter-spacing:2px;color:#eceada}
+  #pg-hjem .appbar .day{color:#9a9887}
+  .kommando{background:linear-gradient(160deg,#1a1c26,#12141b);border:1px solid #8e8468;border-radius:16px;
+    padding:13px;margin-bottom:10px;text-align:center}
+  .kommando .stor{font-family:Georgia,serif;font-size:13.5px;letter-spacing:1px;color:#ffd97a;
+    text-shadow:0 0 12px rgba(226,177,60,0.55);line-height:1.5;font-style:italic}
+  .kommando .und{font-size:10px;color:#9a9887;margin-top:4px;letter-spacing:0.5px}
+  #pg-hjem .lvlrow{margin:2px 0 10px}
+  #pg-hjem .lvlbadge{background:#241f12;border:1px solid #e2b13c;color:#ffd97a}
+  #pg-hjem .lvlbar{background:#1c1e26}
+  #pg-hjem .lvlfill{background:linear-gradient(90deg,#8a6a1d,#e2b13c)}
+  #pg-hjem .lvltxt{color:#77756a}
+  .seglrad{display:flex;justify-content:center;gap:24px;margin:6px 0 8px}
+  .segl{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .segl i{font-style:normal;font-size:8px;letter-spacing:1.6px;color:#8e8468}
+  .krigstatus{text-align:center;font-size:11px;color:#9a9887;margin-bottom:3px}
+  #pg-hjem .streakchip{background:#241f12;border:1px solid rgba(226,177,60,0.4);color:#e2b13c}
+  #pg-hjem .sect{color:#8e8468;font-family:Georgia,serif;letter-spacing:2px}
+  #pg-hjem .sect .plain{color:#5c5a50}
+  .moduseg{margin-bottom:9px}
+  #pg-hjem .seg{background:#14161d;border-color:rgba(255,255,255,0.1)}
+  #pg-hjem .seg button{color:#9a9887}
+  #pg-hjem .seg button.on{background:#241f12;color:#ffd97a;box-shadow:0 0 8px rgba(226,177,60,0.3)}
+  .oppdrag{border-radius:14px;padding:11px 12px;margin-bottom:9px;position:relative;
+    border:1px solid rgba(255,255,255,0.09);background:#16181f}
+  .o-topp{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+  .o-navn{font-family:Georgia,serif;font-size:12px;letter-spacing:1px;color:#eceada}
+  .o-attr{color:#8e8468;font-size:9.5px;letter-spacing:0.5px}
+  .o-tid{font-size:9px;color:#8e8468;letter-spacing:1px;white-space:nowrap}
+  .o-besk{font-size:11px;color:#9a9887;margin:3px 0 7px}
+  .o-bar{height:9px;background:#0e1015;border-radius:5px;overflow:hidden}
+  .o-fyll{height:100%;border-radius:5px;background:linear-gradient(90deg,#8a6a1d,#e2b13c);
+    box-shadow:0 0 10px rgba(226,177,60,0.5);transition:width 0.8s cubic-bezier(0.2,0.8,0.2,1)}
+  .o-meta{display:flex;justify-content:space-between;font-size:9.5px;color:#77756a;margin-top:5px}
+  .o-re{color:#e2b13c;cursor:pointer;letter-spacing:0.5px}
+  .uke-o{border-color:#8e8468}
+  .mnd-o{border-color:rgba(226,177,60,0.5)}
+  .aar-o{border-color:#e2b13c;box-shadow:0 0 14px rgba(226,177,60,0.15)}
+  .oppdrag.klart{border-color:#e2b13c;background:linear-gradient(160deg,#241f12,#16181f)}
+  .oppdrag.klart .o-navn{color:#ffd97a;text-shadow:0 0 10px rgba(226,177,60,0.6)}
+  .oppdrag.fare{border-color:#8c2f2a;animation:farepuls 1.4s ease infinite}
+  @keyframes farepuls{0%,100%{box-shadow:inset 0 0 12px rgba(194,47,47,0.15)}50%{box-shadow:inset 0 0 22px rgba(194,47,47,0.4),0 0 12px rgba(194,47,47,0.3)}}
+  .straff{font-size:9px;color:#c05555;letter-spacing:0.5px;margin-top:4px}
+  .aar-alt{background:#14161d;border:1px solid rgba(226,177,60,0.35);border-radius:10px;
+    padding:9px 11px;margin-top:7px;cursor:pointer;font-size:11.5px;line-height:1.45}
+  .aar-alt b{font-family:Georgia,serif;letter-spacing:1px;color:#ffd97a}
+  .aar-alt span{color:#9a9887;font-size:10.5px}
+  .aar-alt:active{background:#241f12}
+  #pg-hjem .goalrow{background:#16181f;border:1px solid rgba(255,255,255,0.07);color:#eceada}
+  #pg-hjem .goalrow .gtxt{color:#eceada}
+  #pg-hjem .goalrow.done .gtxt{color:#77756a}
+  #pg-hjem .gpts{color:#8e8468}
+  #pg-hjem .gcheck{border-color:#8e8468}
+  #pg-hjem .goalrow.done .gcheck{background:#e2b13c;border-color:#e2b13c;color:#141414}
+  #pg-hjem .badge{background:#14161d;border-color:rgba(255,255,255,0.1);color:#9a9887}
+  #pg-hjem .edit summary{color:#9a9887}
+  #pg-hjem .edit{border-color:rgba(255,255,255,0.1)}
+  #pg-hjem .in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14)}
+  #pg-hjem .empty{color:#77756a;border-color:rgba(255,255,255,0.1)}
+  #pg-hjem .addrow button{border-color:#e2b13c;color:#e2b13c;background:none}
   .ksmodal .in,.ksmodal select.in{background:#14161d;color:#eceada;border-color:rgba(255,255,255,0.14);width:100%}
   .ksmodal label{color:#9a9887}
   .ksmodal .sect{color:#c9c4b0}
@@ -381,26 +444,39 @@
 
   <!-- HJEM -->
   <section class="page" id="pg-hjem">
-    <div class="appbar"><h1>Hjem</h1><span class="day" data-day></span></div>
-    <div class="quote"><div class="qt" id="dq"></div><div class="qa" id="dqa"></div></div>
+    <div class="appbar"><h1>⚔ Krigsrommet</h1><span class="day" data-day></span></div>
+    <div class="kommando"><div class="stor" id="dq"></div><div class="und" id="dqa"></div></div>
     <div class="lvlrow">
       <span class="lvlbadge" id="lvlBadge">Nivå 1</span>
       <div class="lvlbar"><div class="lvlfill" id="lvlFill" style="width:0%"></div></div>
       <span class="lvltxt" id="lvlTxt"></span>
     </div>
-    <div class="ringrow">
-      <svg width="58" height="58" viewBox="0 0 58 58" id="ringSvg">
-        <circle cx="29" cy="29" r="23" fill="none" stroke="var(--grid)" stroke-width="6.5"/>
-        <circle id="ringArc" cx="29" cy="29" r="23" fill="none" stroke="var(--good)" stroke-width="6.5"
+    <div class="seglrad">
+      <div class="segl"><svg width="62" height="62" viewBox="0 0 58 58" id="ringSvg">
+        <circle cx="29" cy="29" r="23" fill="none" stroke="#23252e" stroke-width="5.5"/>
+        <circle id="ringArc" cx="29" cy="29" r="23" fill="none" stroke="#e2b13c" stroke-width="5.5"
+                stroke-linecap="round" stroke-dasharray="0 144.5" transform="rotate(-90 29 29)" style="filter:drop-shadow(0 0 6px rgba(226,177,60,0.8))"/>
+        <text id="ringTxt" x="29" y="33.5" text-anchor="middle" font-size="13.5" font-weight="700" fill="#eceada">0/2</text>
+      </svg><i>SJEKK</i></div>
+      <div class="segl"><svg width="62" height="62" viewBox="0 0 58 58">
+        <circle cx="29" cy="29" r="23" fill="none" stroke="#23252e" stroke-width="5.5"/>
+        <circle id="seglStreak" cx="29" cy="29" r="23" fill="none" stroke="#e2701d" stroke-width="5.5"
+                stroke-linecap="round" stroke-dasharray="0 144.5" transform="rotate(-90 29 29)" style="filter:drop-shadow(0 0 6px rgba(226,112,29,0.7))"/>
+        <text id="seglStreakTxt" x="29" y="33.5" text-anchor="middle" font-size="13.5" font-weight="700" fill="#eceada">0</text>
+      </svg><i>STREAK 🔥</i></div>
+      <div class="segl"><svg width="62" height="62" viewBox="0 0 58 58">
+        <circle cx="29" cy="29" r="23" fill="none" stroke="#23252e" stroke-width="5.5"/>
+        <circle id="seglNivaa" cx="29" cy="29" r="23" fill="none" stroke="#9fb0c4" stroke-width="5.5"
                 stroke-linecap="round" stroke-dasharray="0 144.5" transform="rotate(-90 29 29)"/>
-        <text id="ringTxt" x="29" y="33.5" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">0/2</text>
-      </svg>
-      <div class="ringtxt">
-        <div class="rt1" id="ringT1">Dagens sjekk-inn</div>
-        <div class="rt2" id="ringT2"></div>
-        <span class="streakchip" id="streakChip"></span>
-      </div>
+        <text id="seglNivaaTxt" x="29" y="33.5" text-anchor="middle" font-size="13.5" font-weight="700" fill="#eceada">1</text>
+      </svg><i>NIVÅ</i></div>
     </div>
+    <div class="krigstatus"><span id="ringT1"></span> — <span id="ringT2"></span></div>
+    <div class="krigstatus"><span class="streakchip" id="streakChip"></span></div>
+    <p class="sect">Feltordrer <span class="plain">· måles automatisk av loggen</span></p>
+    <div class="seg moduseg" id="oppModus"><button data-v="tilfeldig" class="on">🎲 Tilfeldig</button><button data-v="svakhet">🩸 Svakhet</button><button data-v="styrke">⚔ Styrke</button></div>
+    <div id="oppdragBoks"></div>
+    <div class="straff" id="straffStatus" style="display:none;text-align:center;margin-bottom:10px"></div>
     <div class="goalrow open" id="ukeKort" style="display:none"><span class="gcheck">🗓</span><span class="gtxt">Ukessjekken er klar — plassér uka mot ankrene</span><span class="gpts">2 min</span></div>
     <p class="sect" id="ukeHead">Ukens mål</p>
     <div id="ukeList"></div>
@@ -964,6 +1040,7 @@ function renderHjem(){
     gm.appendChild(b);
   });
   renderEditor();
+  if (typeof renderKrig === 'function') renderKrig();
 }
 function renderEditor(){
   [['uke','#edUke',10],['mnd','#edMnd',50],['aar','#edAar',250]].forEach(([lvl, sel, pts]) => {
@@ -2533,6 +2610,352 @@ setInterval(() => {
       {c: GULL, glow: 1, dx: (Math.random()-0.5)*26, dy: -48, d: 1000});
 }, 300);
 
+/* ================================================================
+   KRIGSROMMET v4 · OPPDRAGSMOTOREN
+   10 uke- / 5 måneds- / 2 årsoppdrag per KS-kategori (289 totalt)
+   · automatisk måling fra loggen · omkast · modus (tilfeldig/svakhet/styrke)
+   · straff i KS-motoren ved brudd · målpoeng ved fullføring
+   ================================================================ */
+
+/* ---------- migrering ---------- */
+if (!S.oppdrag) S.oppdrag = {modus:'tilfeldig', uke:null, mnd:null, aar:null, straff:[], poeng:0, logg:[]};
+
+/* ---------- metrikker: alt måles automatisk fra loggen ---------- */
+function tellPeriode(metric, arg, start, slutt){
+  let sum = 0;
+  let d = start;
+  const leggMed = [];
+  while (d <= slutt && d <= today()){
+    const e = S.logg[d];
+    if (e){
+      const k = e.k, m = e.m;
+      switch(metric){
+        case 'kompl':  if (m && k) sum++; break;
+        case 'okter':  if (k && k.trentype && k.trentype !== 'ingen') sum++; break;
+        case 'kondis': if (k && (k.trentype === 'kondis' || k.trentype === 'begge')) sum++; break;
+        case 'styrk':  if (k && (k.trentype === 'styrke' || k.trentype === 'begge')) sum++; break;
+        case 'trH':    if (k && k.trening >= arg) sum++; break;
+        case 'dyptS':  if (k) sum += (k.dypt || 0); break;
+        case 'dyptD':  if (k && (k.dypt || 0) >= arg) sum++; break;
+        case 'skjerm': if (k && k.skjerm > 0 && k.skjerm <= arg) sum++; break;
+        case 'alk0':   if (k && k.alk === 0) sum++; break;
+        case 'sovKv':  if (m && m.sovnK >= arg) sum++; break;
+        case 'sovT':   { const t = m ? sovnTimer(m.legg, m.vaakn) : null; if (t != null && t >= arg) sum++; } break;
+        case 'rytme':  if (m && m.legg) leggMed.push([d, m.legg]); break;
+        case 'mat':    if (k && k.mat >= arg) sum++; break;
+        case 'fokus':  if (k && k.fokus >= arg) sum++; break;
+        case 'stressL':if (k && k.stress <= arg) sum++; break;
+        case 'humor':  if (k && k.humor >= arg) sum++; break;
+        case 'laer':   if (k && k.laer >= arg) sum++; break;
+        case 'komm':   if (k && (k.komm || 0) >= arg) sum++; break;
+        case 'energi': if (m && m.energi >= arg) sum++; break;
+        case 'kaffeL': if (k && k.kaffe <= arg) sum++; break;
+        case 'samt':   if (k && k.samtale) sum++; break;
+        case 'seier':  if (k && k.seier) sum++; break;
+        case 'mq':     if ((m && m.mq) || (k && k.mq)) sum++; break;
+      }
+    }
+    d = addDays(d, 1);
+  }
+  if (metric === 'bok') sum = S.prest.filter(p => p.type === 'bok' && p.dato >= start && p.dato <= slutt).length;
+  if (metric === 'maalD'){ ['uke','mnd','aar'].forEach(lvl => S.maal[lvl].forEach(g => { if (g.done && g.dato >= start && g.dato <= slutt) sum++; })); }
+  if (metric === 'rytme'){
+    const min = leggMed.map(([,l]) => { const [h,mm] = l.split(':').map(Number); let v = h*60+mm; if (v < 720) v += 1440; return v; });
+    if (min.length >= 2){ const md = [...min].sort((a,b)=>a-b)[Math.floor(min.length/2)];
+      sum = min.filter(v => Math.abs(v - md) <= 35).length; } else sum = min.length;
+  }
+  return sum;
+}
+const METRIC_TEKST = {
+  kompl:['komplette dager (morgen + kveld)'], okter:['treningsøkter'], kondis:['kondisjonsøkter'], styrk:['styrkeøkter'],
+  trH:['dager med trening ≥ ARG'], dyptS:['timer dypt arbeid'], dyptD:['dager med ≥ ARG t dypt arbeid'],
+  skjerm:['dager under ARG min skjerm'], alk0:['alkoholfrie dager'], sovKv:['netter med søvnkvalitet ≥ ARG'],
+  sovT:['netter med ≥ ARG t søvn'], rytme:['netter med leggetid ±35 min av rytmen din'], mat:['dager med mat ≥ ARG'],
+  fokus:['dager med fokus ≥ ARG'], stressL:['dager med stress ≤ ARG'], humor:['dager med humør ≥ ARG'],
+  laer:['dager med læring ≥ ARG'], komm:['dager med kommunikasjon ≥ ARG'], energi:['morgener med energi ≥ ARG'],
+  kaffeL:['dager med maks ARG kaffe'], bok:['bøker fullført og logget'], samt:['vanskelige samtaler tatt'],
+  seier:['dager med en loggført seier'], mq:['sjekker med mikrosvar'], maalD:['mål fullført']
+};
+function oppdragTekst(q){
+  const t = (METRIC_TEKST[q.m] || [''])[0].replace('ARG', q.a != null ? String(q.a) : '');
+  return `${q.mål} ${t} innen fristen`;
+}
+
+/* ---------- OPPDRAGSBANKEN · [tittel, metric, arg, mål] ---------- */
+const OPPDRAG_BANK = {
+'Kondisjon': {
+ U:[['Pulsuken','kondis',null,3],['Grunnfjellet','kondis',null,2],['Femmeren','okter',null,5],['Hverdagsmotoren','trH',6,3],
+    ['Morgenfrisk','energi',7,4],['To harde','trH',8,2],['Firetakteren','kondis',null,4],['Dobbeltslaget','begge_okter','x',0] === undefined ? 0 : ['Aktive dager','okter',null,4],['Frisk start','energi',6,5],['Jevn puls','kondis',null,3]],
+ M:[['Maskineriet','kondis',null,12],['Måneds-motoren','okter',null,18],['Utholderen','trH',7,10],['Energibanken','energi',7,16],['Konsistensen','kondis',null,10]],
+ A:[['Jernlungene','kondis',null,120],['Årsmotoren','okter',null,200]]},
+'Styrke': {
+ U:[['Smien','styrk',null,3],['Tungt og ærlig','trH',8,2],['To løftedager','styrk',null,2],['Full uke','styrk',null,4],
+    ['Jerngrepet','trH',7,3],['Basen','okter',null,4],['Stålvilje','styrk',null,3],['Tredoblet','trH',6,3],['Løft + logg','styrk',null,2],['Knallhardt','trH',9,1]],
+ M:[['Smiens måned','styrk',null,10],['Jernmåneden','styrk',null,13],['Sterk base','trH',7,12],['Volummåneden','okter',null,16],['Progresjonen','trH',8,8]],
+ A:[['Stålåret','styrk',null,110],['Smedmesteren','trH',7,130]]},
+'Kroppssammensetning': {
+ U:[['Ren uke','mat',7,4],['Balansen','mat',6,5],['Grønn linje','mat',7,3],['Aktiv + ren','okter',null,3],
+    ['Sukkerfri sone','mat',8,2],['Jevn vekt','kompl',null,5],['Formuken','trH',6,3],['Disiplinert tallerken','mat',7,5],['Lett uke','mat',6,6],['Presisjon','mat',8,3]],
+ M:[['Formmåneden','mat',7,16],['Ren måned','mat',6,22],['Kroppsprosjektet','okter',null,15],['Vektlinjen','kompl',null,24],['Stram måned','mat',8,10]],
+ A:[['Transformasjonen','mat',7,180],['Årsformen','okter',null,180]]},
+'Søvn': {
+ U:[['Rytmevakten','rytme',null,5],['Åtte timer','sovT',7.5,4],['Kvalitetsnetter','sovKv',7,4],['Tidlig kveld','rytme',null,4],
+    ['Søvnbanken','sovT',7,5],['Fem gode','sovKv',6,5],['Jernrytmen','rytme',null,6],['Utsovd','energi',7,4],['Hviledøgn','sovT',8,3],['Stillhet før midnatt','rytme',null,5]],
+ M:[['Søvnmåneden','sovT',7,20],['Rytmemesteren','rytme',null,22],['Kvalitetsmåneden','sovKv',7,18],['Jevndøgn','rytme',null,18],['Dyp søvn','sovKv',8,12]],
+ A:[['Søvnåret','sovT',7,250],['Rytmens år','rytme',null,260]]},
+'Restitusjon': {
+ U:[['Ladet','energi',7,4],['Restituert','energi',6,5],['Myke dager','stressL',4,4],['Hvilepulsen','kompl',null,6],
+    ['Balansert uke','energi',7,3],['Rolig kropp','stressL',3,3],['Overskuddet','energi',8,2],['Jevn lading','energi',6,6],['Søvn + ro','sovKv',7,4],['Friskmeldt','energi',7,5]],
+ M:[['Ladestasjonen','energi',7,16],['Overskuddsmåneden','energi',6,22],['Rolig maskin','stressL',4,16],['Batteriet','energi',8,10],['Jevnladet','energi',6,25]],
+ A:[['Restitusjonsåret','energi',7,200],['Overskuddsåret','energi',6,260]]},
+'Alkohol-moderasjon': {
+ U:[['Nullpakten','alk0',null,7],['Seks av sju','alk0',null,6],['Tørrlagt hverdag','alk0',null,5],['Klar helg','alk0',null,7],
+    ['Fem rene','alk0',null,5],['Kontrollen','alk0',null,6],['Uken uten','alk0',null,7],['Fire pluss','alk0',null,4],['Ren linje','alk0',null,6],['Vannuken','alk0',null,7]],
+ M:[['Tørrmåneden','alk0',null,30],['28 rene','alk0',null,28],['25-dagersmerket','alk0',null,25],['Kontrollmåneden','alk0',null,26],['Nesten helt ren','alk0',null,22]],
+ A:[['Året uten','alk0',null,340],['300 rene dager','alk0',null,300]]},
+'Digital selvkontroll': {
+ U:[['Under to timer','skjerm',120,4],['Skjermfaste','skjerm',90,3],['Lav-uken','skjerm',150,5],['Digital askese','skjerm',60,2],
+    ['Fem lette dager','skjerm',150,5],['Kveldsfri skjerm','skjerm',120,5],['Halvert','skjerm',110,4],['Tre strenge','skjerm',75,3],['Jevnt lavt','skjerm',140,6],['Foksuert uke','skjerm',100,4]],
+ M:[['Skjermmåneden','skjerm',120,18],['Lavt og lenge','skjerm',150,22],['Digital detox','skjerm',90,14],['Kontrollert måned','skjerm',130,20],['Streng måned','skjerm',100,16]],
+ A:[['Skjermåret','skjerm',120,200],['Det frie året','skjerm',150,250]]},
+'Disiplin': {
+ U:[['Jernuken','kompl',null,7],['Seks av sju','kompl',null,6],['Mål i boks','maalD',null,2],['Full kontroll','kompl',null,7],
+    ['Fem solide','kompl',null,5],['Aldri hoppe over','kompl',null,6],['Tre seire','seier',null,3],['Mikromesteren','mq',null,6],['To mål','maalD',null,2],['Ordholderen','kompl',null,6]],
+ M:[['Måneds-streaken','kompl',null,26],['24-dagersmerket','kompl',null,24],['Målknuseren','maalD',null,6],['Seiersmåneden','seier',null,18],['Jernmåneden','kompl',null,28]],
+ A:[['Maratonåret','kompl',null,300],['330-merket','kompl',null,330]]},
+'Produktivitet': {
+ U:[['Dypets uke','dyptS',null,15],['Ti timer dypt','dyptS',null,10],['Tre dype dager','dyptD',3,3],['Tjue timer','dyptS',null,20],
+    ['Fire fokusblokker','dyptD',2,4],['Morgenprodusenten','dyptD',3,2],['Tolv timer','dyptS',null,12],['Fem produktive','dyptD',2,5],['Storverket','dyptD',4,2],['Jevn produksjon','dyptD',1.5,6]],
+ M:[['Dypet','dyptS',null,60],['Femti timer','dyptS',null,50],['Produksjonslinjen','dyptD',2,20],['Åtti timer','dyptS',null,80],['Dype dager','dyptD',3,14]],
+ A:[['700-timersåret','dyptS',null,700],['Livsverket','dyptD',2,240]]},
+'Fokus': {
+ U:[['Skarp uke','fokus',7,4],['Laserdager','fokus',8,3],['Fem klare','fokus',6,5],['Uforstyrret','fokus',7,5],
+    ['To perfekte','fokus',9,2],['Dyp + skarp','dyptD',2,4],['Jevnt fokus','fokus',6,6],['Konsentratet','fokus',8,4],['Mikrofokus','mq',null,5],['Stille sinn','fokus',7,3]],
+ M:[['Fokusmåneden','fokus',7,16],['Skarpe dager','fokus',8,12],['Jevn klarhet','fokus',6,22],['Laser-måneden','fokus',8,14],['Klart sinn','fokus',7,18]],
+ A:[['Fokusåret','fokus',7,190],['Klarhetens år','fokus',6,250]]},
+'Stressregulering': {
+ U:[['Rolig uke','stressL',4,4],['Isvannet','stressL',3,3],['Fem rolige','stressL',4,5],['Lav puls','stressL',3,4],
+    ['Uken uten pigger','stressL',5,6],['To speilblanke','stressL',2,2],['Kontrollert','stressL',4,6],['Pusterommet','stressL',3,5],['Jevn ro','stressL',4,7],['Stille vann','stressL',2,3]],
+ M:[['Romåneden','stressL',4,18],['Lavstressmåneden','stressL',3,14],['Jevn ro','stressL',4,22],['Isen','stressL',2,10],['Kontrollmåneden','stressL',5,25]],
+ A:[['Roens år','stressL',4,220],['Isblokka','stressL',3,180]]},
+'Humørstabilitet': {
+ U:[['Lys uke','humor',7,4],['Jevnt godt','humor',6,6],['Fem gode dager','humor',7,5],['Solid grunnmur','humor',6,5],
+    ['To strålende','humor',9,2],['Stabil linje','humor',6,7],['Oppdrift','humor',7,3],['Smilepuls','humor',8,3],['Grunntonen','humor',6,4],['Hel uke over midten','humor',6,6]],
+ M:[['Lysmåneden','humor',7,16],['Stabilmåneden','humor',6,24],['Godt lag','humor',7,18],['Oppdriften','humor',8,10],['Jevn glede','humor',6,20]],
+ A:[['Lysåret','humor',7,200],['Grunnfjellet','humor',6,260]]},
+'Kosthold': {
+ U:[['Ren tallerken','mat',7,4],['Fem gode måltider','mat',6,5],['Presisjonsuken','mat',8,3],['Grønn uke','mat',7,5],
+    ['Ingen kollaps','mat',5,7],['To perfekte','mat',9,2],['Jevnt godt','mat',6,6],['Koffeinkontroll','kaffeL',2,5],['Sukkerfri','mat',8,2],['80/20-uken','mat',7,5]],
+ M:[['Kostmåneden','mat',7,16],['Ren måned','mat',6,24],['Presisjonsmåneden','mat',8,12],['Jevn linje','mat',6,20],['Koffeinmåneden','kaffeL',2,20]],
+ A:[['Kostholdsåret','mat',7,200],['Presisjonsåret','mat',6,270]]},
+'Læring': {
+ U:[['Boksluker','bok',null,1],['Lesetimen','laer',6,4],['Fem lærerike','laer',5,5],['Dyp fordypning','laer',8,2],
+    ['Jevn læring','laer',5,6],['Studieuken','laer',7,3],['Kunnskapsuken','laer',6,5],['To dype dykk','laer',8,2],['Daglig dose','laer',4,7],['Fagfordypning','laer',7,4]],
+ M:[['To bøker','bok',null,2],['Lesemåneden','laer',6,16],['Studiemåneden','laer',7,12],['Boken + timene','bok',null,1],['Jevn vekst','laer',5,22]],
+ A:[['Biblioteket','bok',null,20],['12 bøker + dybde','bok',null,12]]},
+'Kommunikasjon': {
+ U:[['Ordets uke','samt',null,2],['Den vanskelige','samt',null,1],['Tydelig uke','komm',7,4],['Tre samtaler','samt',null,3],
+    ['Klar tale','komm',6,5],['Fem tydelige','komm',7,5],['Modig munn','samt',null,2],['Jevn stemme','komm',6,6],['To skarpe','komm',8,2],['Si det nå','samt',null,1]],
+ M:[['Talerøret','samt',null,6],['Tydelig måned','komm',7,16],['Åtte samtaler','samt',null,8],['Stemmemåneden','komm',6,22],['Modighetsmåneden','samt',null,5]],
+ A:[['Ordets år','samt',null,60],['Stemmens år','komm',7,180]]},
+'Månedslønn': {
+ U:[['Karrieretimen','dyptS',null,8],['Verdibygging','dyptD',2,3],['Fagtimen','laer',6,3],['Skarp innsats','dyptD',3,2],
+    ['Ti verditimer','dyptS',null,10],['Kompetanseuken','laer',5,4],['Den modige praten','samt',null,1],['Produsenten','dyptD',2,4],['Fokusert verdi','fokus',7,4],['Byggeuken','dyptS',null,12]],
+ M:[['Verdimåneden','dyptS',null,45],['Kompetansemåneden','laer',6,14],['Karrierebyggeren','dyptD',2,16],['Lønnssamtalen','samt',null,3],['Femti verditimer','dyptS',null,50]],
+ A:[['Verdiåret','dyptS',null,550],['Kompetanseåret','laer',6,160]]},
+'Influence': {
+ U:[['Synliguken','seier',null,4],['Publisisten','seier',null,3],['Del noe','samt',null,1],['Fem loggede seire','seier',null,5],
+    ['Byggeklossen','dyptD',2,3],['Stemmen ut','komm',7,3],['To bidrag','seier',null,2],['Jevn synlighet','seier',null,4],['Rekkeviddetimen','dyptS',null,6],['Nettverksuken','samt',null,2]],
+ M:[['Synlighetsmåneden','seier',null,16],['Produsentmåneden','seier',null,12],['Byggemåneden','dyptS',null,30],['Stemmemåneden','komm',7,14],['Nettverksmåneden','samt',null,5]],
+ A:[['Synlighetsåret','seier',null,150],['Byggeåret','dyptS',null,400]]},
+};
+/* rydd bort en konstruksjonsglipp i Kondisjon-banken */
+OPPDRAG_BANK['Kondisjon'].U = [['Pulsuken','kondis',null,3],['Grunnfjellet','kondis',null,2],['Femmeren','okter',null,5],['Hverdagsmotoren','trH',6,3],
+  ['Morgenfrisk','energi',7,4],['To harde','trH',8,2],['Firetakteren','kondis',null,4],['Aktive dager','okter',null,4],['Frisk start','energi',6,5],['Jevn puls','kondis',null,3]];
+
+const OPPDRAG_POENG = {U: 15, M: 75, A: 400};
+const OPPDRAG_STRAFF = [['Disiplin', 0.5], ['Produktivitet', 0.4], ['Humørstabilitet', 0.3]];
+
+/* ---------- perioder ---------- */
+function ukeStartKey(){ const d = new Date(today()+'T12:00:00'); const dag = (d.getDay()+6)%7; d.setDate(d.getDate()-dag); return dateKey(d); }
+function mndStartKey(){ return today().slice(0,8) + '01'; }
+function mndSluttKey(){ const d = new Date(today()+'T12:00:00'); d.setMonth(d.getMonth()+1); d.setDate(0); return dateKey(d); }
+function aarKey(){ return today().slice(0,4); }
+
+/* ---------- tildeling ---------- */
+function hentKS(){ return KS_CACHE || computeKS(); }
+function velgAttr(rnd, unntak){
+  const o = hentKS();
+  const alle = KS_ORDER.filter(n => !unntak || !unntak.includes(n));
+  const modus = S.oppdrag.modus;
+  if (modus === 'tilfeldig') return alle[Math.floor(rnd()*alle.length)];
+  const med = alle.filter(n => o[n] && o[n].ks != null);
+  if (med.length < 4) return alle[Math.floor(rnd()*alle.length)];
+  med.sort((a,b) => o[a].ks - o[b].ks);
+  const pool = modus === 'svakhet' ? med.slice(0,4) : med.slice(-4);
+  return pool[Math.floor(rnd()*pool.length)];
+}
+function lagOppdrag(horisont, seedEkstra, unntak){
+  const nokkel = horisont === 'U' ? ukeStartKey() : horisont === 'M' ? mndStartKey() : aarKey();
+  let seed = seedEkstra;
+  for (const c of (nokkel + S.oppdrag.modus)) seed = (seed*31 + c.charCodeAt(0)) >>> 0;
+  const rnd = mulberry(seed);
+  const attr = velgAttr(rnd, unntak);
+  const bank = OPPDRAG_BANK[attr][horisont];
+  const i = Math.floor(rnd()*bank.length);
+  const [t, m, a, mål] = bank[i];
+  const start = horisont === 'U' ? ukeStartKey() : horisont === 'M' ? mndStartKey() : aarKey() + '-01-01';
+  const slutt = horisont === 'U' ? addDays(ukeStartKey(), 6) : horisont === 'M' ? mndSluttKey() : aarKey() + '-12-31';
+  return {attr, t, m, a, mål, start, slutt, nokkel};
+}
+function fremdrift(q){ return q ? Math.min(q.mål, tellPeriode(q.m, q.a, q.start, q.slutt)) : 0; }
+
+/* ---------- rullering + evaluering ---------- */
+function evaluerOppdrag(q, horisont){
+  if (!q) return;
+  const have = tellPeriode(q.m, q.a, q.start, q.slutt);
+  if (have >= q.mål){
+    S.oppdrag.poeng += OPPDRAG_POENG[horisont];
+    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'fullført', p: OPPDRAG_POENG[horisont], dato: today()});
+    toast(`⚔ OPPDRAG FULLFØRT: ${q.t} — +${OPPDRAG_POENG[horisont]} målpoeng!`, 4200);
+  } else {
+    S.oppdrag.straff.push({fra: today(), til: addDays(today(), 14), q: q.t});
+    S.oppdrag.logg.push({q: q.t, attr: q.attr, res: 'feilet', dato: today()});
+    toast(`🩸 OPPDRAG TAPT: ${q.t} — straffen bokføres i 14 dager`, 4200);
+  }
+  if (S.oppdrag.logg.length > 60) S.oppdrag.logg = S.oppdrag.logg.slice(-60);
+}
+function oppdaterOppdrag(){
+  const O = S.oppdrag;
+  O.straff = (O.straff || []).filter(s => s.til >= today());
+  if (!O.uke || O.uke.nokkel !== ukeStartKey()){
+    if (O.uke) evaluerOppdrag(O.uke, 'U');
+    O.uke = lagOppdrag('U', 7); O.uke.omkast = 1;
+  }
+  if (!O.mnd || O.mnd.nokkel !== mndStartKey()){
+    if (O.mnd) evaluerOppdrag(O.mnd, 'M');
+    O.mnd = lagOppdrag('M', 31, O.uke ? [O.uke.attr] : null); O.mnd.omkast = 2;
+  }
+  if (!O.aar || O.aar.nokkel !== aarKey()){
+    if (O.aar && O.aar.valgt != null) evaluerOppdrag(O.aar.alt[O.aar.valgt], 'A');
+    const unntak = [O.uke && O.uke.attr, O.mnd && O.mnd.attr].filter(Boolean);
+    const alt = []; const brukt = [...unntak];
+    for (let i = 0; i < 3; i++){ const q = lagOppdrag('A', 101 + i*13, brukt); alt.push(q); brukt.push(q.attr); }
+    O.aar = {nokkel: aarKey(), alt, valgt: null};
+  }
+  save();
+}
+function omkast(horisont){
+  const O = S.oppdrag;
+  const q = horisont === 'U' ? O.uke : O.mnd;
+  if (!q || q.omkast <= 0) return;
+  const nytt = lagOppdrag(horisont, Math.floor(Math.random()*1e6), [q.attr]);
+  nytt.omkast = q.omkast - 1;
+  if (horisont === 'U') O.uke = nytt; else O.mnd = nytt;
+  save(); toast('🎲 Nytt oppdrag trukket'); renderKrig();
+}
+
+/* ---------- straff + poeng inn i motoren ---------- */
+const _origComputeKS = computeKS;
+computeKS = function(){
+  const out = _origComputeKS();
+  const straff = (S.oppdrag && S.oppdrag.straff || []).filter(s => s.til >= today());
+  if (straff.length){
+    const k = Math.min(2, straff.length);
+    OPPDRAG_STRAFF.forEach(([n, v]) => {
+      if (out[n] && out[n].ks != null){
+        out[n].ks = Math.max(1, out[n].ks - v*k);
+        out[n].note = (out[n].note || '') + ` · 🩸 tapt oppdrag: −${(v*k).toFixed(1).replace('.',',')} (${k} straff${k>1?'er':''} aktiv)`;
+      }
+    });
+  }
+  return out;
+};
+const _origPoengState = poengState;
+poengState = function(){
+  const p = S.maal.uke.filter(g=>g.done).length * 10
+          + S.maal.mnd.filter(g=>g.done).length * 50
+          + S.maal.aar.filter(g=>g.done).length * 250
+          + (S.oppdrag && S.oppdrag.poeng || 0);
+  const L = levelFor(p, XP_T);
+  return {p, L, cur: p - XP_T(L), span: XP_T(L+1) - XP_T(L)};
+};
+
+/* ---------- render: Krigsrommet ---------- */
+function dagerIgjen(slutt){ return Math.max(0, Math.round((new Date(slutt+'T12:00:00') - new Date(today()+'T12:00:00'))/864e5)); }
+function oppdragKort(q, horisont, ikon, klasse){
+  const have = fremdrift(q);
+  const pct = Math.min(100, 100*have/q.mål);
+  const igjen = dagerIgjen(q.slutt);
+  const total = horisont === 'U' ? 7 : horisont === 'M' ? 30 : 365;
+  const fare = pct < 100 && igjen/total < 0.34 && pct < 75;
+  const kort = document.createElement('div');
+  kort.className = `oppdrag ${klasse}` + (fare ? ' fare' : '') + (pct >= 100 ? ' klart' : '');
+  const enh = (METRIC_TEKST[q.m] || [''])[0].replace('ARG', q.a != null ? String(q.a) : '');
+  kort.innerHTML =
+    `<div class="o-topp"><span class="o-navn">${ikon} ${q.t.toUpperCase()} <span class="o-attr">· ${q.attr}</span></span>` +
+    `<span class="o-tid">${pct >= 100 ? 'FULLFØRT ✓' : igjen + ' D IGJEN'}</span></div>` +
+    `<div class="o-besk">${oppdragTekst(q)}</div>` +
+    `<div class="o-bar"><div class="o-fyll" style="width:${pct.toFixed(0)}%"></div></div>` +
+    `<div class="o-meta"><span>${q.m === 'dyptS' ? have.toFixed(1) : have} / ${q.mål} · ${pct.toFixed(0)} %</span>` +
+    (q.omkast != null ? `<span class="o-re" data-h="${horisont}">🎲 ${q.omkast} omkast igjen</span>` : `<span>+${OPPDRAG_POENG[horisont]} p ved seier</span>`) + `</div>` +
+    (fare ? `<div class="straff">⚠ Feiler du: Disiplin −0,5 · Produktivitet −0,4 · Humør −0,3 i 14 dager</div>` : '');
+  const re = kort.querySelector('.o-re');
+  if (re && q.omkast > 0) re.addEventListener('click', () => omkast(re.dataset.h));
+  return kort;
+}
+function renderKrig(){
+  const boks = $('#oppdragBoks'); if (!boks) return;
+  oppdaterOppdrag();
+  const O = S.oppdrag;
+  /* modusvelger */
+  $$('#oppModus button').forEach(b => b.classList.toggle('on', b.dataset.v === O.modus));
+  boks.replaceChildren();
+  boks.appendChild(oppdragKort(O.uke, 'U', '🗡', 'uke-o'));
+  boks.appendChild(oppdragKort(O.mnd, 'M', '🛡', 'mnd-o'));
+  if (O.aar.valgt == null){
+    const velg = document.createElement('div'); velg.className = 'oppdrag aar-o';
+    velg.innerHTML = '<div class="o-topp"><span class="o-navn">👑 VELG ÅRSOPPDRAGET FOR ' + aarKey() + '</span></div>' +
+      '<div class="o-besk">Tre alternativer — valget er bindende for året:</div>';
+    O.aar.alt.forEach((q, i) => {
+      const alt = document.createElement('div'); alt.className = 'aar-alt';
+      alt.innerHTML = `<b>${q.t}</b> · ${q.attr}<br><span>${oppdragTekst(q)}</span>`;
+      alt.addEventListener('click', () => {
+        if (!confirm(`Velge «${q.t}» som årsoppdrag? Valget er bindende for ${aarKey()}.`)) return;
+        O.aar.valgt = i; save(); burst(alt, ['#e2b13c','#ffd97a','#fff'], 18); renderKrig();
+      });
+      velg.appendChild(alt);
+    });
+    boks.appendChild(velg);
+  } else {
+    boks.appendChild(oppdragKort(O.aar.alt[O.aar.valgt], 'A', '👑', 'aar-o'));
+  }
+  /* straffestatus */
+  const aktive = O.straff.filter(s => s.til >= today());
+  const st = $('#straffStatus');
+  if (st){
+    st.style.display = aktive.length ? '' : 'none';
+    if (aktive.length) st.textContent = `🩸 ${aktive.length} aktiv${aktive.length>1?'e':''} straff — Disiplin/Produktivitet/Humør blør til ${dNO(aktive[aktive.length-1].til)}`;
+  }
+  /* segl-ringer */
+  const e = S.logg[today()] || {};
+  const done = (e.m ? 1 : 0) + (e.k ? 1 : 0);
+  const stk = streakState();
+  const sr = $('#seglStreak'); if (sr) sr.setAttribute('stroke-dasharray', `${(144.5*Math.min(1, stk.n/30)).toFixed(1)} 144.5`);
+  const stxt = $('#seglStreakTxt'); if (stxt) stxt.textContent = stk.n;
+  const ps = poengState();
+  const nr = $('#seglNivaa'); if (nr) nr.setAttribute('stroke-dasharray', `${(144.5*ps.cur/ps.span).toFixed(1)} 144.5`);
+  const ntxt = $('#seglNivaaTxt'); if (ntxt) ntxt.textContent = ps.L;
+}
+/* modusvelger-lytter */
+$('#oppModus') && $('#oppModus').addEventListener('click', ev => {
+  const b = ev.target.closest('button'); if (!b) return;
+  S.oppdrag.modus = b.dataset.v; save();
+  toast(b.dataset.v === 'svakhet' ? '🩸 Nye oppdrag angriper svakhetene dine' :
+        b.dataset.v === 'styrke' ? '⚔ Nye oppdrag dyrker våpnene dine' : '🎲 Nye oppdrag trekkes tilfeldig');
+  renderKrig();
+});
+
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
   if (ev.target.id === 'ksModalBg' || ev.target.classList.contains('kslukk')) $('#ksModalBg').classList.remove('on');
@@ -2556,7 +2979,7 @@ $('#tabs').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b) return;
   $$('#tabs button').forEach(x => x.classList.toggle('on', x === b));
   $$('.page').forEach(p => p.classList.toggle('active', p.id === 'pg-' + b.dataset.pg));
-  document.body.classList.toggle('moerk', b.dataset.pg === 'profil' || b.dataset.pg === 'arkiv');
+  document.body.classList.toggle('moerk', b.dataset.pg === 'profil' || b.dataset.pg === 'arkiv' || b.dataset.pg === 'hjem');
   if (b.dataset.pg === 'framgang'){ renderFramgang(); renderTrend(); }
   if (b.dataset.pg === 'profil') renderProfil();
   if (b.dataset.pg === 'arkiv') renderArkiv();
@@ -2565,6 +2988,7 @@ $('#tabs').addEventListener('click', ev => {
 });
 $$('[data-day]').forEach(el => el.textContent = dNO(today()));
 $('#pg-hjem').classList.add('active');
+document.body.classList.add('moerk');
 initSliders();
 renderAll();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
