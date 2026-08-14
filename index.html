@@ -563,6 +563,20 @@
     padding:5px 0 5px 10px;margin:7px 0}
   .snittband b{font-size:11px;letter-spacing:1px;font-family:Georgia,serif}
   .snittband span{font-size:11.5px;color:#9a9887;line-height:1.45}
+  /* ---------- statement-skyverne ---------- */
+  .slider.medstmt .aura{display:none}
+  .slider.medstmt .val{display:none}
+  .stmt{font-size:11.5px;margin:3px 2px 4px;min-height:16px;font-style:italic;line-height:1.35;
+    transition:color .3s ease, letter-spacing .3s ease, transform .25s ease;transform-origin:left center}
+  .stmt.t1{color:#b0524a}
+  .stmt.t2{color:#8a8478}
+  .stmt.t3{color:#c9c4ae}
+  .stmt.t4{color:#e2b13c;letter-spacing:0.3px}
+  .stmt.t5{color:#ffd97a;font-family:Georgia,serif;letter-spacing:0.6px;transform:scale(1.04);
+    animation:stmtglod 1.6s ease infinite}
+  @keyframes stmtglod{0%,100%{text-shadow:0 0 8px rgba(255,215,120,0.45)}50%{text-shadow:0 0 18px rgba(255,215,120,0.95)}}
+  .slider.medstmt.gl{filter:drop-shadow(0 0 7px rgba(226,177,60,0.4))}
+  .slider.medstmt.mork{filter:saturate(0.55) brightness(0.85)}
 </style>
 </head>
 <body>
@@ -630,6 +644,7 @@
         <div class="fld"><label>Hvilepuls <span class="auto">· fra klokka</span></label><input class="in" id="m-puls" type="number" inputmode="numeric" placeholder="55"></div>
       </div>
       <div class="kmdlive" id="mLiveVekt" style="display:none"></div>
+      <div class="fld"><label>Steg i går <span class="auto">· fra tlf. — mater Kondisjon på hviledager</span></label><input class="in" id="m-steg" type="number" inputmode="numeric" placeholder="8000"></div>
       <div class="row2">
         <div class="fld"><label>La meg <span class="auto">· i går</span></label><input class="in" id="m-legg" type="time" value="23:30"></div>
         <div class="fld"><label>Våknet</label><input class="in" id="m-vaakn" type="time" value="07:00"></div>
@@ -667,6 +682,8 @@
       <div class="krfront">
         <div class="krfh"><b>FRONT II · SINNET</b><i id="krF2"></i></div>
         <div class="fld"><label>Stress <span class="krchip" id="kc-stress"></span></label><div class="slider" data-cat="stress"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-stress"><span class="val">5</span></div></div>
+        <div class="fld"><label>Gjorde du noe bevisst for å roe deg? <span class="auto">· Stressregulering</span></label>
+          <div class="seg" id="k-ro"><button class="on" data-v="nei">Nei</button><button data-v="litt">Litt</button><button data-v="ja">Ja</button></div></div>
         <div class="fld"><label>Motivasjon <span class="krchip" id="kc-motiv"></span></label><div class="slider" data-cat="motivasjon"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-motiv"><span class="val">5</span></div></div>
         <div class="fld"><label>Humør <span class="krchip" id="kc-humor"></span></label><div class="slider" data-cat="humor"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-humor"><span class="val">5</span></div></div>
         <div class="fld"><label>Kommunikasjon <span class="auto">· nådde du fram?</span> <span class="krchip" id="kc-komm"></span></label><div class="slider" data-cat="komm"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-komm"><span class="val">5</span></div></div>
@@ -677,6 +694,8 @@
       <div class="krfront">
         <div class="krfh"><b>FRONT III · KROPPEN</b><i id="krF3"></i></div>
         <div class="fld"><label>Mat <span class="auto">· 1 junk → 10 optimalt</span> <span class="krchip" id="kc-mat"></span></label><div class="slider" data-cat="mat"><span class="aura"></span><input type="range" min="1" max="10" value="5" id="k-mat"><span class="val">5</span></div></div>
+        <div class="fld"><label>Sukker i dag? <span class="auto">· Kosthold</span></label>
+          <div class="seg" id="k-sukker"><button data-v="nei">Nei</button><button class="on" data-v="litt">Litt</button><button data-v="mye">Mye</button></div></div>
         <div class="fld"><label>Trening <span class="auto">· 1 ingen → 10 eksepsjonell</span> <span class="krchip" id="kc-trening"></span></label><div class="slider" data-cat="trening"><span class="aura"></span><input type="range" min="1" max="10" value="1" id="k-trening"><span class="val">1</span></div></div>
         <div class="fld"><label>Treningstype <span class="auto">· mater KS-motoren</span></label>
           <div class="seg" id="k-trentype"><button class="on" data-v="ingen">Ingen</button><button data-v="kondis">Kondis</button><button data-v="styrke">Styrke</button><button data-v="begge">Begge</button></div></div>
@@ -843,7 +862,7 @@
 <div class="toast" id="toast"></div>
 <script>
 /* ============ Kroppens Statistikk · funksjonell PWA v1 ============ */
-const APP_VER = '3.1.0';
+const APP_VER = '3.2.0';
 const QUOTES = [{"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "At dawn, when you have trouble getting out of bed, tell yourself: I am rising to do the work of a human being."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Waste no more time arguing about what a good man should be. Be one."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "The impediment to action advances action. What stands in the way becomes the way."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Confine yourself to the present."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "generell", "q": "Very little is needed to make a happy life; it is all within yourself, in your way of thinking."}, {"a": "Seneca", "y": "ca. 49", "k": "generell", "q": "It is not that we have a short time to live, but that we waste a lot of it."}, {"a": "Seneca", "y": "ca. 62", "k": "generell", "q": "If a man knows not to which port he sails, no wind is favorable."}, {"a": "Seneca", "y": "ca. 60", "k": "generell", "q": "Fire tests gold, adversity tests the brave."}, {"a": "Seneca", "y": "ca. 60", "k": "generell", "q": "Every new beginning comes from some other beginning's end."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "It's not what happens to you, but how you react to it that matters."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "No great thing is created suddenly."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "First say to yourself what you would be; and then do what you have to do."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "Wealth consists not in having great possessions, but in having few wants."}, {"a": "Epictetus", "y": "ca. 108", "k": "generell", "q": "If you want to improve, be content to be thought foolish and stupid."}, {"a": "Konfutse", "y": "ca. -500", "k": "generell", "q": "It does not matter how slowly you go as long as you do not stop."}, {"a": "Konfutse", "y": "ca. -500", "k": "generell", "q": "The man who moves a mountain begins by carrying away small stones."}, {"a": "Laozi", "y": "ca. -500", "k": "generell", "q": "A journey of a thousand miles begins with a single step."}, {"a": "Laozi", "y": "ca. -500", "k": "generell", "q": "Knowing others is intelligence; knowing yourself is true wisdom."}, {"a": "Sun Tzu", "y": "ca. -500", "k": "generell", "q": "In the midst of chaos, there is also opportunity."}, {"a": "Heraklit", "y": "ca. -500", "k": "generell", "q": "No man ever steps in the same river twice."}, {"a": "Publilius Syrus", "y": "ca. -50", "k": "generell", "q": "Practice is the best of all instructors."}, {"a": "Ovid", "y": "ca. 8", "k": "generell", "q": "Dripping water hollows out stone, not through force but through persistence."}, {"a": "Cicero", "y": "ca. -50", "k": "generell", "q": "While there's life, there's hope."}, {"a": "Vergil", "y": "ca. -20", "k": "generell", "q": "Fortune favors the bold."}, {"a": "Sokrates", "y": "ca. -400", "k": "generell", "q": "The unexamined life is not worth living."}, {"a": "Sallust", "y": "ca. -40", "k": "generell", "q": "Every man is the architect of his own fortune."}, {"a": "Hannibal", "y": "ca. -218", "k": "generell", "q": "I will either find a way or make one."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "generell", "q": "Obstacles cannot crush me; every obstacle yields to stern resolve."}, {"a": "Goethe", "y": "ca. 1800", "k": "generell", "q": "Knowing is not enough; we must apply. Willing is not enough; we must do."}, {"a": "Benjamin Franklin", "y": "1748", "k": "generell", "q": "Lost time is never found again."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "generell", "q": "Well done is better than well said."}, {"a": "Theodore Roosevelt", "y": "1913", "k": "generell", "q": "Do what you can, with what you have, where you are."}, {"a": "Theodore Roosevelt", "y": "1910", "k": "generell", "q": "The credit belongs to the man who is actually in the arena."}, {"a": "Winston Churchill", "y": "1941", "k": "generell", "q": "Never give in — never, never, never."}, {"a": "Winston Churchill", "y": "1925", "k": "generell", "q": "To improve is to change; to be perfect is to change often."}, {"a": "Thomas Edison", "y": "ca. 1903", "k": "generell", "q": "Genius is one percent inspiration and ninety-nine percent perspiration."}, {"a": "Thomas Edison", "y": "ca. 1910", "k": "generell", "q": "Many of life's failures are people who did not realize how close they were to success when they gave up."}, {"a": "Thomas Edison", "y": "ca. 1910", "k": "generell", "q": "I have not failed. I've just found ten thousand ways that won't work."}, {"a": "Henry Ford", "y": "ca. 1920", "k": "generell", "q": "Whether you think you can, or you think you can't — you're right."}, {"a": "John D. Rockefeller", "y": "ca. 1900", "k": "generell", "q": "Don't be afraid to give up the good to go for the great."}, {"a": "Marie Curie", "y": "ca. 1920", "k": "generell", "q": "Nothing in life is to be feared, it is only to be understood."}, {"a": "Albert Einstein", "y": "1930", "k": "generell", "q": "Life is like riding a bicycle. To keep your balance you must keep moving."}, {"a": "Albert Einstein", "y": "ca. 1930", "k": "generell", "q": "A person who never made a mistake never tried anything new."}, {"a": "Ralph Waldo Emerson", "y": "1841", "k": "generell", "q": "Do the thing and you shall have the power."}, {"a": "Henry David Thoreau", "y": "1854", "k": "generell", "q": "In the long run, men hit only what they aim at."}, {"a": "Mark Twain", "y": "1894", "k": "generell", "q": "Courage is resistance to fear, mastery of fear — not absence of fear."}, {"a": "Mark Twain", "y": "1894", "k": "generell", "q": "Put all your eggs in one basket, and then watch that basket."}, {"a": "Eleanor Roosevelt", "y": "ca. 1940", "k": "generell", "q": "No one can make you feel inferior without your consent."}, {"a": "Helen Keller", "y": "1957", "k": "generell", "q": "Life is either a daring adventure or nothing at all."}, {"a": "Frederick Douglass", "y": "1857", "k": "generell", "q": "If there is no struggle, there is no progress."}, {"a": "Booker T. Washington", "y": "1901", "k": "generell", "q": "Success is to be measured not so much by the position that one has reached in life as by the obstacles which he has overcome."}, {"a": "Roald Amundsen", "y": "1912", "k": "generell", "q": "Victory awaits him who has everything in order — luck, people call it."}, {"a": "Fridtjof Nansen", "y": "ca. 1920", "k": "generell", "q": "The difficult is what takes a little time; the impossible is what takes a little longer."}, {"a": "Napoleon Hill", "y": "1937", "k": "generell", "q": "The starting point of all achievement is desire."}, {"a": "Søren Kierkegaard", "y": "1843", "k": "generell", "q": "Life can only be understood backwards; but it must be lived forwards."}, {"a": "Louis Pasteur", "y": "1854", "k": "generell", "q": "Chance favours the prepared mind."}, {"a": "George Bernard Shaw", "y": "ca. 1900", "k": "generell", "q": "Progress is impossible without change, and those who cannot change their minds cannot change anything."}, {"a": "William James", "y": "ca. 1900", "k": "generell", "q": "Act as if what you do makes a difference. It does."}, {"a": "Musashi", "y": "1645", "k": "generell", "q": "Today is victory over yourself of yesterday; tomorrow is your victory over lesser men."}, {"a": "Bruce Lee", "y": "ca. 1970", "k": "generell", "q": "I fear not the man who has practiced ten thousand kicks once, but I fear the man who has practiced one kick ten thousand times."}, {"a": "Thomas Jefferson", "y": "ca. 1810", "k": "produktivitet", "q": "Never put off till tomorrow what you can do today."}, {"a": "Lord Chesterfield", "y": "1747", "k": "produktivitet", "q": "Take care of the minutes and the hours will take care of themselves."}, {"a": "Horats", "y": "ca. -23", "k": "produktivitet", "q": "Seize the day, put very little trust in tomorrow."}, {"a": "Edward Young", "y": "1742", "k": "produktivitet", "q": "Procrastination is the thief of time."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "produktivitet", "q": "You may delay, but time will not."}, {"a": "Seneca", "y": "ca. 49", "k": "produktivitet", "q": "While we are postponing, life speeds by."}, {"a": "Pablo Picasso", "y": "ca. 1950", "k": "produktivitet", "q": "Inspiration exists, but it has to find you working."}, {"a": "Amelia Earhart", "y": "ca. 1935", "k": "produktivitet", "q": "The most effective way to do it, is to do it."}, {"a": "Alexander Graham Bell", "y": "ca. 1900", "k": "produktivitet", "q": "Before anything else, preparation is the key to success."}, {"a": "Goethe", "y": "ca. 1800", "k": "produktivitet", "q": "What is not started today is never finished tomorrow."}, {"a": "Hesiod", "y": "ca. -700", "k": "produktivitet", "q": "If you add a little to a little, and then do it again, soon that little shall be much."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "produktivitet", "q": "Time stays long enough for anyone who will use it."}, {"a": "Samuel Johnson", "y": "ca. 1770", "k": "produktivitet", "q": "Great works are performed not by strength but by perseverance."}, {"a": "Vince Lombardi", "y": "ca. 1965", "k": "produktivitet", "q": "Perfection is not attainable, but if we chase perfection we can catch excellence."}, {"a": "Sokrates (etter Xenofon)", "y": "ca. -400", "k": "kropp", "q": "No man has the right to be an amateur in the matter of physical training. It is a shame for a man to grow old without seeing the beauty and strength of which his body is capable."}, {"a": "Juvenal", "y": "ca. 100", "k": "kropp", "q": "You should pray for a sound mind in a sound body."}, {"a": "Edward Stanley", "y": "1873", "k": "kropp", "q": "Those who think they have not time for bodily exercise will sooner or later have to find time for illness."}, {"a": "Platon", "y": "ca. -380", "k": "kropp", "q": "Lack of activity destroys the good condition of every human being, while movement and methodical physical exercise save it and preserve it."}, {"a": "Cicero", "y": "ca. -50", "k": "kropp", "q": "It is exercise alone that supports the spirits, and keeps the mind in vigor."}, {"a": "Thomas Jefferson", "y": "1786", "k": "kropp", "q": "Leave all the afternoon for exercise and recreation, which are as necessary as reading."}, {"a": "Seneca", "y": "ca. 60", "k": "kropp", "q": "The body should be treated rigorously, that it may not be disobedient to the mind."}, {"a": "Gandhi", "y": "ca. 1940", "k": "kropp", "q": "It is health that is real wealth and not pieces of gold and silver."}, {"a": "Ralph Waldo Emerson", "y": "ca. 1860", "k": "kropp", "q": "The first wealth is health."}, {"a": "Benjamin Franklin", "y": "1735", "k": "kropp", "q": "Early to bed and early to rise makes a man healthy, wealthy and wise."}, {"a": "Seneca", "y": "ca. 60", "k": "kropp", "q": "Difficulties strengthen the mind, as labor does the body."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "You have power over your mind — not outside events. Realize this, and you will find strength."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "The happiness of your life depends upon the quality of your thoughts."}, {"a": "Epictetus", "y": "ca. 108", "k": "sinn", "q": "Man is disturbed not by things, but by the views he takes of them."}, {"a": "Seneca", "y": "ca. 64", "k": "sinn", "q": "We suffer more often in imagination than in reality."}, {"a": "Viktor Frankl", "y": "1946", "k": "sinn", "q": "When we are no longer able to change a situation, we are challenged to change ourselves."}, {"a": "Friedrich Nietzsche", "y": "1889", "k": "sinn", "q": "He who has a why to live for can bear almost any how."}, {"a": "Buddha (Dhammapada)", "y": "ca. -400", "k": "sinn", "q": "All that we are is the result of what we have thought."}, {"a": "Konfutse", "y": "ca. -500", "k": "sinn", "q": "By three methods we may learn wisdom: first, by reflection, which is noblest; second, by imitation, which is easiest; and third by experience, which is the bitterest."}, {"a": "Epictetus", "y": "ca. 108", "k": "sinn", "q": "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "sinn", "q": "When you arise in the morning, think of what a precious privilege it is to be alive — to breathe, to think, to enjoy, to love."}, {"a": "Isaac Newton", "y": "1675", "k": "laering", "q": "If I have seen further it is by standing on the shoulders of giants."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "laering", "q": "An investment in knowledge pays the best interest."}, {"a": "Erasmus", "y": "ca. 1500", "k": "laering", "q": "When I get a little money I buy books; and if any is left, I buy food and clothes."}, {"a": "Cicero", "y": "ca. -50", "k": "laering", "q": "A room without books is like a body without a soul."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "laering", "q": "Learning never exhausts the mind."}, {"a": "Henry Ford", "y": "ca. 1930", "k": "laering", "q": "Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young."}, {"a": "Sokrates", "y": "ca. -400", "k": "laering", "q": "I know that I know nothing."}, {"a": "Plutark", "y": "ca. 100", "k": "laering", "q": "The mind is not a vessel to be filled but a fire to be kindled."}, {"a": "Seneca", "y": "ca. 62", "k": "laering", "q": "As long as you live, keep learning how to live."}, {"a": "Oscar Wilde", "y": "1891", "k": "laering", "q": "Experience is simply the name we give our mistakes."}, {"a": "Aisopos", "y": "ca. -560", "k": "disiplin", "q": "Slow and steady wins the race."}, {"a": "Calvin Coolidge", "y": "ca. 1930", "k": "disiplin", "q": "Nothing in this world can take the place of persistence."}, {"a": "Will Durant (om Aristoteles)", "y": "1926", "k": "disiplin", "q": "We are what we repeatedly do. Excellence, then, is not an act, but a habit."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "disiplin", "q": "One can have no smaller or greater mastery than mastery of oneself."}, {"a": "Seneca", "y": "ca. 60", "k": "disiplin", "q": "Most powerful is he who has himself in his own power."}, {"a": "Platon", "y": "ca. -380", "k": "disiplin", "q": "The first and greatest victory is to conquer yourself."}, {"a": "Laozi", "y": "ca. -500", "k": "disiplin", "q": "Mastering others is strength. Mastering yourself is true power."}, {"a": "Marcus Aurelius", "y": "ca. 170", "k": "disiplin", "q": "If it is not right, do not do it; if it is not true, do not say it."}, {"a": "Epictetus", "y": "ca. 108", "k": "disiplin", "q": "No man is free who is not master of himself."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "disiplin", "q": "It is easier to resist at the beginning than at the end."}, {"a": "Florence Nightingale", "y": "ca. 1880", "k": "disiplin", "q": "I attribute my success to this — I never gave or took any excuse."}, {"a": "Ralph Waldo Emerson", "y": "ca. 1860", "k": "disiplin", "q": "That which we persist in doing becomes easier for us to do."}, {"a": "Benjamin Franklin", "y": "ca. 1750", "k": "disiplin", "q": "Energy and persistence conquer all things."}, {"a": "Thomas Dekker", "y": "ca. 1600", "k": "restitusjon", "q": "Sleep is that golden chain that ties health and our bodies together."}, {"a": "Ovid", "y": "ca. 8", "k": "restitusjon", "q": "Take rest; a field that has rested gives a bountiful crop."}, {"a": "Leonardo da Vinci", "y": "ca. 1500", "k": "restitusjon", "q": "Every now and then go away, have a little relaxation, for when you come back to your work your judgment will be surer."}, {"a": "John Lubbock", "y": "1894", "k": "restitusjon", "q": "Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day is by no means a waste of time."}, {"a": "Seneca", "y": "ca. 49", "k": "restitusjon", "q": "The mind must be given relaxation — it will rise improved and sharper after a good break."}, {"a": "Cervantes", "y": "1605", "k": "restitusjon", "q": "Sleep is the best cure for waking troubles."}, {"a": "Homer", "y": "ca. -700", "k": "restitusjon", "q": "There is a time for many words, and there is also a time for sleep."}];
 
 /* ---------- state ---------- */
@@ -1279,7 +1298,7 @@ $('#saveM').addEventListener('click', () => {
     puls: parseInt($('#m-puls').value) || null,
     legg: $('#m-legg').value, vaakn: $('#m-vaakn').value,
     sovnK: +$('#m-sovnK').value, energi: +$('#m-energi').value, mq: lesMq('#m-mqwrap'),
-    mit: $('#m-mit').value.trim() || null, kl: naaKl() };
+    mit: $('#m-mit').value.trim() || null, kl: naaKl(), steg: parseInt($('#m-steg').value) || null };
   save();
   const q = motivQuote();
   suckAndShow('#mForm', '#mDone', box => doneView(box, '✓ Morgensjekk lagret', `«${q.q}»`, q.a));
@@ -1296,6 +1315,7 @@ $('#saveK').addEventListener('click', () => {
     trentype: $('#k-trentype .on').dataset.v, samtale: $('#k-samtale .on').dataset.v === 'ja',
     komm: +$('#k-komm').value, mq: lesMq('#k-mqwrap'),
     mitRes: $('#k-mitwrap').style.display !== 'none' ? $('#k-mit .on').dataset.v : null,
+    sukker: $('#k-sukker .on').dataset.v, ro: $('#k-ro .on').dataset.v,
     modus: $('#k-modus .on').dataset.v, tags: $('#k-tags').value.trim(), seier: $('#k-seier').value.trim() };
   save();
   const r = flat(today());
@@ -1313,7 +1333,7 @@ $('#saveK').addEventListener('click', () => {
   suckAndShow('#kForm', '#kDone', box => doneView(box, chk, aff, null, extra));
   krPrognose();
 });
-['#k-modus','#k-trentype','#k-samtale','#k-mit'].forEach(sel => {
+['#k-modus','#k-trentype','#k-samtale','#k-mit','#k-sukker','#k-ro'].forEach(sel => {
   $(sel).addEventListener('click', ev => {
     const b = ev.target.closest('button'); if (!b) return;
     $(sel).querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on');
@@ -3778,6 +3798,7 @@ KR_FELT.forEach(f => { const el = $(f.sel); if (el) el.addEventListener('input',
 renderKrigsraad();
 
 /* ---------- v8: MOTOR C — Momentum: Elo mot din egen forventning ---------- */
+/* v3.2 KOBLINGSVERKET: per-skyver ankerkurver + krysskoblinger mellom feltene */
 
 /* engangs-migrering: alle brukere resettes til ny KS-vurdering med 1–5-start */
 if (S.motor !== 'C'){
@@ -3794,51 +3815,101 @@ if (S.motor === 'C' && S.intervju && S.prior && !S.prior.v5){
   setTimeout(() => { if (typeof openIntervju === 'function' && !S.intervju) openIntervju(); }, 900);
 }
 
-/* kalibreringen gir startverdier 1–5 (skeptiker-prioren presses inn i bunnen av stigen) */
+/* kalibreringen gir startverdier 1–5 */
 function mcStart(n){
   const pv = S.prior && (S.prior.v || S.prior);
   const p = pv && pv[n];
   if (p && p.ks != null){
-    if (S.prior.v5) return Math.max(1, Math.min(5, p.ks));          /* nytt intervju: 1–5 direkte */
-    return 1 + 4 * Math.max(0, Math.min(1, (p.ks - 2) / 12));       /* gammel skala presses inn */
+    if (S.prior.v5) return Math.max(1, Math.min(5, p.ks));
+    return 1 + 4 * Math.max(0, Math.min(1, (p.ks - 2) / 12));
   }
   return 3;
 }
 
-/* dagskvalitet 0–1 per felt fra dagens signaler */
-function mcQ(n, e, ctx){
+/* ---------- SKYVER-ANKRE: hva tallene FAKTISK betyr ----------
+   5/10 er IKKE gjennomsnitt. På innsats-skyverne er 5/10 langt over hva en
+   vanlig person leverer daglig — kurvene under oversetter til dagskvalitet q,
+   og likevekten (KS → 1+19·q^1,6) følger av det. */
+const KURVE_INNSATS  = [[1,0.10],[3,0.35],[5,0.62],[6,0.70],[7,0.78],[8,0.85],[9,0.92],[10,0.99]];  /* align · fokus · læring */
+const KURVE_TILSTAND = [[1,0.08],[3,0.30],[5,0.52],[6,0.60],[7,0.70],[8,0.80],[9,0.89],[10,0.96]];  /* humør · stress · mat · søvnkval · energi */
+const KURVE_KOMM     = [[1,0.10],[3,0.32],[5,0.56],[7,0.74],[8,0.82],[9,0.90],[10,0.97]];
+const KURVE_OKT      = [[1,0.45],[3,0.60],[5,0.75],[7,0.88],[9,0.97],[10,1.0]];                     /* treningsintensitet på øktdager */
+const qI = v => v == null ? null : anchor(v, KURVE_INNSATS);
+const qT = v => v == null ? null : anchor(v, KURVE_TILSTAND);
+
+function klipp01(x){ return Math.max(0, Math.min(1, x)); }
+
+/* dagskontekst: alt koblingene trenger om dagen og de siste dagene */
+function mcCtx(key, e, bokDager){
+  const m = e.m, k = e.k;
+  const g1 = S.logg[addDays(key, -1)], g2 = S.logg[addDays(key, -2)];
+  const alkIGar = g1 && g1.k ? (g1.k.alk || 0) : 0;
+  const alk3 = (k ? (k.alk || 0) : 0) + alkIGar + (g2 && g2.k ? (g2.k.alk || 0) : 0);
+  const sovnT = m ? sovnTimer(m.legg, m.vaakn) : null;
+  let oppg = 0;
+  if (k && k.mitRes === 'ja') oppg++;
+  ['uke','mnd'].forEach(h => (S.maal[h] || []).forEach(g => { if (g.done && g.dato === key) oppg++; }));
+  if (S.oppdrag && S.oppdrag.logg) S.oppdrag.logg.forEach(l => { if (l.dato === key && l.res === 'fullført') oppg++; });
+  return {key, alkIGar, alk3, fylleIGar: alkIGar >= 5, sovnT,
+    sovnGod: sovnT != null && sovnT >= 7 && sovnT <= 9,
+    sovnKort: sovnT != null && sovnT < 6,
+    energiGod: m && m.energi != null && m.energi >= 7,
+    matGod: k && k.mat >= 7,
+    trente: k && k.trentype && k.trentype !== 'ingen',
+    oppg, bokDag: bokDager.has(key)};
+}
+
+/* restitusjonsporten: økter på uthvilt kropp teller mer, på herjet kropp mindre */
+function mcPort(c){
+  return Math.max(0.72, Math.min(1.06,
+    0.90 + (c.sovnGod ? 0.05 : c.sovnKort ? -0.05 : 0)
+         + (c.energiGod ? 0.04 : 0) + (c.matGod ? 0.03 : 0) - 0.035 * c.alk3));
+}
+
+/* dagskvalitet 0–1 per felt */
+function mcQ(n, e, c){
   const m = e.m, k = e.k;
   switch (n){
     case 'Kondisjon': {
       if (!k && !m) return null;
       const t = k && k.trentype;
-      let q = (t === 'kondis' || t === 'begge') ? 1.0 : t === 'styrke' ? 0.6 : t ? 0.35 : null;
-      if (q == null && !m) return null;
-      if (q == null) q = 0.35;
-      if (t === 'ingen' && k && k.trening >= 5) q += 0.15;
-      if (m && m.puls) q += m.puls <= 55 ? 0.08 : m.puls >= 70 ? -0.10 : 0;
-      return Math.max(0, Math.min(1, q));
+      let q;
+      if (t === 'kondis' || t === 'begge') q = anchor(k.trening || 5, KURVE_OKT) * mcPort(c);
+      else if (t === 'styrke') q = 0.55;
+      else if (t === 'ingen' || m){
+        q = 0.35;
+        if (m && m.steg) q += anchor(m.steg, [[3000,0],[6000,0.08],[10000,0.18],[15000,0.28]]);
+        if (t === 'ingen' && k && k.trening >= 5) q += 0.1;
+      } else return null;
+      if (m && m.puls) q += m.puls <= 55 ? 0.06 : m.puls >= 70 ? -0.08 : 0;
+      return klipp01(q);
     }
     case 'Styrke': {
       if (!k || !k.trentype) return null;
-      return (k.trentype === 'styrke' || k.trentype === 'begge') ? 1.0 : k.trentype === 'kondis' ? 0.55 : 0.4;
+      if (k.trentype === 'styrke' || k.trentype === 'begge') return klipp01(anchor(k.trening || 5, KURVE_OKT) * mcPort(c));
+      return k.trentype === 'kondis' ? 0.5 : 0.4;
     }
     case 'Søvn': {
       if (!m) return null;
-      const t = sovnTimer(m.legg, m.vaakn);
-      const dq = t == null ? null : anchor(t, [[4.5,0.15],[5.5,0.35],[6.5,0.6],[7,0.85],[7.5,0.98],[8.2,1],[9,0.8],[10,0.5]]);
-      const kq = m.sovnK != null ? m.sovnK / 10 : null;
+      const dq = c.sovnT == null ? null : anchor(c.sovnT, [[4.5,0.15],[5.5,0.35],[6.5,0.6],[7,0.85],[7.5,0.98],[8.2,1],[9,0.8],[10,0.5]]);
+      const kq = m.sovnK != null ? qT(m.sovnK) : null;
       const deler = [[dq,0.55],[kq,0.45]].filter(p => p[0] != null);
       if (!deler.length) return null;
-      return deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+      let q = deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+      if (c.alkIGar > 0) q -= Math.min(0.35, c.alkIGar * 0.05);        /* alkohol i går ødelegger natten */
+      const kaffe = e.k ? (e.k.kaffe || 0) : 0;
+      if (kaffe >= 4) q -= Math.min(0.12, (kaffe - 3) * 0.03);         /* koffeinlast */
+      return klipp01(q);
     }
     case 'Restitusjon': {
       if (!m) return null;
-      const eq = m.energi != null ? m.energi / 10 : null;
+      const eq = m.energi != null ? qT(m.energi) : null;
       const pq = m.puls ? anchor(m.puls, [[48,1],[55,0.9],[60,0.75],[66,0.55],[72,0.35],[80,0.15]]) : null;
       const deler = [[eq,0.6],[pq,0.4]].filter(p => p[0] != null);
       if (!deler.length) return null;
-      return deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+      let q = deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+      if (c.alkIGar > 0) q -= Math.min(0.4, c.alkIGar * 0.06);
+      return klipp01(q);
     }
     case 'Alkohol-moderasjon': return k ? anchor(k.alk || 0, [[0,1],[1,0.75],[2,0.55],[3,0.42],[4,0.3],[6,0.12],[8,0.05]]) : null;
     case 'Digital selvkontroll': return k && k.skjerm ? anchor(k.skjerm, [[45,1],[90,0.88],[120,0.78],[150,0.68],[180,0.58],[240,0.44],[300,0.3],[420,0.12],[540,0.04]]) : null;
@@ -3847,37 +3918,70 @@ function mcQ(n, e, ctx){
       const deler = [[m && k ? 1 : 0.45, 0.3],
         [m ? (m.kl == null ? 0.7 : m.kl <= 9 ? 1 : 0.3) : 0, 0.25],
         [k && k.mitRes ? (k.mitRes === 'ja' ? 1 : k.mitRes === 'delvis' ? 0.5 : 0.1) : (m && m.mit ? 0.5 : 0.4), 0.2],
-        [k ? k.align / 10 : null, 0.25]].filter(p => p[0] != null);
-      return deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+        [k ? qI(k.align) : null, 0.25]].filter(p => p[0] != null);
+      let q = deler.reduce((a,p) => a + p[0]*p[1], 0) / deler.reduce((a,p) => a + p[1], 0);
+      if (c.fylleIGar) q -= 0.05;
+      return klipp01(q);
     }
     case 'Produktivitet': {
       if (!k) return null;
       const dq = anchor(k.dypt || 0, [[0,0.08],[1,0.35],[2,0.55],[3,0.75],[4,0.9],[5,0.97],[6,1]]);
       const ord = k.mitRes ? (k.mitRes === 'ja' ? 1 : k.mitRes === 'delvis' ? 0.5 : 0.15) : 0.5;
-      return 0.5*dq + 0.28*(k.align/10) + 0.22*ord;
+      let q = 0.5*dq + 0.28*qI(k.align) + 0.22*ord;
+      if (c.fylleIGar) q -= 0.08;                                       /* dagen derpå produserer ikke */
+      return klipp01(q);
     }
     case 'Fokus': {
       if (!k) return null;
       const sq = k.skjerm ? anchor(k.skjerm, [[60,1],[150,0.75],[240,0.5],[360,0.25],[500,0.08]]) : 0.6;
-      return 0.72*(k.fokus/10) + 0.28*sq;
+      let q = 0.72*qI(k.fokus) + 0.28*sq;
+      if (c.sovnKort) q -= 0.10;                                        /* søvnmangel koster fokus først */
+      if (c.fylleIGar) q -= 0.10;
+      return klipp01(q);
     }
-    case 'Stressregulering': return k ? (10 - k.stress) / 10 : null;
+    case 'Stressregulering': {
+      if (!k) return null;
+      let q = qT(11 - k.stress);
+      if (k.ro === 'ja') q += 0.07; else if (k.ro === 'litt') q += 0.03; /* bevisst mestring */
+      if (c.trente) q += 0.06;                                          /* trening demper stress */
+      if (k.samtale) q += 0.04;                                         /* konfrontert det vanskelige */
+      if (c.sovnKort) q -= 0.08;
+      return klipp01(q);
+    }
     case 'Humørstabilitet': {
       if (!k) return null;
       const mv = m ? (m.kl == null ? 0.75 : m.kl <= 9 ? 1 : 0.35) : 0.55;
-      return 0.75*(k.humor/10) + 0.25*mv;
+      let q = 0.72*qT(k.humor) + 0.28*mv;
+      q += Math.min(0.12, c.oppg * 0.05);                               /* fullførte oppgaver løfter humøret */
+      if (c.trente) q += 0.05;
+      if (c.fylleIGar) q -= 0.08;
+      if ((k.skjerm || 0) >= 360) q -= 0.05;                            /* doomscroll-humør */
+      return klipp01(q);
     }
-    case 'Kosthold': return k ? k.mat / 10 : null;
+    case 'Kosthold': {
+      if (!k) return null;
+      const su = k.sukker === 'nei' ? 0.95 : k.sukker === 'mye' ? 0.2 : 0.6;
+      return klipp01(0.7*qT(k.mat) + 0.3*su);
+    }
     case 'Læring': {
       if (!k) return null;
-      return Math.min(1, k.laer/10 + (ctx.bokDager.has(ctx.key) ? 0.15 : 0));
+      return klipp01(qI(k.laer) + (c.bokDag ? 0.15 : 0));
     }
     case 'Kommunikasjon': {
       if (!k || k.komm == null) return null;
-      return Math.min(1, 0.85*(k.komm/10) + 0.15*(k.samtale ? 1 : 0.45));
+      return klipp01(0.85*anchor(k.komm, KURVE_KOMM) + 0.15*(k.samtale ? 1 : 0.45));
     }
   }
   return null;
+}
+
+/* mikrospørsmålene justerer feltet sitt (objektive stikkprøver) */
+function mcMq(qs, e){
+  [e.m && e.m.mq, e.k && e.k.mq].forEach(mq => {
+    if (!mq || !MQ_BY_ID[mq.id]) return;
+    const felt = MQ_BY_ID[mq.id].attr;
+    if (qs[felt] != null) qs[felt] = klipp01(qs[felt] + (mq.v - 55) / 100 * 0.12);
+  });
 }
 
 function motorC(){
@@ -3886,7 +3990,7 @@ function motorC(){
     ? {ks: null, unc: null, src, note}
     : {ks: Math.max(1, Math.min(20, ks)), unc, src, note, gap};
 
-  /* 🌍-feltene beholder verdensforankringen (uendret fra v2) */
+  /* 🌍-feltene beholder verdensforankringen */
   if (P.lonn){
     const pct = anchor(P.lonn, [[25000,4],[30000,8],[36000,14],[42000,24],[47000,34],[51500,43],[55500,50],
       [60000,60],[66000,70],[75000,80],[90000,90],[110000,95],[140000,98],[200000,99.5],[300000,99.8],[500000,99.9]]);
@@ -3897,12 +4001,11 @@ function motorC(){
     res('Influence', pctKS(pct), 1.0, '🌍', `${fmt(P.infl)} i total rekkevidde — oppdateres månedlig`);
   } else res('Influence', null, null, '🌍', 'Legg inn total rekkevidde i kalibreringen');
 
-  /* ⚡ motor-feltene: kronologisk gjenspilling fra motorstart */
   const felter = KS_ORDER.filter(n => n !== 'Månedslønn' && n !== 'Influence');
   const st = {};
   felter.forEach(n => st[n] = {ks: mcStart(n), aktive: 0, perf: 0, q14: [], sist: null});
 
-  const ctx = {bokDager: new Set(S.prest.filter(p => p.type === 'bok').map(p => p.dato)), key: ''};
+  const bokDager = new Set(S.prest.filter(p => p.type === 'bok').map(p => p.dato));
   const start = S.motorStart && S.motorStart > (Object.keys(S.logg).sort()[0] || S.motorStart)
     ? S.motorStart : (Object.keys(S.logg).sort()[0] || today());
   const dager = [];
@@ -3910,33 +4013,30 @@ function motorC(){
 
   let streak = 0, gap = 0;
   const glob7 = [];
-  const maalDone = new Set();
-  ['uke','mnd'].forEach(h => (S.maal[h] || []).forEach(g => { if (g.done && g.dato) maalDone.add(g.dato); }));
   const apneMaal = (S.maal.uke || []).filter(g => !g.done).length + (S.maal.mnd || []).filter(g => !g.done).length;
 
   dager.forEach(key => {
     const e = S.logg[key];
     if (!e || (!e.m && !e.k)){ gap++; return; }
     const frossen = e.k && e.k.modus && e.k.modus !== 'normal';
-    if (frossen) return;                                   /* syk/reise: motoren står stille */
-    if (gap > 7){                                          /* lange hull: stille forfall før dagen telles */
+    if (frossen) return;
+    if (gap > 7){
       const f = (Math.min(gap, 30) - 7) * 0.012;
       felter.forEach(n => { if (st[n].ks > 4) st[n].ks -= f * (st[n].ks - 4) / 16 * 19; });
     }
     gap = 0; streak++;
-    ctx.key = key;
 
+    const c = mcCtx(key, e, bokDager);
     const qs = {};
     let sum = 0, ant = 0;
-    felter.forEach(n => { const q = mcQ(n, e, ctx); qs[n] = q; if (q != null){ sum += q; ant++; } });
+    felter.forEach(n => { const q = mcQ(n, e, c); qs[n] = q; if (q != null){ sum += q; ant++; } });
     if (!ant) return;
+    mcMq(qs, e);
+    if (key === today() && apneMaal > 6){ ['Disiplin','Fokus'].forEach(n => { if (qs[n] != null) qs[n] = klipp01(qs[n] - 0.05); }); }
+
     glob7.push(sum / ant); if (glob7.length > 7) glob7.shift();
     const sn7 = glob7.reduce((a,b) => a + b, 0) / glob7.length;
     const mult = 1 + Math.min(0.3, streak * 0.01) + (glob7.length >= 7 && sn7 >= 0.8 ? 0.25 : 0);
-
-    /* mål-økonomien */
-    if (maalDone.has(key)){ ['Disiplin','Produktivitet'].forEach(n => { if (qs[n] != null) qs[n] = Math.min(1, qs[n] + 0.08); }); }
-    if (key === today() && apneMaal > 6){ ['Disiplin','Fokus'].forEach(n => { if (qs[n] != null) qs[n] = Math.max(0, qs[n] - 0.05); }); }
 
     felter.forEach(n => {
       const q = qs[n]; if (q == null) return;
@@ -3946,19 +4046,27 @@ function motorC(){
       if (delta < 0) delta *= 1 + Math.max(0, s.ks - 12) * 0.06;
       s.ks = Math.max(1, Math.min(20, s.ks + delta));
       s.perf = q >= 0.97 ? s.perf + 1 : 0;
-      if (s.perf >= 14 && s.ks >= 18.5) s.ks = Math.min(20, s.ks + 0.06);   /* Perfeksjonskronen */
+      if (s.perf >= 14 && s.ks >= 18.5) s.ks = Math.min(20, s.ks + 0.06);
       s.aktive++; s.sist = key;
       s.q14.push(q); if (s.q14.length > 14) s.q14.shift();
     });
   });
 
   const MC_KILDE = {
-    'Kondisjon':'kondisøkter + hvilepuls', 'Styrke':'styrkeøkter', 'Søvn':'leggetid, våknetid og kvalitet',
-    'Restitusjon':'morgenenergi + hvilepuls', 'Alkohol-moderasjon':'alkohol-skyveren',
-    'Digital selvkontroll':'skjermtid', 'Disiplin':'komplette dager, morgenvinduet, dagens ordre, alignment',
-    'Produktivitet':'dypt arbeid, alignment, dagens ordre', 'Fokus':'fokus-skyveren + skjermtid',
-    'Stressregulering':'stress-skyveren', 'Humørstabilitet':'humør-skyveren + morgenvinduet',
-    'Kosthold':'mat-skyveren', 'Læring':'lærings-skyveren + bokloggen', 'Kommunikasjon':'kommunikasjons-skyveren + vanskelige samtaler'
+    'Kondisjon':'kondisøkter × intensitet × restitusjonsporten + steg + hvilepuls',
+    'Styrke':'styrkeøkter × intensitet × restitusjonsporten',
+    'Søvn':'leggetid, våknetid, kvalitet − alkohol i går − koffeinlast',
+    'Restitusjon':'morgenenergi + hvilepuls − alkohol i går',
+    'Alkohol-moderasjon':'alkohol-skyveren',
+    'Digital selvkontroll':'skjermtid',
+    'Disiplin':'komplette dager, morgenvinduet, ordren, alignment − dagen derpå',
+    'Produktivitet':'dypt arbeid, alignment, ordren − dagen derpå',
+    'Fokus':'fokus-skyveren + skjermtid − søvnmangel − dagen derpå',
+    'Stressregulering':'stress-skyveren + ro-handling + trening + tøff samtale − søvnmangel',
+    'Humørstabilitet':'humør-skyveren + morgenvinduet + fullførte oppgaver + trening − fyll − doomscroll',
+    'Kosthold':'mat-skyveren + sukkerkontrollen',
+    'Læring':'lærings-skyveren + bokloggen',
+    'Kommunikasjon':'kommunikasjons-skyveren + vanskelige samtaler'
   };
   felter.forEach(n => {
     const s = st[n];
@@ -4020,7 +4128,6 @@ function openSnitt(){
     body.appendChild(r);
   };
   if (mitt != null) rad('⌀ DITT SNITT', mitt, 'deg');
-  /* dine tre sterkeste og tre svakeste felter — snittet skjuler dem, dette viser dem */
   const mineFelt = KS_ORDER.map(n => [n, o[n] && o[n].ks]).filter(p => p[1] != null).sort((a,b) => b[1] - a[1]);
   if (mineFelt.length >= 4){
     const hT = document.createElement('div'); hT.className = 'ksmband'; hT.textContent = '⚔ DINE TRE STERKESTE — SPYDSPISSENE'; body.appendChild(hT);
@@ -4044,6 +4151,160 @@ $('#snittBtn') && $('#snittBtn').addEventListener('click', () => { openSnitt(); 
 $('#snittBg') && $('#snittBg').addEventListener('click', ev => {
   if (ev.target.id === 'snittBg' || ev.target.classList.contains('kslukk')) $('#snittBg').classList.remove('on');
 });
+
+/* ---------- v9: STATEMENT-SKYVERNE — tallene erstattes av utsagn du må stå inne for ---------- */
+const SKYVER_STMT = {
+  alignment: [
+    'Dagen levde sitt eget liv — jeg styrte ingenting',
+    'Jeg gjorde nesten bare det som dukket opp',
+    'Noen få valg trakk mot målene',
+    'Under halvparten av dagen var min',
+    'Halve dagen trakk dit jeg vil — mer enn de fleste klarer',
+    'Mesteparten av dagen var rettet mot målene',
+    'Dagen var styrt — unntakene var små',
+    'Nesten hvert valg trakk samme vei',
+    'Alt jeg gjorde tjente planen',
+    'Hver time var et bevisst valg mot målet — dagen kunne ikke vært rettere'],
+  fokus: [
+    'Jeg klarte ikke holde en tanke i strekk',
+    'Avbrutt hele tiden — mest av meg selv',
+    'Korte glimt av konsentrasjon',
+    'Noen halvtimer satt, resten fløt',
+    'Flere ordentlige blokker — en god arbeidsdag',
+    'Lange blokker, få avbrudd',
+    'Dyp konsentrasjon det meste av dagen',
+    'Timer i strekk uten å miste grepet',
+    'Flyt fra jeg satte meg — verden forsvant',
+    'Dypeste fokus jeg er i stand til — det finnes ikke mer'],
+  stress: [
+    'Fullstendig ro — ingenting rørte meg',
+    'Rolig hele dagen',
+    'Litt uro et par ganger — la seg fort',
+    'Merkbart, men aldri i veien',
+    'Vanlig hverdagsstress — kom og gikk',
+    'Presset satt i kroppen deler av dagen',
+    'Stresset styrte flere valg i dag',
+    'Anspent mesteparten av dagen',
+    'På grensen — kroppen var i alarm',
+    'Overveldet — stresset eide dagen'],
+  motivasjon: [
+    'Null drivkraft — alt var tungt',
+    'Måtte tvinge frem hvert steg',
+    'Lite lyst, litt plikt',
+    'Litt under vanlig gnist',
+    'Vanlig driv — jobbet jevnt',
+    'God lyst til å ta i',
+    'Sterk drivkraft det meste av dagen',
+    'Tent — oppgavene dro i meg',
+    'Brant for alt jeg gjorde',
+    'Ustoppelig — jeg har aldri villet det mer'],
+  humor: [
+    'Mørkt hele dagen',
+    'Tungt — lite lys',
+    'Merkbart under vanlig',
+    'Litt grå dag',
+    'Helt vanlig dag',
+    'Litt lettere enn vanlig',
+    'God stemning det meste av dagen',
+    'Lett til sinns hele dagen',
+    'En av de virkelig gode dagene',
+    'Ren livsglede fra morgen til kveld'],
+  komm: [
+    'Unngikk folk — sa nesten ingenting',
+    'Ble misforstått mer enn forstått',
+    'Kom halvveis fram med det jeg mente',
+    'Greit nok én-til-én, tyngre i grupper',
+    'Nådde fram der det gjaldt',
+    'Klar og tydelig i det meste',
+    'Overbeviste — folk lyttet',
+    'Styrte samtaler dit de skulle',
+    'Traff hvert rom jeg var i',
+    'Alt jeg sa landet — mer presist får det ikke blitt sagt'],
+  mat: [
+    'Junk hele dagen',
+    'Mest impulsmat',
+    'Blandet — med dårlig overvekt',
+    'Litt under planen',
+    'Vanlig hverdagskost',
+    'Ordentlig mat, små glipper',
+    'Planlagt og rent det meste av dagen',
+    'Presist — hvert måltid med hensikt',
+    'Utøvernivå i dag',
+    'Perfekt fuelet — kunne ikke spist bedre'],
+  trening: [
+    'Møtte opp — så vidt',
+    'Halvhjertet økt',
+    'Lett økt, lav puls',
+    'Grei økt uten spiss',
+    'Ordentlig økt — svettet og jobbet',
+    'God økt med trykk',
+    'Hard, målrettet økt',
+    'Presset meg forbi komfort',
+    'Blant de beste øktene mine',
+    'Alt klaffet — en økt jeg vil huske'],
+  laering: [
+    'Lærte ingenting i dag',
+    'Snublet over noe smått',
+    'Litt overflatelæring',
+    'Leste eller lyttet litt, uten dybde',
+    'En solid læringsøkt — mer enn folk flest',
+    'God fordypning i noe konkret',
+    'Dyp læring — notater og forståelse',
+    'Lærte noe som endrer hvordan jeg jobber',
+    'Et gjennombrudd i forståelse',
+    'Maksimal læring — hodet har ikke plass til mer i dag'],
+  sovn: [
+    'Ødelagt natt',
+    'Urolig og oppstykket',
+    'Dårlig — våknet sliten',
+    'Under middels natt',
+    'Vanlig natt',
+    'Ganske god natt',
+    'God, sammenhengende søvn',
+    'Våknet uthvilt før alarmen',
+    'Dyp søvn, perfekt rytme',
+    'Best mulig søvn — våknet som ny'],
+  energi: [
+    'Tom — kroppen sa nei',
+    'Svært lav',
+    'Under vanlig',
+    'Litt treg start',
+    'Vanlig morgenenergi',
+    'God energi',
+    'Sterk og klar',
+    'Full tank',
+    'Elektrisk',
+    'Mer energi enn jeg vet hvor jeg skal gjøre av'],
+};
+const STMT_SNUDD = {stress: true};   /* høy verdi = ille */
+
+function stmtNivaa(cat, v){
+  const godhet = STMT_SNUDD[cat] ? 11 - v : v;
+  return godhet >= 9 ? 't5' : godhet >= 7 ? 't4' : godhet >= 5 ? 't3' : godhet >= 3 ? 't2' : 't1';
+}
+function oppdaterStmt(sl){
+  const cat = sl.dataset.cat, inp = sl.querySelector('input');
+  const st = sl.parentElement.querySelector('.stmt');
+  if (!st || !inp) return;
+  const v = +inp.value;
+  const niv = stmtNivaa(cat, v);
+  st.textContent = '«' + SKYVER_STMT[cat][v - 1] + '»';
+  st.className = 'stmt ' + niv;
+  sl.classList.toggle('gl', niv === 't5');
+  sl.classList.toggle('mork', niv === 't1');
+}
+function initStmt(){
+  document.querySelectorAll('.slider').forEach(sl => {
+    const cat = sl.dataset.cat;
+    if (!SKYVER_STMT[cat] || sl.classList.contains('medstmt')) return;
+    sl.classList.add('medstmt');
+    const st = document.createElement('div'); st.className = 'stmt';
+    sl.insertAdjacentElement('afterend', st);
+    sl.querySelector('input').addEventListener('input', () => oppdaterStmt(sl));
+    oppdaterStmt(sl);
+  });
+}
+initStmt();
 
 /* ---------- v2-bindinger ---------- */
 $('#ksModalBg').addEventListener('click', ev => {
