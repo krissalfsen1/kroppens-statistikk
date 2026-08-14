@@ -2106,7 +2106,7 @@ function renderProfil(){
   });
   tegnRing(o);
   $('#profilSnitt').textContent = avg != null
-    ? `${vals.length} av 17 felter aktive · gjennomsnitt ${avg.toFixed(1).replace('.',',')}`
+    ? `${vals.length} av ${KS_ORDER.length} felter aktive · gjennomsnitt ${avg.toFixed(1).replace('.',',')}`
     : 'Ingen felter aktive ennå — start med sjekkene og kalibreringen';
   const ms = mentalStyrkeAv(o);
   $('#profilMS').textContent = ms != null ? `🛡️ Mental styrke ${ms.toFixed(1).replace('.',',')} (kompositt)` : '🛡️ Mental styrke: venter på data';
